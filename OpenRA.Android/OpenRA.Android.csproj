@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AndroidPackageName>com.openra.android</AndroidPackageName>
+    <AndroidVersionCode>1</AndroidVersionCode>
+    <AndroidVersionName>0.1.0</AndroidVersionName>
+    <AndroidManifest>Properties/AndroidManifest.xml</AndroidManifest>
+    <RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+    <!-- Phase 1：先证明工具链可编译，关掉 AOT/链接加快迭代；后续再收紧 -->
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
+    <!-- CI 上由 ANDROID_HOME / JAVA_HOME 自动解析，不硬编码本机路径 -->
+    <AndroidFrameworkVersion>35.0</AndroidFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 引擎核心 + 默认平台后端（SDL2/OpenAL/FreeType，SDL2-CS 已带 android 原生库） -->
+    <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj" />
+    <ProjectReference Include="..\OpenRA.Platforms.Default\OpenRA.Platforms.Default.csproj" />
+    <!-- 内置 mod（ra/cnc/d2k）；YR 在 Phase 5 接入 -->
+    <ProjectReference Include="..\OpenRA.Mods.Common\OpenRA.Mods.Common.csproj" />
+    <ProjectReference Include="..\OpenRA.Mods.Cnc\OpenRA.Mods.Cnc.csproj" />
+    <ProjectReference Include="..\OpenRA.Mods.D2k\OpenRA.Mods.D2k.csproj" />
+  </ItemGroup>
+</Project>

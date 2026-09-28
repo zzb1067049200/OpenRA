@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 
 namespace OpenRA
 {
-	public enum PlatformType { Unknown, Windows, OSX, Linux }
+	public enum PlatformType { Unknown, Windows, OSX, Linux, Android }
 
 	public enum SupportDirType { System, ModernUser, LegacyUser, User }
 
@@ -39,6 +39,9 @@ namespace OpenRA
 
 		static PlatformType GetCurrentPlatform()
 		{
+#if __ANDROID__
+			return PlatformType.Android;
+#endif
 			if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				return PlatformType.Windows;
 
