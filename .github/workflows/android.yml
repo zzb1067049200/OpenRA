@@ -34,7 +34,8 @@ jobs:
       - name: Install .NET Android workload
         run: dotnet workload install android
 
-      # 工程 Sdk 已换回 Microsoft.Android.Sdk(只有它接入 _BuildApk 打包链)。
+      # 工程 Sdk = Microsoft.NET.Sdk + <AndroidApplication>true</AndroidApplication>，
+      # 由 android workload 把 net10.0-android 接到 Microsoft.Android.Sdk 构建目标(含 _BuildApk)。
       # dotnet publish 会真正触发 _BuildApk + 用 debug keystore 签名,产出 .apk。
       # csproj 已设 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
       - name: Build & package APK

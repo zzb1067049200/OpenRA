@@ -1,12 +1,15 @@
-<Project Sdk="Microsoft.Android.Sdk.Linux/36.1.69">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
-    <!-- 用 RID 特定的 Android SDK 包(发布在 nuget.org、版本与 workload 装的 36.1.69 一致):
-         Microsoft.Android.Sdk(无 RID 元包)既不能被 workload resolver 解析(returned null),
-         钉版本又因 nuget.org 无该 id 而失败。.Linux 版即完整 SDK(含 _BuildApk),
-         构建时从 nuget 还原,不再依赖 flaky 的 workload SDK resolver。runtime packs 仍由
-         `dotnet workload install android` 提供。 -->
+    <!-- 必须用 Microsoft.NET.Sdk（不能用 Microsoft.Android.Sdk*）：
+         Microsoft.Android.Sdk 是 workload 内部 SDK，没有 RID 无关 NuGet 元包，
+         SDK resolver 解析会返回 null；钉版本 Microsoft.Android.Sdk/36.1.69 又因
+         nuget.org 无该 id 失败；Microsoft.Android.Sdk.Linux/36.1.69 是 workload pack
+         （装在 workload packs 目录、非 NuGet 缓存），用 <Project Sdk=> 指向它会找不到 Sdk.props。
+         正确做法：Microsoft.NET.Sdk + <AndroidApplication>true</AndroidApplication>，
+         由 android workload 把 net10.0-android 接到 Microsoft.Android.Sdk 构建目标（含 _BuildApk），
+         dotnet publish 才真正触发 _BuildApk + 签名产出 .apk。 -->
     <AndroidApplication>true</AndroidApplication>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
