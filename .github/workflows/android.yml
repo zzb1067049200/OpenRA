@@ -30,11 +30,15 @@ jobs:
       - name: Install .NET Android workload
         run: dotnet workload install android
 
-      - name: Build APK
-        run: dotnet build OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android
+      # 注意:.NET Android 的 `dotnet build` 只编译 IL/原生库,不会产出可安装包;
+      # 必须用 `dotnet publish`(内部走 _BuildApk+签名)才会真正生成 .apk。
+      # 配合 csproj 里的 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
+      - name: Build & publish APK
+        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: openra-android
-          path: OpenRA.Android/bin/Release/net10.0-android/android-arm64/*.apk
+          # publish 产物在 android-arm64/publish/ 下,用 ** 兜住层级变化
+          path: OpenRA.Android/bin/Release/**/*.apk
