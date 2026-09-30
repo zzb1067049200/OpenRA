@@ -30,15 +30,24 @@ jobs:
       - name: Install .NET Android workload
         run: dotnet workload install android
 
-      # 注意:.NET Android 的 `dotnet build` 只编译 IL/原生库,不会产出可安装包;
-      # 必须用 `dotnet publish`(内部走 _BuildApk+签名)才会真正生成 .apk。
-      # 配合 csproj 里的 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
-      - name: Build & publish APK
-        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android
+      # 注意:.NET Android 光 build/publish 不一定走到 _BuildApk(曾出现只做 AOT、不产包)。
+      # 用显式目标 SignAndroidPackage 强制 _BuildApk+签名,真正生成 .apk。
+      # csproj 已设 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
+      - name: Build & package APK
+        run: dotnet build OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -t:SignAndroidPackage -p:AndroidPackageFormats=apk
+
+      # 诊断:列出 bin/Release 下真实产出的 apk/aab,确认打包到底有没有发生、产在哪
+      - name: Locate built package (diagnostic)
+        if: always()
+        run: |
+          echo "=== find apk/aab under bin/Release ==="
+          find OpenRA.Android/bin/Release -type f \( -name '*.apk' -o -name '*.aab' \) -print 2>/dev/null || true
+          echo "=== bin/Release tree (top) ==="
+          ls -R OpenRA.Android/bin/Release 2>/dev/null | head -40 || true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: openra-android
-          # publish 产物在 android-arm64/publish/ 下,用 ** 兜住层级变化
+          # 兼容 publish/ 子目录与直接落在 RID 目录两种情况
           path: OpenRA.Android/bin/Release/**/*.apk
