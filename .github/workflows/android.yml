@@ -24,22 +24,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # .NET 的 Android workload 自带 platform / build-tools / aapt2，
+      # 不需要再装一套系统级 Android SDK（android-actions/setup-android 已废弃，
+      # 其内部 `sdkmanager tools` 在现代 SDK 上必然失败）。
       - name: Install .NET Android workload
         run: dotnet workload install android
 
-      - name: Setup Android SDK (API 35)
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 35
-
-      - name: Ensure build-tools
-        run: sdkmanager "build-tools;35.0.0" || true
-
-      - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses || true
-
       - name: Build APK
-        run: dotnet build OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:RuntimeIdentifier=android-arm64
+        run: dotnet build OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
