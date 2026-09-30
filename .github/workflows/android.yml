@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,11 +20,12 @@ jobs:
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          # 浮动到最新稳定版即可：项目已改用 RID 特定 SDK 包
-          # Microsoft.Android.Sdk.Linux/36.1.69(从 nuget 还原),不再依赖
-          # workload 的 SDK resolver,故不必钉死 band。runtime packs 仍由
-          # `dotnet workload install android` 提供。
           dotnet-version: '10.0.x'
+
+      - name: Install .NET Android workload
+        run: |
+          dotnet workload install android
+          dotnet workload restore
 
       - name: Setup JDK 17
         uses: actions/setup-java@v4
@@ -28,21 +33,95 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # .NET 的 Android workload 自带 platform / build-tools / aapt2，
-      # 不需要再装一套系统级 Android SDK（android-actions/setup-android 已废弃，
-      # 其内部 `sdkmanager tools` 在现代 SDK 上必然失败）。
-      - name: Install .NET Android workload
-        run: dotnet workload install android
+      # The .NET Android workload brings platform/build-tools/aapt2, so we don't need a separate
+      # system Android SDK install. Just locate the SDK manager that ships with the runner image.
+      - name: Locate Android SDK
+        id: sdk
+        run: |
+          SDKMGR=""
+          for path in \
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "$ANDROID_HOME/cmdline-tools/*/bin/sdkmanager" \
+            "$ANDROID_HOME/tools/bin/sdkmanager" \
+            "$ANDROID_HOME/embedded/tools/bin/sdkmanager" \
+            "$ANDROID_HOME/embedded/cmdline-tools/*/bin/sdkmanager"; do
+            if [ -f "$path" ]; then
+              SDKMGR="$(cd "$(dirname "$path")" && pwd)"
+              break
+            fi
+          done
+          echo "sdkmgr=$SDKMGR"
+          echo "sdkmgr=$SDKMGR" >> "$GITHUB_OUTPUT"
 
-      # 工程 Sdk = Microsoft.NET.Sdk + <AndroidApplication>true</AndroidApplication>，
-      # 由 android workload 把 net10.0-android 接到 Microsoft.Android.Sdk 构建目标(含 _BuildApk)。
-      # dotnet publish 会真正触发 _BuildApk + 用 debug keystore 签名,产出 .apk。
-      # csproj 已设 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
+      - name: Accept Android Licenses & install API 36 platform + build-tools
+        run: |
+          SDKMGR="${{ steps.sdk.outputs.sdkmgr }}"
+          if [ -z "$SDKMGR" ]; then
+            echo "No sdkmanager found; relying on the .NET Android workload's bundled SDK."
+            exit 0
+          fi
+          # API 36 (Baklava) is too new to be preinstalled on the runner image, and the
+          # .NET Android workload does NOT provision the Google Android SDK's platforms/ or
+          # build-tools/. ResolveSdks requires platforms/android-36 (android.jar) and
+          # build-tools/36.0.0, so install them explicitly here. `yes` auto-accepts licenses.
+          yes | "$SDKMGR/sdkmanager" --licenses >/dev/null 2>&1 || true
+          yes | "$SDKMGR/sdkmanager" "platforms;android-36" "build-tools;36.0.0" 2>&1 | tail -5
+          echo "=== installed SDK packages ==="
+          "$SDKMGR/sdkmanager" --list_installed 2>/dev/null | grep -iE "android-36|build-tools" || true
+
+      - name: Install NDK
+        run: |
+          SDKMGR="${{ steps.sdk.outputs.sdkmgr }}"
+          NDK_DIR=""
+          if [ -d "$ANDROID_HOME/ndk" ]; then
+            NDK_DIR=$(find "$ANDROID_HOME/ndk" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort -V | tail -1)
+            echo "Found existing NDK: $NDK_DIR"
+          fi
+          if [ -z "$NDK_DIR" ] && [ -n "$SDKMGR" ]; then
+            "$SDKMGR" --update 2>&1 | tail -1 || true
+            for v in "27.0.11902897" "27.0.12179864" "26.1.10909125" "25.2.9519183"; do
+              if "$SDKMGR" "ndk;${v}" 2>&1 | grep -qiE "error|fail"; then
+                echo "NDK $v not found, trying next..."
+              else
+                NDK_DIR="$ANDROID_HOME/ndk/${v}"
+                echo "Installed NDK $v: $NDK_DIR"
+                break
+              fi
+            done
+          fi
+          if [ -z "$NDK_DIR" ]; then
+            echo "Downloading NDK r26d directly..."
+            curl -fsSL -o /tmp/ndk.zip "https://dl.google.com/android/repository/android-ndk-r26d-linux.zip"
+            mkdir -p "$ANDROID_HOME"
+            unzip -q /tmp/ndk.zip -o -d "$ANDROID_HOME"
+            NDK_DIR="$ANDROID_HOME/android-ndk-r26d"
+            echo "Downloaded NDK to: $NDK_DIR"
+          fi
+          echo "NDK_ROOT=$NDK_DIR" >> "$GITHUB_ENV"
+          echo "NDK_ROOT=$NDK_DIR"
+
+      # Cross-compile FreeType 2.13.3, Lua 5.1.5, OpenAL-Soft 1.23.1 for arm64-v8a (API 24)
+      # into OpenRA.Android/jniLibs/arm64-v8a/ (libfreetype6.so, liblua51.so, libsoft_oal.so).
+      - name: Build native libraries (arm64-v8a)
+        run: |
+          bash thirdparty/build-android-linux.sh "$NDK_ROOT"
+
+      - name: Verify native libraries
+        run: |
+          echo "=== Verifying native libraries ==="
+          for lib in libfreetype6.so libfreetype.so liblua51.so libsoft_oal.so; do
+            if [ -f "OpenRA.Android/jniLibs/arm64-v8a/$lib" ]; then
+              echo "  OK: $lib found in jniLibs"
+            else
+              echo "  WARNING: $lib is not in jniLibs"
+            fi
+          done
+
+      # BuildForAndroid=true switches OpenRA.Game (+ the rest) to the net10.0-android TFM so
+      # OperatingSystem.IsAndroid() is fully supported, and the EGL backend is selected at runtime.
       - name: Build & package APK
-        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:AndroidPackageFormats=apk
+        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk
 
-      # 收集产物:OpenRA 自定义输出路径(bin/ 在仓库根,而非 OpenRA.Android/bin/Release/),
-      # 故不赌路径——全仓找 .apk 拷到固定目录再上传。
       - name: Collect APK (robust)
         if: always()
         run: |
@@ -58,6 +137,18 @@ jobs:
             ls -la "$GITHUB_WORKSPACE/apkout"
           else
             echo "NO APK FOUND"
+          fi
+
+      - name: Verify native libraries in APK
+        if: always()
+        run: |
+          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          if [ -n "$APK" ]; then
+            echo "=== Native libraries in $APK ==="
+            unzip -l "$APK" | grep -E "\.so$" || echo "WARNING: No native libraries found in APK!"
+            for lib in libfreetype6.so liblua51.so libsoft_oal.so; do
+              if unzip -l "$APK" | grep -q "$lib"; then echo "  OK: $lib found"; else echo "  MISSING: $lib NOT found in APK!"; fi
+            done
           fi
 
       - name: Upload APK

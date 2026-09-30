@@ -2,6 +2,14 @@
 	<PropertyGroup>
 		<RootNamespace>OpenRA</RootNamespace>
 	</PropertyGroup>
+
+	<!-- When building for Android (triggered by -p:BuildForAndroid=true from the OpenRA.Android app
+	     build), switch this library to the android TFM so OperatingSystem.IsAndroid() is fully
+	     supported and the android-specific BCL surface is used. Desktop builds keep the net10.0
+	     default from Directory.Build.props, so they are unaffected. -->
+	<PropertyGroup Condition="'$(BuildForAndroid)' == 'true'">
+		<TargetFramework>net10.0-android</TargetFramework>
+	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="10.0.0" />
 		<PackageReference Include="Linguini.Bundle" Version="0.8.1" />

@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!-- When building for Android (-p:BuildForAndroid=true), switch to the android TFM so this
+	     mod assembly is compatible with the android-built OpenRA.Game. Desktop builds keep net10.0. -->
+	<PropertyGroup Condition="'$(BuildForAndroid)' == 'true'">
+		<TargetFramework>net10.0-android</TargetFramework>
+	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj">
 			<Private>False</Private>

@@ -389,6 +389,10 @@ namespace OpenRA.Widgets
 				return false;
 
 			Ui.KeyboardFocusWidget = this;
+
+			// Request the OS text-input method (soft keyboard on touch devices).
+
+			Game.Renderer?.Window?.StartTextInput();
 			return true;
 		}
 
@@ -397,6 +401,9 @@ namespace OpenRA.Widgets
 			if (Ui.KeyboardFocusWidget == this)
 				Ui.KeyboardFocusWidget = null;
 
+				// Request the OS to hide the text-input method.
+
+				Game.Renderer?.Window?.StopTextInput();
 			return true;
 		}
 
