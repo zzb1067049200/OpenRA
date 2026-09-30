@@ -16,6 +16,8 @@
     <!-- minSdk / targetSdk 以 csproj 为准，manifest 不再手写 uses-sdk，避免两处打架 -->
     <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
     <TargetSdkVersion>36</TargetSdkVersion>
+    <!-- Release 默认只出 .aab；显式要 apk 才能被 CI 的 upload-artifact (*.apk) 抓到并 sideload 测试 -->
+    <AndroidPackageFormats>apk</AndroidPackageFormats>
     <!-- CI 上由 ANDROID_HOME / JAVA_HOME 自动解析，不硬编码本机路径 -->
   </PropertyGroup>
 
