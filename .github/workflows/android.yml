@@ -30,11 +30,12 @@ jobs:
       - name: Install .NET Android workload
         run: dotnet workload install android
 
-      # 注意:.NET Android 光 build/publish 不一定走到 _BuildApk(曾出现只做 AOT、不产包)。
-      # 用显式目标 SignAndroidPackage 强制 _BuildApk+签名,真正生成 .apk。
+      # 关键:工程 Sdk 已改为 Microsoft.Android.Sdk(此前用 Microsoft.NET.Sdk 导致
+      # $(AndroidApplication) 不为 true,_BuildApk 打包目标永不触发,只做 AOT、不出包)。
+      # 换 Sdk 后,dotnet publish 会自动走 _BuildApk + 用 debug keystore 签名,产出 .apk。
       # csproj 已设 <AndroidPackageFormats>apk</AndroidPackageFormats>(Release 默认只出 aab)。
       - name: Build & package APK
-        run: dotnet build OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -t:SignAndroidPackage -p:AndroidPackageFormats=apk
+        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:AndroidPackageFormats=apk
 
       # 诊断:列出 bin/Release 下真实产出的 apk/aab,确认打包到底有没有发生、产在哪
       - name: Locate built package (diagnostic)
