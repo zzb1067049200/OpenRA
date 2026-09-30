@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.Android.Sdk">
+<Project Sdk="Microsoft.Android.Sdk.Linux/36.1.69">
   <PropertyGroup>
     <TargetFramework>net10.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
-    <!-- 必须用 Microsoft.Android.Sdk(而非 Microsoft.NET.Sdk):后者只导入 Android 的 AOT 目标,
-         但不会接入 _BuildApk 打包链,导致永远只编译不出包。本 CI 的
-         `dotnet workload install android` 已实际装好 Microsoft.Android.Sdk.Linux 36.1.69
-         (workload pack),故 Sdk="Microsoft.Android.Sdk"(不钉版本)可被 workload resolver 解析。 -->
+    <!-- 用 RID 特定的 Android SDK 包(发布在 nuget.org、版本与 workload 装的 36.1.69 一致):
+         Microsoft.Android.Sdk(无 RID 元包)既不能被 workload resolver 解析(returned null),
+         钉版本又因 nuget.org 无该 id 而失败。.Linux 版即完整 SDK(含 _BuildApk),
+         构建时从 nuget 还原,不再依赖 flaky 的 workload SDK resolver。runtime packs 仍由
+         `dotnet workload install android` 提供。 -->
     <AndroidApplication>true</AndroidApplication>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
