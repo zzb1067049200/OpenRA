@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.Android.Sdk/36.1.69">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
+    <!-- 关键:Microsoft.NET.Sdk + net10.0-android 虽会导入 Android 构建目标(故 AOT 能跑),
+         但不会自动把 $(AndroidApplication) 置 true,导致 _BuildApk 打包目标被闸住、永不产包。
+          Sdk="Microsoft.Android.Sdk" 在本 CI 又因 workload 只装了 runtime pack 而解析失败,
+         故这里显式置 true,让 dotnet publish 真正走 _BuildApk+签名出 .apk。 -->
+    <AndroidApplication>true</AndroidApplication>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <AndroidPackageName>com.openra.android</AndroidPackageName>
