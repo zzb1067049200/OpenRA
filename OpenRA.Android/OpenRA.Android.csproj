@@ -13,9 +13,10 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-    <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
+    <!-- minSdk / targetSdk 以 csproj 为准，manifest 不再手写 uses-sdk，避免两处打架 -->
+    <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
+    <TargetSdkVersion>36</TargetSdkVersion>
     <!-- CI 上由 ANDROID_HOME / JAVA_HOME 自动解析，不硬编码本机路径 -->
-    <AndroidFrameworkVersion>35.0</AndroidFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>

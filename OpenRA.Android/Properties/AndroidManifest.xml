@@ -3,7 +3,6 @@
           android:versionCode="1"
           android:versionName="0.1.0"
           package="com.openra.android">
-  <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34" />
 
   <!-- 联网（多人/地图下载）、读取自备资源、OpenGL ES 3.0 -->
   <uses-permission android:name="android.permission.INTERNET" />
