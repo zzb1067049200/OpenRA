@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using Android.App;
 using Android.Content;
@@ -336,6 +337,74 @@ namespace OpenRA.Android
 			}
 		}
 
+		// Extracts the pre-baked free game content (ra / cnc / d2k) shipped inside the APK into the
+		// support dir on first engine start, so the built-in mods launch without the in-app downloader.
+		// Runs on the engine thread (invoked from StartEngineOnce) so it never blocks the UI thread.
+		// Idempotent: a marker file prevents re-extraction on later launches.
+		void SyncBakedContentFromAssets(string targetSupportDir)
+		{
+			const string Marker = ".baked_content";
+			try
+			{
+				var contentRoot = Path.Combine(targetSupportDir, "Content");
+				var markerPath = Path.Combine(contentRoot, Marker);
+				if (File.Exists(markerPath))
+					return;
+
+				// zip asset path -> destination subdir under Support/Content
+				var packages = new (string Asset, string Dest)[]
+				{
+					("openra-content/ra-quickinstall.zip",  Path.Combine("Content", "ra", "v2")),
+					("openra-content/cnc-packages.zip",     Path.Combine("Content", "cnc")),
+					("openra-content/d2k-quickinstall.zip", Path.Combine("Content", "d2k")),
+				};
+
+				foreach (var (asset, destRel) in packages)
+				{
+					Stream zipStream;
+					try { zipStream = Assets.Open(asset); }
+					catch (Java.IO.IOException)
+					{
+						DevConsole.Warn("Content", $"Baked package not found in APK: {asset} (skip)");
+						continue;
+					}
+
+					using (zipStream)
+					{
+						var destDir = Path.Combine(targetSupportDir, destRel);
+						Directory.CreateDirectory(destDir);
+						using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+						foreach (var entry in archive.Entries)
+						{
+							if (string.IsNullOrEmpty(entry.Name) && entry.FullName.EndsWith("/", StringComparison.Ordinal))
+								continue; // directory entry
+
+							var destPath = Path.Combine(destDir, entry.FullName);
+							var fullDest = Path.GetFullPath(destPath);
+							var fullRoot = Path.GetFullPath(destDir) + Path.DirectorySeparatorChar;
+							if (!fullDest.StartsWith(fullRoot, StringComparison.Ordinal))
+								continue; // path-traversal guard
+
+							Directory.CreateDirectory(Path.GetDirectoryName(fullDest));
+							using var es = entry.Open();
+							using var fs = File.Create(fullDest);
+							es.CopyTo(fs);
+						}
+					}
+
+					DevConsole.Info("Content", $"Extracted baked content: {asset}");
+				}
+
+				Directory.CreateDirectory(contentRoot);
+				File.WriteAllText(markerPath, DateTime.UtcNow.ToString("o"));
+				DevConsole.Info("Content", "Pre-baked free content ready.");
+			}
+			catch (Exception ex)
+			{
+				DevConsole.Warn("Content", $"Baked content extraction failed: {ex.Message}");
+			}
+		}
+
 		float ComputeDefaultUIScale()
 		{
 			return 1f;
@@ -393,6 +462,10 @@ namespace OpenRA.Android
 			{
 				try
 				{
+					// Extract pre-baked free content (ra/cnc/d2k) into the support dir so the mods
+					// launch without the in-app downloader. Skips work if already done.
+					SyncBakedContentFromAssets(supportDir);
+
 					DevConsole.Info("MainActivity", "Game.InitializeAndRun starting...");
 					Game.InitializeAndRun(args);
 					DevConsole.Info("MainActivity", "Game.InitializeAndRun returned normally.");

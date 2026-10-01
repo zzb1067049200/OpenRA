@@ -59,6 +59,11 @@
     <AndroidAsset Include="..\mods\ts\**\*.*" Link="assets\mods\ts\%(RecursiveDir)%(Filename)%(Extension)" />
     <AndroidAsset Include="..\mods\ts-content\**\*.*" Link="assets\mods\ts-content\%(RecursiveDir)%(Filename)%(Extension)" />
     <AndroidAsset Include="..\mods\all\**\*.*" Link="assets\mods\all\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- Pre-baked free game content (OpenRA CDN, GPL-compatible). Populated by the CI "Bake free
+         content packages" step (and optionally by a local script) so the APK ships with ra/cnc/d2k
+         assets and the mods launch without the in-app downloader. MainActivity extracts these to the
+         support dir on first engine start. -->
+    <AndroidAsset Include="Assets\openra-content\**\*" />
   </ItemGroup>
 
   <!-- Native libraries built from source with the NDK (thirdparty/build-*-android.sh).
