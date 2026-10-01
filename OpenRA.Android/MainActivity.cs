@@ -181,8 +181,8 @@ namespace OpenRA.Android
 
 		void ShowModChooser()
 		{
-			var labels = new[] { "Red Alert (ra)", "Tiberian Dawn (cnc)", "Dune 2000 (d2k)" };
-			var mods = new[] { "ra", "cnc", "d2k" };
+			var labels = new[] { "Red Alert (ra)", "Tiberian Dawn (cnc)", "Dune 2000 (d2k)", "Yuri's Revenge (yr)" };
+			var mods = new[] { "ra", "cnc", "d2k", "yr" };
 			var builder = new AlertDialog.Builder(this);
 			builder.SetTitle("选择 Mod");
 			builder.SetCancelable(false);
@@ -534,20 +534,23 @@ namespace OpenRA.Android
 		{
 			var dest = Path.Combine(FilesDir.AbsolutePath, "engine") + Path.DirectorySeparatorChar;
 			var marker = Path.Combine(dest, ".extracted");
+			var modsRoot = Path.Combine(dest, "mods");
 
-			if (File.Exists(marker))
+			// Skip only when the marker exists AND every mod bundled in the APK assets has
+			// already been extracted. The second condition makes an app update that added a new
+			// mod (e.g. yr) re-extract, instead of silently leaving the new mod missing.
+			if (File.Exists(marker) && BundledModsExtracted(modsRoot))
 				return dest;
 
 			Directory.CreateDirectory(dest);
 			CopyAssetDir("glsl", Path.Combine(dest, "glsl"));
-			CopyAssetDir("mods", Path.Combine(dest, "mods"));
+			CopyAssetDir("mods", modsRoot);
 			CopyAssetFile("VERSION", Path.Combine(dest, "VERSION"));
 			CopyAssetFile("global mix database.dat", Path.Combine(dest, "global mix database.dat"));
 
 			// The map directories are excluded from the APK assets (maps are large and not needed
 			// for the menu), but MapCache.LoadMaps expects each mod's maps/ folder to exist. Create
 			// it for every bundled mod so the main menu can load.
-			var modsRoot = Path.Combine(dest, "mods");
 			if (Directory.Exists(modsRoot))
 				foreach (var modDir in Directory.GetDirectories(modsRoot))
 					Directory.CreateDirectory(Path.Combine(modDir, "maps"));
@@ -555,6 +558,28 @@ namespace OpenRA.Android
 			File.WriteAllText(marker, DateTime.UtcNow.ToString("o"));
 			global::Android.Util.Log.Info(Tag, $"Extracted engine assets to {dest}");
 			return dest;
+		}
+
+		// True when every mod folder shipped in the APK assets already has a mod.yaml on disk.
+		// Used to detect that an app update bundled a mod which is not extracted yet.
+		bool BundledModsExtracted(string modsRoot)
+		{
+			try
+			{
+				if (!Directory.Exists(modsRoot))
+					return false;
+
+				var bundled = Assets.List("mods");
+				if (bundled == null || bundled.Length == 0)
+					return true;
+
+				foreach (var mod in bundled)
+					if (!File.Exists(Path.Combine(modsRoot, mod, "mod.yaml")))
+						return false;
+
+				return true;
+			}
+			catch { return false; }
 		}
 
 		void CopyAssetDir(string assetPath, string destDir)
