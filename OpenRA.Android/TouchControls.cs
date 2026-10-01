@@ -18,6 +18,7 @@ using Android.Views;
 using Android.Widget;
 using OpenRA.Platforms.Android;
 using OpenRA.Primitives;
+using Color = Android.Graphics.Color;
 
 namespace OpenRA.Android
 {
