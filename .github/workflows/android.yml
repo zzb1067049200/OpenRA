@@ -122,6 +122,28 @@ jobs:
       - name: Build & package APK
         run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk
 
+      # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
+      # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here with an
+      # ephemeral debug keystore so the artifact installs via sideload. For a real release,
+      # replace this with a proper keystore (store it as a repo secret).
+      - name: Sign APK (debug keystore)
+        run: |
+          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          if [ -z "$APK" ]; then echo "No APK to sign"; exit 1; fi
+          KEYSTORE="$RUNNER_TEMP/openra-debug.keystore"
+          keytool -genkeypair -v -keystore "$KEYSTORE" -alias openra \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass android -keypass android \
+            -dname "CN=OpenRA Debug,O=OpenRA,C=US" 2>&1 | tail -1
+          APKSIGNER_JAR="$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar"
+          java -jar "$APKSIGNER_JAR" sign \
+            --ks "$KEYSTORE" --ks-key-alias openra \
+            --ks-pass pass:android --key-pass pass:android \
+            --out "$APK.signed" "$APK"
+          mv -f "$APK.signed" "$APK"
+          echo "=== signed: $APK ==="
+          java -jar "$APKSIGNER_JAR" verify --verbose "$APK" | head -5
+
       - name: Collect APK (robust)
         if: always()
         run: |
