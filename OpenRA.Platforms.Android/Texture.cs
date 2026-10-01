@@ -4,7 +4,7 @@
  * This file is part of OpenRA, which is free software. It is made
  * available to you under the terms of the GNU General Public License
  * as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version. For more
+ * the License, or (at your option) a later version. For more
  * information, see COPYING.
  */
 #endregion
@@ -58,6 +58,8 @@ namespace OpenRA.Platforms.Android
 			OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, filter);
 			OpenGL.CheckGLError();
 
+			// CLAMP_TO_EDGE + no mipmaps is exactly what GLES requires for
+			// non-power-of-two textures, so NPOT sprite sheets upload fine.
 			OpenGL.glTexParameterf(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_CLAMP_TO_EDGE);
 			OpenGL.CheckGLError();
 			OpenGL.glTexParameterf(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_CLAMP_TO_EDGE);
@@ -81,9 +83,6 @@ namespace OpenRA.Platforms.Android
 		public void SetData(byte[] colors, int width, int height)
 		{
 			VerifyThreadAffinity();
-			if (!Exts.IsPowerOf2(width) || !Exts.IsPowerOf2(height))
-				throw new InvalidDataException($"Non-power-of-two array {width}x{height}");
-
 			Size = new Size(width, height);
 			unsafe
 			{
@@ -104,9 +103,6 @@ namespace OpenRA.Platforms.Android
 		public void SetSubData(byte[] colors, int xoffset, int yoffset, int width, int height)
 		{
 			VerifyThreadAffinity();
-			if (!Exts.IsPowerOf2(width) || !Exts.IsPowerOf2(height))
-				throw new InvalidDataException($"Non-power-of-two array {width}x{height}");
-
 			unsafe
 			{
 				fixed (byte* ptr = &colors[0])
@@ -117,9 +113,6 @@ namespace OpenRA.Platforms.Android
 		public void SetFloatData(float[] data, int width, int height)
 		{
 			VerifyThreadAffinity();
-			if (!Exts.IsPowerOf2(width) || !Exts.IsPowerOf2(height))
-				throw new InvalidDataException($"Non-power-of-two array {width}x{height}");
-
 			Size = new Size(width, height);
 			unsafe
 			{
@@ -136,9 +129,6 @@ namespace OpenRA.Platforms.Android
 		public void SetDataFromReadBuffer(Rectangle rect)
 		{
 			VerifyThreadAffinity();
-			if (!Exts.IsPowerOf2(rect.Width) || !Exts.IsPowerOf2(rect.Height))
-				throw new InvalidDataException($"Non-power-of-two rectangle {rect.Width}x{rect.Height}");
-
 			PrepareTexture();
 
 			var glInternalFormat = OpenGL.Profile == GLProfile.Embedded ? OpenGL.GL_BGRA : OpenGL.GL_RGBA8;
@@ -213,9 +203,6 @@ namespace OpenRA.Platforms.Android
 		public void SetEmpty(int width, int height)
 		{
 			VerifyThreadAffinity();
-			if (!Exts.IsPowerOf2(width) || !Exts.IsPowerOf2(height))
-				throw new InvalidDataException($"Non-power-of-two array {width}x{height}");
-
 			Size = new Size(width, height);
 			SetData(IntPtr.Zero, width, height);
 		}
