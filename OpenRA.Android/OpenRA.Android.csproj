@@ -12,6 +12,12 @@
     <!-- Phase 2: net10 + EGL backend (OpenRA.Platforms.Android). Linking kept off for
          faster/lower-risk builds; tighten later. -->
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <!-- AOT off: Release net10.0-android AOT-compiles System.Private.CoreLib with the SDK
+         cross-compiler, and when that image's instance_size disagrees with the libmonosgen
+         runtime bundled in the APK Mono aborts at startup (class-init.c:2474
+         'klass->instance_size == instance_size'). Interpreter/JIT avoids the pre-baked image
+         entirely. Re-enable once SDK + Android workload are pinned to a matching pair. -->
+    <RunAotCompilation>false</RunAotCompilation>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>

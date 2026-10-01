@@ -120,7 +120,7 @@ jobs:
       # BuildForAndroid=true switches OpenRA.Game (+ the rest) to the net10.0-android TFM so
       # OperatingSystem.IsAndroid() is fully supported, and the EGL backend is selected at runtime.
       - name: Build & package APK
-        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk
+        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk -p:RunAotCompilation=false
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
       # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here with an
