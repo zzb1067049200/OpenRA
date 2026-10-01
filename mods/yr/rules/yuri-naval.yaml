@@ -32,7 +32,7 @@ yhvr:
 		UnloadTerrainTypes: Clear, Rough, Rail, Road, DirtRoad, Beach, Ore, Gems
 		UnloadVoice: Move
 		LoadingCondition: notmobile
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:
@@ -41,7 +41,6 @@ yhvr:
 		VoiceSet: HoverYuriVoice
 	HitShape:
 	Hovers:
-
 bsub:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -107,7 +106,7 @@ bsub:
 		CloakTypes: Underwater
 		Range: 4c0
 	RenderDetectionCircle:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	-MustBeDestroyed:

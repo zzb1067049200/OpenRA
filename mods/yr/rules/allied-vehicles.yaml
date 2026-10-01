@@ -40,7 +40,7 @@ amcv:
 	Voiced:
 		VoiceSet: AlliedMCVVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 
 cmin:
@@ -58,13 +58,11 @@ cmin:
 		Priority: 7
 		Bounds: 64, 52, 0, -6
 	Harvester:
-		Capacity: 20
 		Resources: Ore, Gems
 		BaleUnloadDelay: 1
 		SearchFromProcRadius: 24
 		SearchFromHarvesterRadius: 12
 		HarvestVoice: Move
-		DeliverVoice: Move
 	ChronoResourceDelivery:
 		WarpInSequence: warpout
 		WarpInSound: vchrtele.wav
@@ -91,10 +89,15 @@ cmin:
 	Voiced:
 		VoiceSet: ChronoMinerVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Targetable@RadiationImmunity:
 		TargetTypes: ImmuneToRadiation
+	StoresResources:
+		Capacity: 20
+		Resources: Ore, Gems
+	DockClientManager:
+		Voice: Move
 
 mtnk:
 	Inherits: ^Vehicle
@@ -149,7 +152,7 @@ mtnk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 	WithMuzzleOverlay:
@@ -203,7 +206,7 @@ tnkd:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 	WithMuzzleOverlay:
@@ -328,7 +331,7 @@ fv:
 	RenderSprites:
 	RenderVoxels:
 	WithVoxelBody:
-	Explodes:
+	FireWarheadsOnDeath:
 		RequiresCondition: !ifv-demo
 	#Explodes@demo:
 	#	Weapon: CRNuke
@@ -351,7 +354,7 @@ fv:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 
@@ -396,7 +399,7 @@ sref:
 	AttackTurreted:
 		Voice: Attack
 	AutoTarget:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	RenderSprites:
@@ -427,7 +430,7 @@ sref:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 
 mgtk:
@@ -471,7 +474,7 @@ mgtk:
 		Voice: Attack
 	AutoTarget:
 		AllowMovement: false
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	RenderSprites:
@@ -482,7 +485,7 @@ mgtk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 	Variety:
@@ -540,7 +543,7 @@ robo:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	GrantConditionOnPrerequisite:
 		Condition: robotcenter
@@ -590,7 +593,7 @@ bfrt:
 		Voice: Attack
 	AutoTarget:
 		AllowMovement: false
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	RenderSprites:
@@ -601,7 +604,8 @@ bfrt:
 		PipCount: 5
 	AttackBunkered:
 		Armaments: primary
-		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128/*TODO: Need to confirm all five attack port*/
+		# TODO: Need to confirm all five attack port
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
 		PortYaws: 0, 176, 341, 512, 682, 853
 		PortCones: 88, 88, 88, 88, 88, 88
 	WithVoxelBody:
@@ -610,6 +614,6 @@ bfrt:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	-BunkerPassenger:

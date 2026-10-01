@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -23,7 +23,10 @@ using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Mods.Common.Warheads;
 using OpenRA.Primitives;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Warheads
 {
     public class TransformActorWarhead : Warhead
@@ -39,10 +42,9 @@ namespace OpenRA.Mods.YR.Warheads
         private Actor actor;
         private TypeDictionary typeDic;
         private string[] excludeActors;
-        public override void DoImpact(Target target, WarheadArgs args)
+        public override void DoImpact(in Target target, WarheadArgs args)
         {
             var firedBy = args.SourceActor;
-
             if (!string.IsNullOrEmpty(ExcludeActor))
             {
                 excludeActors = ExcludeActor.Split(',');
@@ -61,16 +63,14 @@ namespace OpenRA.Mods.YR.Warheads
                     !excludeActors.Contains(victimActor.Info.Name))
                 {
                     victimActor.Kill(firedBy, DamageTypes);
-
                     actor = firedBy;
                     CPos pos = victimActor.World.Map.CellContaining(victimActor.CenterPosition);
-
                     typeDic = new TypeDictionary()
                     {
                         new CenterPositionInit(targetPos),
                         new LocationInit(pos),
                         new OwnerInit(firedBy.Owner),
-                        new FacingInit(Facing)
+                        new FacingInit(WAngle.FromFacing(Facing))
                     };
                     w.CreateActor(Actor, typeDic);
                 }

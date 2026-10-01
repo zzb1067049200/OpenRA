@@ -8,7 +8,6 @@ cafncb:
 		Types: cafncb
 	WithWallSpriteBody:
 		Type: cafncb
-
 cafncw:
 	Inherits: ^Fence
 	Tooltip:
@@ -19,7 +18,6 @@ cafncw:
 		Types: cafncw
 	WithWallSpriteBody:
 		Type: cafncw
-
 cafnck:
 	Inherits: ^Fence
 	Tooltip:
@@ -30,7 +28,6 @@ cafnck:
 		Types: cafnck
 	WithWallSpriteBody:
 		Type: cafnck
-
 cafncy:
 	Inherits: ^Fence
 	Tooltip:
@@ -41,7 +38,6 @@ cafncy:
 		Types: cafncy
 	WithWallSpriteBody:
 		Type: cafncy
-
 cafncg:
 	Inherits: ^Fence
 	Tooltip:
@@ -52,7 +48,6 @@ cafncg:
 		Types: cafncg
 	WithWallSpriteBody:
 		Type: cafncg
-
 cafncm:
 	Inherits: ^Fence
 	Tooltip:
@@ -63,7 +58,6 @@ cafncm:
 		Types: cafncm
 	WithWallSpriteBody:
 		Type: cafncm
-
 gasand:
 	Inherits: ^Fence
 	Tooltip:
@@ -77,7 +71,6 @@ gasand:
 		Types: gasand
 	WithWallSpriteBody:
 		Type: gasand
-
 cafncp:
 	Inherits: ^Fence
 	Tooltip:
@@ -88,7 +81,6 @@ cafncp:
 		Types: cafncp
 	WithWallSpriteBody:
 		Type: cafncp
-
 cahse01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -97,7 +89,6 @@ cahse01:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: cahse01.rubble
-
 cahse01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -106,7 +97,6 @@ cahse01.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cahse01
-
 cahse02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -117,7 +107,6 @@ cahse02:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: cahse02.rubble
-
 cahse02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -126,7 +115,6 @@ cahse02.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cahse02
-
 cahse03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -137,7 +125,6 @@ cahse03:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cahse03.rubble
-
 cahse03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -146,7 +133,6 @@ cahse03.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cahse03
-
 cahse04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -157,7 +143,6 @@ cahse04:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: cahse04.rubble
-
 cahse04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -166,7 +151,6 @@ cahse04.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cahse04
-
 cahse05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^1x2Shape
@@ -177,7 +161,6 @@ cahse05:
 		Footprint: x x
 	SpawnActorOnDeath:
 		Actor: cahse05.rubble
-
 cahse05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^1x2Shape
@@ -186,7 +169,6 @@ cahse05.rubble:
 		Footprint: = =
 	RenderSprites:
 		Image: cahse05
-
 cahse06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x1Shape
@@ -195,10 +177,8 @@ cahse06:
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	
 	SpawnActorOnDeath:
 		Actor: cahse06.rubble
-
 cahse06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x1Shape
@@ -207,7 +187,6 @@ cahse06.rubble:
 		Footprint: ==
 	RenderSprites:
 		Image: cahse06
-
 cahse07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -218,7 +197,6 @@ cahse07:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: cahse07.rubble
-
 cahse07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -227,7 +205,6 @@ cahse07.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: cahse07
-
 cawt01:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -238,7 +215,6 @@ cawt01:
 		Range: 8c0
 	Health:
 		HP: 400
-
 cats01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -253,7 +229,6 @@ cats01:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-
 cabarn02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -264,8 +239,6 @@ cabarn02:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	
-
 cawash01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -282,7 +255,6 @@ cawash01:
 		Range: 8c0
 	SpawnActorOnDeath:
 		Actor: cawash01.rubble
-
 cawash01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -291,7 +263,6 @@ cawash01.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawash01
-
 cawash03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x3Shape
@@ -300,7 +271,6 @@ cawash03:
 		Dimensions: 4, 3
 	SpawnActorOnDeath:
 		Actor: cawash03.rubble
-
 cawash03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x3Shape
@@ -309,7 +279,6 @@ cawash03.rubble:
 		Dimensions: 4, 3
 	RenderSprites:
 		Image: cawash03
-
 cawash04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -318,7 +287,6 @@ cawash04:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawash04.rubble
-
 cawash04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -327,7 +295,6 @@ cawash04.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawash04
-
 cawash05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x2Shape
@@ -336,7 +303,6 @@ cawash05:
 		Dimensions: 4, 2
 	SpawnActorOnDeath:
 		Actor: cawash05.rubble
-
 cawash05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x2Shape
@@ -345,7 +311,6 @@ cawash05.rubble:
 		Dimensions: 4, 2
 	RenderSprites:
 		Image: cawash05
-
 cawash06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -354,7 +319,6 @@ cawash06:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: cawash06.rubble
-
 cawash06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -363,7 +327,6 @@ cawash06.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: cawash06
-
 cawash07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -372,7 +335,6 @@ cawash07:
 		Dimensions: 3, 3
 	SpawnActorOnDeath:
 		Actor: cawash07.rubble
-
 cawash07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -381,7 +343,6 @@ cawash07.rubble:
 		Dimensions: 3, 3
 	RenderSprites:
 		Image: cawash07
-
 cawash08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -390,7 +351,6 @@ cawash08:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cawash08.rubble
-
 cawash08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -399,7 +359,6 @@ cawash08.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: cawash08
-
 cawash09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -408,7 +367,6 @@ cawash09:
 		Dimensions: 3, 3
 	SpawnActorOnDeath:
 		Actor: cawash09.rubble
-
 cawash09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -417,7 +375,6 @@ cawash09.rubble:
 		Dimensions: 3, 3
 	RenderSprites:
 		Image: cawash09
-
 cawash10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -426,7 +383,6 @@ cawash10:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawash10.rubble
-
 cawash10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -435,7 +391,6 @@ cawash10.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawash10
-
 cawash11:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -444,7 +399,6 @@ cawash11:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawash11.rubble
-
 cawash11.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -453,7 +407,6 @@ cawash11.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawash11
-
 cawsh12:
 	Inherits: ^GarrisonableBuilding
 	Inherits: ^CivBuilding
@@ -483,7 +436,6 @@ cawsh12:
 		PortCones: 86, 86, 86, 86, 86, 86
 	SpawnActorOnDeath:
 		Actor: cawsh12.rubble
-
 cawsh12.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -492,7 +444,6 @@ cawsh12.rubble:
 		Dimensions: 3, 3
 	RenderSprites:
 		Image: cawsh12
-
 cawash13:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -501,7 +452,6 @@ cawash13:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cawash13.rubble
-
 cawash13.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -510,7 +460,6 @@ cawash13.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: cawash13
-
 cawash14:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x3Shape
@@ -525,7 +474,6 @@ cawash14:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cawash14.rubble
-
 cawash14.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -534,7 +482,6 @@ cawash14.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cawash14
-
 cawash15:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape
@@ -549,7 +496,6 @@ cawash15:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cawash15.rubble
-
 cawash15.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -558,7 +504,6 @@ cawash15.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cawash15
-
 cawash16:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^5x3Shape
@@ -575,7 +520,6 @@ cawash16:
 		Footprint: xxxxx xxxxx xxxxx
 	SpawnActorOnDeath:
 		Actor: cawash16.rubble
-
 cawash16.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^5x3Shape
@@ -584,7 +528,6 @@ cawash16.rubble:
 		Footprint: ===== ===== =====
 	RenderSprites:
 		Image: cawash16
-
 cawash17:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -595,7 +538,6 @@ cawash17:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: cawash17.rubble
-
 cawash17.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -604,7 +546,6 @@ cawash17.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: cawash17
-
 cawash18:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -623,7 +564,6 @@ cawash18:
 		Sequence: idle-water
 	MapEditorData:
 		Categories: Decoration
-
 cawash19:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -642,7 +582,6 @@ cawash19:
 		Sequence: idle-flag
 	SpawnActorOnDeath:
 		Actor: cawash19.rubble
-
 cawash19.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -651,7 +590,6 @@ cawash19.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: cawash19
-
 canewy01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -660,7 +598,6 @@ canewy01:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: canewy01.rubble
-
 canewy01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -669,7 +606,6 @@ canewy01.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: canewy01
-
 canewy04:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x3Shape
@@ -688,7 +624,6 @@ canewy04:
 		Actor: canewy04.rubble
 	RenderSprites:
 		Palette: liberty
-
 canewy04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -697,7 +632,6 @@ canewy04.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy04
-
 canewy05:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -712,7 +646,6 @@ canewy05:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-
 canewy06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -721,7 +654,6 @@ canewy06:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy06.rubble
-
 canewy06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -730,7 +662,6 @@ canewy06.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy06
-
 canewy07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -739,7 +670,6 @@ canewy07:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy07.rubble
-
 canewy07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -748,7 +678,6 @@ canewy07.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy07
-
 canewy08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -757,7 +686,6 @@ canewy08:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy08.rubble
-
 canewy08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -766,7 +694,6 @@ canewy08.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy08
-
 canewy10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -775,7 +702,6 @@ canewy10:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy10.rubble
-
 canewy10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -784,7 +710,6 @@ canewy10.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: canewy10
-
 canewy11:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -793,7 +718,6 @@ canewy11:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy11.rubble
-
 canewy11.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -802,7 +726,6 @@ canewy11.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: canewy11
-
 canewy12:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -811,7 +734,6 @@ canewy12:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: canewy12.rubble
-
 canewy12.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -820,7 +742,6 @@ canewy12.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: canewy12
-
 canewy13:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -829,7 +750,6 @@ canewy13:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy13.rubble
-
 canewy13.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -838,7 +758,6 @@ canewy13.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy13
-
 canewy14:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -847,7 +766,6 @@ canewy14:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy14.rubble
-
 canewy14.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -856,7 +774,6 @@ canewy14.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy14
-
 canewy15:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -865,7 +782,6 @@ canewy15:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy15.rubble
-
 canewy15.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -874,7 +790,6 @@ canewy15.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canewy15
-
 canewy16:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -883,7 +798,6 @@ canewy16:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: canewy16.rubble
-
 canewy16.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -892,7 +806,6 @@ canewy16.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: canewy16
-
 canewy17:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -901,7 +814,6 @@ canewy17:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: canewy17.rubble
-
 canewy17.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -910,7 +822,6 @@ canewy17.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: canewy17
-
 canewy18:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -919,7 +830,6 @@ canewy18:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: canewy18.rubble
-
 canewy18.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -928,7 +838,6 @@ canewy18.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: canewy18
-
 canewy20:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x5Shape
@@ -939,7 +848,6 @@ canewy20:
 		Footprint: xxx xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canewy20.rubble
-
 canewy20.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x5Shape
@@ -948,7 +856,6 @@ canewy20.rubble:
 		Footprint: === === === === ===
 	RenderSprites:
 		Image: canewy20
-
 canewy21:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^5x3Shape
@@ -959,7 +866,6 @@ canewy21:
 		Footprint: xxxxx xxxxx xxxxx
 	SpawnActorOnDeath:
 		Actor: canewy21.rubble
-
 canewy21.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^5x3Shape
@@ -968,7 +874,6 @@ canewy21.rubble:
 		Footprint: ===== ===== =====
 	RenderSprites:
 		Image: canewy21
-
 caswst01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -979,7 +884,6 @@ caswst01:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: caswst01.rubble
-
 caswst01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -988,7 +892,6 @@ caswst01.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: caswst01
-
 caarmy01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -999,28 +902,24 @@ caarmy01:
 		Name: Army Tent
 	Health:
 		HP: 200
-
 caarmy02:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
 		Name: Army Tent
 	Health:
 		HP: 200
-
 caarmy03:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
 		Name: Army Tent
 	Health:
 		HP: 200
-
 caarmy04:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
 		Name: Army Tent
 	Health:
 		HP: 200
-
 cawa2a:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1029,7 +928,6 @@ cawa2a:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawa2a.rubble
-
 cawa2a.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1038,7 +936,6 @@ cawa2a.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawa2a
-
 cawa2b:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1047,7 +944,6 @@ cawa2b:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawa2b.rubble
-
 cawa2b.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1056,7 +952,6 @@ cawa2b.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawa2b
-
 cawa2c:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1065,7 +960,6 @@ cawa2c:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawa2c.rubble
-
 cawa2c.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1074,7 +968,6 @@ cawa2c.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawa2c
-
 cawa2d:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1083,7 +976,6 @@ cawa2d:
 		Dimensions: 4, 4
 	SpawnActorOnDeath:
 		Actor: cawa2d.rubble
-
 cawa2d.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1092,7 +984,6 @@ cawa2d.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: cawa2d
-
 cafarm01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -1103,7 +994,6 @@ cafarm01:
 		Name: Farm
 	Health:
 		HP: 400
-
 cafarm02:
 	Inherits: ^CivBuilding
 	Building:
@@ -1115,12 +1005,10 @@ cafarm02:
 		HP: 400
 	SpawnActorOnDeath:
 		Actor: cafarm02.rubble
-
 cafarm02.rubble:
 	Inherits: ^Rubble
 	RenderSprites:
 		Image: cafarm02
-
 cafarm06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -1131,10 +1019,8 @@ cafarm06:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	
 	SpawnActorOnDeath:
 		Actor: cafarm06.rubble
-
 cafarm06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -1143,127 +1029,102 @@ cafarm06.rubble:
 		Dimensions: 2, 2
 	RenderSprites:
 		Image: cafarm06
-
 causfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: American Flag
-
 carufgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Soviet Flag
-
 cairfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Iraqi Flag
-
 capofgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Polish Flag
-
 caskfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Korean Flag
-
 calbfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Libyan Flag
-
 cafrfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: French Flag
-
 cagefgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: German Flag
-
 cacufgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Cuban Flag
-
 caukfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: British Flag
-
 cavnfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Vietnamese Flag
-
 caicfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Icelandic Flag
-
 canwfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Norwegian Flag
-
 caswfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Swedish Flag
-
 cafifgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Finnish Flag
-
 caesfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Estonian Flag
-
 calafgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Latvian Flag
-
 califgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Lithuanian Flag
-
 canlfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Dutch Flag
-
 caeifgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Irish Flag
-
 canlfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Dutch Flag
-
 caspfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Spanish Flag
-
 cajpfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Japanese Flag
-
 cangfgl:
 	Inherits: ^Flag
 	Tooltip:
 		Name: Nigerian Flag
-
 cacolo01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^5x3Shape
@@ -1280,7 +1141,6 @@ cacolo01:
 		Range: 8c0
 	SpawnActorOnDeath:
 		Actor: cacolo01.rubble
-
 cacolo01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^5x3Shape
@@ -1289,7 +1149,6 @@ cacolo01.rubble:
 		Dimensions: 5, 3
 	RenderSprites:
 		Image: cacolo01
-
 caind01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1300,7 +1159,6 @@ caind01:
 		Name: Factory
 	SpawnActorOnDeath:
 		Actor: caind01.rubble
-
 caind01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1309,7 +1167,6 @@ caind01.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: caind01
-
 calab:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -1320,7 +1177,6 @@ calab:
 		Name: Einstein's Lab
 	SpawnActorOnDeath:
 		Actor: calab.rubble
-
 calab.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -1329,7 +1185,6 @@ calab.rubble:
 		Dimensions: 3, 4
 	RenderSprites:
 		Image: calab
-
 cagas01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1340,7 +1195,6 @@ cagas01:
 		Name: Gas Station
 	SpawnActorOnDeath:
 		Actor: cagas01.rubble
-
 cagas01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1349,7 +1203,6 @@ cagas01.rubble:
 		Dimensions: 3, 3
 	RenderSprites:
 		Image: cagas01
-
 galite:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -1371,7 +1224,6 @@ galite:
 	FrozenUnderFog:
 	MapEditorData:
 		Categories: Decoration
-
 cacity01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -1387,7 +1239,6 @@ cacity01:
 	RenderSprites:
 		PlayerPalette:
 		Palette: city
-
 cacity02:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^5x4Shape
@@ -1403,7 +1254,6 @@ cacity02:
 	RenderSprites:
 		PlayerPalette:
 		Palette: city
-
 cacity03:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x3Shape
@@ -1419,7 +1269,6 @@ cacity03:
 	RenderSprites:
 		PlayerPalette:
 		Palette: city
-
 cacity04:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -1435,7 +1284,6 @@ cacity04:
 	RenderSprites:
 		PlayerPalette:
 		Palette: city
-
 city05:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -1453,7 +1301,6 @@ city05:
 	RenderSprites:
 		PlayerPalette:
 		Palette: city
-
 catech01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1466,7 +1313,6 @@ catech01:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catech01.rubble
-
 catech01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1475,7 +1321,6 @@ catech01.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catech01
-
 catexs01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -1484,7 +1329,6 @@ catexs01:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: catexs01.rubble
-
 catexs01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -1493,7 +1337,6 @@ catexs01.rubble:
 		Footprint: xx xx
 	RenderSprites:
 		Image: catexs01
-
 catexs02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1508,7 +1351,6 @@ catexs02:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: catexs02.rubble
-
 catexs02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1517,7 +1359,6 @@ catexs02.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: catexs02
-
 catexs03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1526,7 +1367,6 @@ catexs03:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catexs03.rubble
-
 catexs03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1535,7 +1375,6 @@ catexs03.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catexs03
-
 catexs04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1544,7 +1383,6 @@ catexs04:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catexs04.rubble
-
 catexs04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1553,7 +1391,6 @@ catexs04.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catexs04
-
 catexs05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1562,7 +1399,6 @@ catexs05:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catexs05.rubble
-
 catexs05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1571,7 +1407,6 @@ catexs05.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catexs05
-
 catexs06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1580,7 +1415,6 @@ catexs06:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catexs06.rubble
-
 catexs06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1589,7 +1423,6 @@ catexs06.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catexs06
-
 catexs07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1598,7 +1431,6 @@ catexs07:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: catexs07.rubble
-
 catexs07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1607,7 +1439,6 @@ catexs07.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: catexs07
-
 catexs08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -1616,7 +1447,6 @@ catexs08:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: catexs08.rubble
-
 catexs08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -1625,7 +1455,6 @@ catexs08.rubble:
 		Footprint: xx xx xx
 	RenderSprites:
 		Image: catexs08
-
 capars01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -1642,7 +1471,6 @@ capars01:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: capars01.rubble
-
 capars01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1651,7 +1479,6 @@ capars01.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: capars01
-
 capars02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -1660,7 +1487,6 @@ capars02:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: capars02.rubble
-
 capars02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -1669,7 +1495,6 @@ capars02.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: capars02
-
 capars04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1680,7 +1505,6 @@ capars04:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars04.rubble
-
 capars04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1689,7 +1513,6 @@ capars04.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: capars04
-
 capars05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1700,7 +1523,6 @@ capars05:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars05.rubble
-
 capars05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1709,7 +1531,6 @@ capars05.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: capars05
-
 capars06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -1720,7 +1541,6 @@ capars06:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars06.rubble
-
 capars06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -1729,7 +1549,6 @@ capars06.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: capars06
-
 capars07:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -1740,7 +1559,6 @@ capars07:
 		HP: 100
 	MapEditorData:
 		Categories: Decoration
-
 capars08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -1749,7 +1567,6 @@ capars08:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: capars08.rubble
-
 capars08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -1758,7 +1575,6 @@ capars08.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: capars08
-
 capars09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -1767,7 +1583,6 @@ capars09:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: capars09.rubble
-
 capars09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -1776,7 +1591,6 @@ capars09.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: capars09
-
 capars10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x3Shape
@@ -1787,7 +1601,6 @@ capars10:
 		Footprint: xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: capars10.rubble
-
 capars10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x3Shape
@@ -1796,7 +1609,6 @@ capars10.rubble:
 		Footprint: ==== ==== ====
 	RenderSprites:
 		Image: capars10
-
 capars11:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape
@@ -1813,7 +1625,6 @@ capars11:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars11.rubble
-
 capars11.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -1822,7 +1633,6 @@ capars11.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: capars11
-
 capars12:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x5Shape
@@ -1835,7 +1645,6 @@ capars12:
 		Footprint: xxx xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars12.rubble
-
 capars12.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x5Shape
@@ -1844,7 +1653,6 @@ capars12.rubble:
 		Footprint: === === === === ===
 	RenderSprites:
 		Image: capars12
-
 capars13:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -1855,7 +1663,6 @@ capars13:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: capars13.rubble
-
 capars13.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -1864,7 +1671,6 @@ capars13.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: capars13
-
 capars14:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x3Shape
@@ -1875,7 +1681,6 @@ capars14:
 		Footprint: xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: capars14.rubble
-
 capars14.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x3Shape
@@ -1884,7 +1689,6 @@ capars14.rubble:
 		Footprint: ==== ==== ====
 	RenderSprites:
 		Image: capars14
-
 cafrma:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -1895,7 +1699,6 @@ cafrma:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-
 cafrmb:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
@@ -1906,7 +1709,6 @@ cafrmb:
 		HP: 50
 	MapEditorData:
 		Categories: Decoration
-
 caprs03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -1919,7 +1721,6 @@ caprs03:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: caprs03.rubble
-
 caprs03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -1928,7 +1729,6 @@ caprs03.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: caprs03
-
 cagard01:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -1943,7 +1743,6 @@ cagard01:
 		Sequence: idle-flag
 	MapEditorData:
 		Categories: Decoration
-
 carus01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -1956,7 +1755,6 @@ carus01:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: carus01.rubble
-
 carus01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1965,7 +1763,6 @@ carus01.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: carus01
-
 carus02a:
 	Inherits: ^CivBuilding
 	Armor:
@@ -1976,7 +1773,6 @@ carus02a:
 		Actor: carus02a.rubble
 	MapEditorData:
 		RequireTilesets: SNOW
-
 carus02a.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -1986,7 +1782,6 @@ carus02a.rubble:
 		Image: carus02a
 	MapEditorData:
 		RequireTilesets: SNOW
-
 carus02b:
 	Inherits: ^CivBuilding
 	Armor:
@@ -1995,7 +1790,6 @@ carus02b:
 		HP: 500
 	SpawnActorOnDeath:
 		Actor: carus02b.rubble
-
 carus02b.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -2003,7 +1797,6 @@ carus02b.rubble:
 		Footprint: =
 	RenderSprites:
 		Image: carus02b
-
 carus02g:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
@@ -2014,12 +1807,10 @@ carus02g:
 		Actor: carus02g.rubble
 	MapEditorData:
 		RequireTilesets: SNOW
-
 carus02g.rubble:
 	Inherits: ^Rubble
 	RenderSprites:
 		Image: carus02g
-
 carus03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x5Shape
@@ -2032,7 +1823,6 @@ carus03:
 		Footprint: xx xx xx xx xx
 	SpawnActorOnDeath:
 		Actor: carus03.rubble
-
 carus03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x5Shape
@@ -2041,7 +1831,6 @@ carus03.rubble:
 		Footprint: == == == == ==
 	RenderSprites:
 		Image: carus03
-
 carus04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2050,7 +1839,6 @@ carus04:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: carus04.rubble
-
 carus04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2059,7 +1847,6 @@ carus04.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: carus04
-
 carus05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2068,7 +1855,6 @@ carus05:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: carus05.rubble
-
 carus05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2077,7 +1863,6 @@ carus05.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: carus05
-
 carus06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2086,7 +1871,6 @@ carus06:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: carus06.rubble
-
 carus06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2095,28 +1879,22 @@ carus06.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: carus06
-
 carus08:
 	Inherits: ^GarrisonableBuilding
-	
 	SpawnActorOnDeath:
 		Actor: carus08.rubble
-
 carus08.rubble:
 	Inherits: ^Rubble
 	RenderSprites:
 		Image: carus08
-
 carus09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x1Shape
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	
 	SpawnActorOnDeath:
 		Actor: carus09.rubble
-
 carus09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x1Shape
@@ -2125,17 +1903,14 @@ carus09.rubble:
 		Footprint: ==
 	RenderSprites:
 		Image: carus09
-
 carus10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^1x2Shape
 	Building:
 		Dimensions: 1,2
 		Footprint: x x
-	
 	SpawnActorOnDeath:
 		Actor: carus10.rubble
-
 carus10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^1x2Shape
@@ -2144,17 +1919,14 @@ carus10.rubble:
 		Footprint: = =
 	RenderSprites:
 		Image: carus10
-
 carus11:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x1Shape
 	Building:
 		Dimensions: 2,1
 		Footprint: xx
-	
 	SpawnActorOnDeath:
 		Actor: carus11.rubble
-
 carus11.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x1Shape
@@ -2163,7 +1935,6 @@ carus11.rubble:
 		Footprint: ==
 	RenderSprites:
 		Image: carus11
-
 camiam01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x2Shape
@@ -2172,7 +1943,6 @@ camiam01:
 		Footprint: xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camiam01.rubble
-
 camiam01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x2Shape
@@ -2181,7 +1951,6 @@ camiam01.rubble:
 		Footprint: ==== ====
 	RenderSprites:
 		Image: camiam01
-
 camiam02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x2Shape
@@ -2190,7 +1959,6 @@ camiam02:
 		Footprint: xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camiam02.rubble
-
 camiam02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x2Shape
@@ -2199,7 +1967,6 @@ camiam02.rubble:
 		Footprint: ==== ====
 	RenderSprites:
 		Image: camiam02
-
 camiam03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -2208,7 +1975,6 @@ camiam03:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: camiam03.rubble
-
 camiam03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -2217,7 +1983,6 @@ camiam03.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: camiam03
-
 camiam04:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
@@ -2226,7 +1991,6 @@ camiam04:
 		HP: 200
 	MapEditorData:
 		Categories: Decoration
-
 camiam05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x4Shape
@@ -2235,7 +1999,6 @@ camiam05:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camiam05.rubble
-
 camiam05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -2244,7 +2007,6 @@ camiam05.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: camiam05
-
 camiam06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2253,7 +2015,6 @@ camiam06:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camiam06.rubble
-
 camiam06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2262,7 +2023,6 @@ camiam06.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: camiam06
-
 camiam07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2271,7 +2031,6 @@ camiam07:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camiam07.rubble
-
 camiam07.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -2279,7 +2038,6 @@ camiam07.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: camiam07
-
 camiam08:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x1Shape
@@ -2296,7 +2054,6 @@ camiam08:
 		Footprint: xxx
 	SpawnActorOnDeath:
 		Actor: camiam08.rubble
-
 camiam08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x1Shape
@@ -2305,7 +2062,6 @@ camiam08.rubble:
 		Footprint: ===
 	RenderSprites:
 		Image: camiam08
-
 canwy05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2314,7 +2070,6 @@ canwy05:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: canwy05.rubble
-
 canwy05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2323,7 +2078,6 @@ canwy05.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: canwy05
-
 canwy09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -2334,7 +2088,6 @@ canwy09:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: canwy09.rubble
-
 canwy09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -2343,7 +2096,6 @@ canwy09.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: canwy09
-
 canwy22:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -2354,7 +2106,6 @@ canwy22:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canwy22.rubble
-
 canwy22.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -2363,7 +2114,6 @@ canwy22.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canwy22
-
 canwy23:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -2374,7 +2124,6 @@ canwy23:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: canwy23.rubble
-
 canwy23.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -2383,7 +2132,6 @@ canwy23.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: canwy23
-
 canwy24:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -2394,7 +2142,6 @@ canwy24:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canwy24.rubble
-
 canwy24.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -2403,7 +2150,6 @@ canwy24.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canwy24
-
 canwy25:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -2414,7 +2160,6 @@ canwy25:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: canwy25.rubble
-
 canwy25.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -2423,7 +2168,6 @@ canwy25.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: canwy25
-
 canwy26:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^5x3Shape
@@ -2434,7 +2178,6 @@ canwy26:
 		Footprint: xxxxx xxxxx xxxxx
 	SpawnActorOnDeath:
 		Actor: canwy26.rubble
-
 canwy26.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^5x3Shape
@@ -2443,7 +2186,6 @@ canwy26.rubble:
 		Footprint: ===== ===== =====
 	RenderSprites:
 		Image: canwy26
-
 camex01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x2Shape
@@ -2460,7 +2202,6 @@ camex01:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: camex01.rubble
-
 camex01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -2469,7 +2210,6 @@ camex01.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: camex01
-
 camex02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -2480,7 +2220,6 @@ camex02:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: camex02.rubble
-
 camex02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -2489,7 +2228,6 @@ camex02.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: camex02
-
 camex03:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x3Shape
@@ -2506,7 +2244,6 @@ camex03:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camex03.rubble
-
 camex03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -2515,7 +2252,6 @@ camex03.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camex03
-
 camex04:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2532,7 +2268,6 @@ camex04:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camex04.rubble
-
 camex04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2541,7 +2276,6 @@ camex04.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: camex04
-
 camex05:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -2558,7 +2292,6 @@ camex05:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: camex05.rubble
-
 camex05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -2567,7 +2300,6 @@ camex05.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: camex05
-
 caeur1:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -2580,7 +2312,6 @@ caeur1:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: caeur1.rubble
-
 caeur1.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -2589,7 +2320,6 @@ caeur1.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: caeur1
-
 caeur2:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -2602,7 +2332,6 @@ caeur2:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: caeur2.rubble
-
 caeur2.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -2611,7 +2340,6 @@ caeur2.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: caeur2
-
 caeur04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x3Shape
@@ -2622,7 +2350,6 @@ caeur04:
 		Footprint: xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caeur04.rubble
-
 caeur04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x3Shape
@@ -2631,7 +2358,6 @@ caeur04.rubble:
 		Footprint: ==== ==== ====
 	RenderSprites:
 		Image: caeur04
-
 cachig01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -2640,7 +2366,6 @@ cachig01:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: cachig01.rubble
-
 cachig01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -2649,7 +2374,6 @@ cachig01.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cachig01
-
 cachig02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -2658,7 +2382,6 @@ cachig02:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: cachig02.rubble
-
 cachig02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -2667,7 +2390,6 @@ cachig02.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: cachig02
-
 cachig03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -2676,7 +2398,6 @@ cachig03:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: cachig03.rubble
-
 cachig03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -2685,7 +2406,6 @@ cachig03.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: cachig03
-
 cachig04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -2696,7 +2416,6 @@ cachig04:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cachig04.rubble
-
 cachig04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -2705,7 +2424,6 @@ cachig04.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cachig04
-
 cachig05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2720,7 +2438,6 @@ cachig05:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: cachig05.rubble
-
 cachig05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2729,7 +2446,6 @@ cachig05.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: cachig05
-
 cachig06:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -2744,7 +2460,6 @@ cachig06:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cachig06.rubble
-
 cachig06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -2753,7 +2468,6 @@ cachig06.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cachig06
-
 castl01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2762,7 +2476,6 @@ castl01:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl01.rubble
-
 castl01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2771,7 +2484,6 @@ castl01.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl01
-
 castl02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2780,7 +2492,6 @@ castl02:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl02.rubble
-
 castl02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2789,7 +2500,6 @@ castl02.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl02
-
 castl03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -2798,7 +2508,6 @@ castl03:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl03.rubble
-
 castl03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2807,7 +2516,6 @@ castl03.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl03
-
 castl04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x6Shape
@@ -2816,7 +2524,6 @@ castl04:
 		Footprint: xx xx xx xx xx xx
 	SpawnActorOnDeath:
 		Actor: castl04.rubble
-
 castl04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x6Shape
@@ -2825,7 +2532,6 @@ castl04.rubble:
 		Footprint: == == == == == ==
 	RenderSprites:
 		Image: castl04
-
 castl05a:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2838,7 +2544,6 @@ castl05a:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05a.rubble
-
 castl05a.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2847,7 +2552,6 @@ castl05a.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05a
-
 castl05b:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2860,7 +2564,6 @@ castl05b:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05b.rubble
-
 castl05b.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2869,7 +2572,6 @@ castl05b.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05b
-
 castl05c:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2882,7 +2584,6 @@ castl05c:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05c.rubble
-
 castl05c.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2891,7 +2592,6 @@ castl05c.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05c
-
 castl05d:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2904,7 +2604,6 @@ castl05d:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05d.rubble
-
 castl05d.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2913,7 +2612,6 @@ castl05d.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05d
-
 castl05e:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2926,7 +2624,6 @@ castl05e:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05e.rubble
-
 castl05e.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2935,7 +2632,6 @@ castl05e.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05e
-
 castl05f:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2948,7 +2644,6 @@ castl05f:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05f.rubble
-
 castl05f.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2957,7 +2652,6 @@ castl05f.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05f
-
 castl05g:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2970,7 +2664,6 @@ castl05g:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05g.rubble
-
 castl05g.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -2979,7 +2672,6 @@ castl05g.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05g
-
 castl05h:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -2992,7 +2684,6 @@ castl05h:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: castl05h.rubble
-
 castl05h.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3001,7 +2692,6 @@ castl05h.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: castl05h
-
 camsc07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3012,8 +2702,6 @@ camsc07:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-	
-
 camsc08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3021,8 +2709,6 @@ camsc08:
 		Name: Thatched Hut
 	Health:
 		HP: 200
-	
-
 camsc09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3030,8 +2716,6 @@ camsc09:
 		Name: Thatched Hut
 	Health:
 		HP: 200
-	
-
 camsc10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -3042,7 +2726,6 @@ camsc10:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: camsc10.rubble
-
 camsc10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3051,7 +2734,6 @@ camsc10.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: camsc10
-
 cabunk01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3064,7 +2746,6 @@ cabunk01:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cabunk01.rubble
-
 cabunk01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -3073,7 +2754,6 @@ cabunk01.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cabunk01
-
 cabunk02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3086,7 +2766,6 @@ cabunk02:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cabunk02.rubble
-
 cabunk02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -3095,7 +2774,6 @@ cabunk02.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cabunk02
-
 # Yuri's Revenge Buildings
 cabunk03:
 	Inherits: ^GarrisonableBuilding
@@ -3109,7 +2787,6 @@ cabunk03:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cabunk03.rubble
-
 cabunk03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -3118,7 +2795,6 @@ cabunk03.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cabunk03
-
 cabunk04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -3131,7 +2807,6 @@ cabunk04:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: cabunk04.rubble
-
 cabunk04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x2Shape
@@ -3140,7 +2815,6 @@ cabunk04.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: cabunk04
-
 camorr01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3151,7 +2825,6 @@ camorr01:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr01.rubble
-
 camorr01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3160,7 +2833,6 @@ camorr01.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr01
-
 camorr02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3171,7 +2843,6 @@ camorr02:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr02.rubble
-
 camorr02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3180,7 +2851,6 @@ camorr02.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr02
-
 camorr03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3191,7 +2861,6 @@ camorr03:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr03.rubble
-
 camorr03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3200,7 +2869,6 @@ camorr03.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr03
-
 camorr04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3211,7 +2879,6 @@ camorr04:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr04.rubble
-
 camorr04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3220,7 +2887,6 @@ camorr04.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr04
-
 camorr05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3231,7 +2897,6 @@ camorr05:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr05.rubble
-
 camorr05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3240,7 +2905,6 @@ camorr05.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr05
-
 camorr06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3251,7 +2915,6 @@ camorr06:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr06.rubble
-
 camorr06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3260,7 +2923,6 @@ camorr06.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr06
-
 camorr07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3271,7 +2933,6 @@ camorr07:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr07.rubble
-
 camorr07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3280,7 +2941,6 @@ camorr07.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr07
-
 camorr08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3291,7 +2951,6 @@ camorr08:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr08.rubble
-
 camorr08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3300,7 +2959,6 @@ camorr08.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr08
-
 camorr09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3311,7 +2969,6 @@ camorr09:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: camorr09.rubble
-
 camorr09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3320,7 +2977,6 @@ camorr09.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: camorr09
-
 camorr10:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3331,7 +2987,6 @@ camorr10:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: camorr10.rubble
-
 camorr10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3340,7 +2995,6 @@ camorr10.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: camorr10
-
 cala01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3351,7 +3005,6 @@ cala01:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala01.rubble
-
 cala01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3360,7 +3013,6 @@ cala01.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cala01
-
 cala03:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x1Shape
@@ -3371,7 +3023,6 @@ cala03:
 		Footprint: xxx
 	SpawnActorOnDeath:
 		Actor: cala03.rubble
-
 cala03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x1Shape
@@ -3380,7 +3031,6 @@ cala03.rubble:
 		Footprint: ===
 	RenderSprites:
 		Image: cala03
-
 cala04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -3391,7 +3041,6 @@ cala04:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: cala04.rubble
-
 cala04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3400,7 +3049,6 @@ cala04.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: cala04
-
 cala05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -3411,7 +3059,6 @@ cala05:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: cala05.rubble
-
 cala05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3420,7 +3067,6 @@ cala05.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: cala05
-
 cala06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -3431,7 +3077,6 @@ cala06:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: cala06.rubble
-
 cala06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -3440,7 +3085,6 @@ cala06.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: cala06
-
 cala07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3451,7 +3095,6 @@ cala07:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala07.rubble
-
 cala07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3460,7 +3103,6 @@ cala07.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cala07
-
 cala08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x2Shape
@@ -3471,7 +3113,6 @@ cala08:
 		Footprint: xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: cala08.rubble
-
 cala08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x2Shape
@@ -3480,7 +3121,6 @@ cala08.rubble:
 		Footprint: ==== ====
 	RenderSprites:
 		Image: cala08
-
 cala09:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3491,7 +3131,6 @@ cala09:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala09.rubble
-
 cala09.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3500,7 +3139,6 @@ cala09.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cala09
-
 cala10:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^1x3Shape
@@ -3517,7 +3155,6 @@ cala10:
 		Footprint: x x x
 	SpawnActorOnDeath:
 		Actor: cala10.rubble
-
 cala10.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^1x3Shape
@@ -3526,7 +3163,6 @@ cala10.rubble:
 		Footprint: = = =
 	RenderSprites:
 		Image: cala10
-
 cala11:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape
@@ -3543,7 +3179,6 @@ cala11:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala11.rubble
-
 cala11.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -3552,7 +3187,6 @@ cala11.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: cala11
-
 cala12:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape
@@ -3569,7 +3203,6 @@ cala12:
 		Footprint: xxx xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala12.rubble
-
 cala12.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x4Shape
@@ -3578,7 +3211,6 @@ cala12.rubble:
 		Footprint: === === === ===
 	RenderSprites:
 		Image: cala12
-
 cala13:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x1Shape
@@ -3595,7 +3227,6 @@ cala13:
 		Footprint: xxx
 	SpawnActorOnDeath:
 		Actor: cala13.rubble
-
 cala13.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x1Shape
@@ -3604,7 +3235,6 @@ cala13.rubble:
 		Footprint: ===
 	RenderSprites:
 		Image: cala13
-
 cala14:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3615,7 +3245,6 @@ cala14:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala14.rubble
-
 cala14.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3624,7 +3253,6 @@ cala14.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cala14
-
 cala15:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3635,7 +3263,6 @@ cala15:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: cala15.rubble
-
 cala15.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3644,7 +3271,6 @@ cala15.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: cala15
-
 caegyp01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -3661,7 +3287,6 @@ caegyp01:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp01.rubble
-
 caegyp01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3670,7 +3295,6 @@ caegyp01.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caegyp01
-
 caegyp02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -3681,7 +3305,6 @@ caegyp02:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp02.rubble
-
 caegyp02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3690,7 +3313,6 @@ caegyp02.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caegyp02
-
 caegyp03:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x2Shape
@@ -3707,7 +3329,6 @@ caegyp03:
 		Footprint: xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp02.rubble
-
 caegyp03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x2Shape
@@ -3716,7 +3337,6 @@ caegyp03.rubble:
 		Footprint: ==== ====
 	RenderSprites:
 		Image: caegyp02
-
 caegyp04:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -3733,7 +3353,6 @@ caegyp04:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp04.rubble
-
 caegyp04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3742,7 +3361,6 @@ caegyp04.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caegyp04
-
 caegyp05:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -3759,7 +3377,6 @@ caegyp05:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp05.rubble
-
 caegyp05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3768,7 +3385,6 @@ caegyp05.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caegyp05
-
 caegyp06:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -3785,7 +3401,6 @@ caegyp06:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: caegyp06.rubble
-
 caegyp06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3794,7 +3409,6 @@ caegyp06.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caegyp06
-
 calond01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -3805,7 +3419,6 @@ calond01:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: calond01.rubble
-
 calond01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -3814,7 +3427,6 @@ calond01.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: calond01
-
 calond03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -3825,7 +3437,6 @@ calond03:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: calond03.rubble
-
 calond03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -3834,7 +3445,6 @@ calond03.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: calond03
-
 calond04:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -3845,7 +3455,6 @@ calond04:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: calond04.rubble
-
 calond04.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -3854,7 +3463,6 @@ calond04.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: calond04
-
 calond05:
 	Inherits: ^GarrisonableBuilding
 	Tooltip:
@@ -3865,7 +3473,6 @@ calond05:
 		HP: 1000
 	SpawnActorOnDeath:
 		Actor: calond05.rubble
-
 calond05.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -3873,7 +3480,6 @@ calond05.rubble:
 		Footprint: =
 	RenderSprites:
 		Image: calond05
-
 calond06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -3888,7 +3494,6 @@ calond06:
 		Sequence: idle-flag
 	SpawnActorOnDeath:
 		Actor: calond06.rubble
-
 calond06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -3897,7 +3502,6 @@ calond06.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: calond06
-
 casanf01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -3908,7 +3512,6 @@ casanf01:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: casanf01.rubble
-
 casanf01.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -3917,7 +3520,6 @@ casanf01.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: casanf01
-
 casanf02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -3928,7 +3530,6 @@ casanf02:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: casanf02.rubble
-
 casanf02.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -3937,7 +3538,6 @@ casanf02.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: casanf02
-
 casanf03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x3Shape
@@ -3948,7 +3548,6 @@ casanf03:
 		Footprint: xx xx xx
 	SpawnActorOnDeath:
 		Actor: casanf03.rubble
-
 casanf03.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x3Shape
@@ -3957,7 +3556,6 @@ casanf03.rubble:
 		Footprint: == == ==
 	RenderSprites:
 		Image: casanf03
-
 casanf05:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -3970,7 +3568,6 @@ casanf05:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: casanf05.rubble
-
 casanf05.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^6x4Shape
@@ -3979,7 +3576,6 @@ casanf05.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: casanf05
-
 casanf06:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -3990,7 +3586,6 @@ casanf06:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: casanf06.rubble
-
 casanf06.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -3999,7 +3594,6 @@ casanf06.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: casanf06
-
 casanf07:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x2Shape
@@ -4010,7 +3604,6 @@ casanf07:
 		Footprint: xxx xxx
 	SpawnActorOnDeath:
 		Actor: casanf07.rubble
-
 casanf07.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x2Shape
@@ -4019,7 +3612,6 @@ casanf07.rubble:
 		Footprint: === ===
 	RenderSprites:
 		Image: casanf07
-
 casanf08:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -4030,7 +3622,6 @@ casanf08:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: casanf08.rubble
-
 casanf08.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^3x3Shape
@@ -4039,7 +3630,6 @@ casanf08.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: casanf08
-
 casanf15:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -4052,7 +3642,6 @@ casanf15:
 		HP: 1000
 	SpawnActorOnDeath:
 		Actor: casanf15.rubble
-
 casanf15.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4060,7 +3649,6 @@ casanf15.rubble:
 		Footprint: =
 	RenderSprites:
 		Image: casanf15
-
 casanf16:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -4073,7 +3661,6 @@ casanf16:
 		HP: 1000
 	SpawnActorOnDeath:
 		Actor: casanf16.rubble
-
 casanf16.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4081,7 +3668,6 @@ casanf16.rubble:
 		Footprint: =
 	RenderSprites:
 		Image: casanf16
-
 casanf17:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -4092,7 +3678,6 @@ casanf17:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: casanf17.rubble
-
 casanf17.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4100,7 +3685,6 @@ casanf17.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: casanf17
-
 casanf18:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x5Shape
@@ -4111,7 +3695,6 @@ casanf18:
 		Footprint: xx xx xx xx xx
 	SpawnActorOnDeath:
 		Actor: casanf18.rubble
-
 casanf18.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^2x5Shape
@@ -4120,7 +3703,6 @@ casanf18.rubble:
 		Footprint: == == == == ==
 	RenderSprites:
 		Image: casanf18
-
 casydn02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^3x3Shape
@@ -4131,7 +3713,6 @@ casydn02:
 		Footprint: xxx xxx xxx
 	SpawnActorOnDeath:
 		Actor: casydn02.rubble
-
 casydn02.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4139,7 +3720,6 @@ casydn02.rubble:
 		Footprint: === === ===
 	RenderSprites:
 		Image: casydn02
-
 casydn03:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^6x4Shape
@@ -4152,7 +3732,6 @@ casydn03:
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx
 	SpawnActorOnDeath:
 		Actor: casydn03.rubble
-
 casydn03.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4160,7 +3739,6 @@ casydn03.rubble:
 		Footprint: ====== ====== ====== ======
 	RenderSprites:
 		Image: casydn03
-
 calunr01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^2x2Shape
@@ -4175,7 +3753,6 @@ calunr01:
 	Building:
 		Dimensions: 2,2
 		Footprint: xx xx
-
 calunr02:
 	Inherits: ^CivBuilding
 	Tooltip:
@@ -4186,7 +3763,6 @@ calunr02:
 		Range: 8c0
 	Health:
 		HP: 100
-
 caseat01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -4201,7 +3777,6 @@ caseat01:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: caseat01.rubble
-
 caseat01.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4209,7 +3784,6 @@ caseat01.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: caseat01
-
 caseat02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^4x4Shape
@@ -4222,7 +3796,6 @@ caseat02:
 		Sequence: idle-globe
 	SpawnActorOnDeath:
 		Actor: caseat02.rubble
-
 caseat02.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4230,7 +3803,6 @@ caseat02.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: caseat02
-
 catran01:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -4241,7 +3813,6 @@ catran01:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: catran01.rubble
-
 catran01.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4249,7 +3820,6 @@ catran01.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: catran01
-
 catran02:
 	Inherits: ^GarrisonableBuilding
 	Inherits@shape: ^2x2Shape
@@ -4260,7 +3830,6 @@ catran02:
 		Footprint: xx xx
 	SpawnActorOnDeath:
 		Actor: catran02.rubble
-
 catran02.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4268,7 +3837,6 @@ catran02.rubble:
 		Footprint: == ==
 	RenderSprites:
 		Image: catran02
-
 catran03:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^4x4Shape
@@ -4285,7 +3853,6 @@ catran03:
 		Footprint: xxxx xxxx xxxx xxxx
 	SpawnActorOnDeath:
 		Actor: catran03.rubble
-
 catran03.rubble:
 	Inherits: ^Rubble
 	Building:
@@ -4293,7 +3860,6 @@ catran03.rubble:
 		Footprint: ==== ==== ==== ====
 	RenderSprites:
 		Image: catran03
-
 catime01:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape
@@ -4308,7 +3874,6 @@ catime01:
 	Building:
 		Dimensions: 3,4
 		Footprint: xxx xxx xxx xxx
-
 catime02:
 	Inherits: ^CivBuilding
 	Inherits@shape: ^3x4Shape

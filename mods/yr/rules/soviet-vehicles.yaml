@@ -41,9 +41,8 @@ smcv:
 	Voiced:
 		VoiceSet: SovietMCVVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
-
 harv:
 	Inherits: ^Vehicle
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -60,13 +59,11 @@ harv:
 		Priority: 7
 		Bounds: 64, 52, 0, -6
 	Harvester:
-		Capacity: 40
 		Resources: Ore, Gems
 		UnloadTicksPerBale: 1
 		SearchFromProcRadius: 24
 		SearchFromHarvesterRadius: 12
 		HarvestVoice: Move
-		DeliverVoice: Move
 	Health:
 		HP: 1000
 	Armor:
@@ -104,12 +101,16 @@ harv:
 	Voiced:
 		VoiceSet: WarMinerVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Targetable@RadiationImmunity:
 		TargetTypes: ImmuneToRadiation
 	WithMuzzleOverlay:
-
+	StoresResources:
+		Capacity: 40
+		Resources: Ore, Gems
+	DockClientManager:
+		Voice: Move
 dron:
 	Inherits: ^Vehicle
 	Valued:
@@ -150,11 +151,10 @@ dron:
 	Voiced:
 		VoiceSet: TerrorDroneVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Targetable@RadiationImmunity:
 		TargetTypes: ImmuneToRadiation
-
 htk:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -214,11 +214,10 @@ htk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 	WithMuzzleOverlay:
-
 htnk:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -273,11 +272,10 @@ htnk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
 	WithMuzzleOverlay:
-
 apoc:
 	Inherits: ^Vehicle
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -327,7 +325,7 @@ apoc:
 	WithVoxelBody:
 	WithVoxelTurret:
 	WithVoxelBarrel:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: ApocExplode
 		EmptyWeapon: ApocExplode
 	Voiced:
@@ -335,10 +333,9 @@ apoc:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
-
 ttnk:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -387,10 +384,9 @@ ttnk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
-
 dtruck:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -418,7 +414,7 @@ dtruck:
 		Crushes: fence, crate, infantry
 	RevealsShroud:
 		Range: 4c0
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: demobomb
 		EmptyWeapon: demobomb
 	AttackFrontal:
@@ -435,9 +431,8 @@ dtruck:
 	Voiced:
 		VoiceSet: DemolitionTruckVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
-
 v3:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -485,7 +480,7 @@ v3:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	MissileSpawnerMaster:
 		Actors: v3rocket

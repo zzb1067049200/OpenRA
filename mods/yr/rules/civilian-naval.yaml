@@ -82,7 +82,7 @@ cdest:
 		CloakTypes: Underwater
 		Range: 4c0
 	RenderDetectionCircle:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:

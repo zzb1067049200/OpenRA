@@ -54,7 +54,6 @@ nacnst:
 	icon: scnsicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 napowr:
 	Defaults:
 		Offset: -15, -37
@@ -96,7 +95,6 @@ napowr:
 	icon: npwricon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nahand:
 	Defaults:
 		Offset: 1, -31
@@ -127,7 +125,6 @@ nahand:
 	icon: handicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 narefn:
 	Defaults:
 		Offset: -13, -53
@@ -168,7 +165,6 @@ narefn:
 	icon: nreficon
 		Offset: 0,0
 		UseTilesetCode: false
-
 naradr:
 	Defaults:
 		Offset: 2, -31
@@ -208,7 +204,6 @@ naradr:
 	icon: nradicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 naweap:
 	Defaults:
 		Offset: -30, -60
@@ -278,7 +273,6 @@ naweap:
 	icon: nwepicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nayard:
 	Defaults:
 		Offset: 0, -45
@@ -338,7 +332,6 @@ nayard:
 	icon: yardicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nadept:
 	Defaults:
 		Offset: -15, -53
@@ -389,7 +382,6 @@ nadept:
 	icon: rfixicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nanrct:
 	Defaults:
 		Offset: -12, -56
@@ -431,7 +423,6 @@ nanrct:
 	icon: nrcticon
 		Offset: 0,0
 		UseTilesetCode: false
-
 natech:
 	Defaults:
 		Offset: 0, -45
@@ -462,7 +453,6 @@ natech:
 	icon: ntchicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 naclon:
 	Defaults:
 		Offset: 0, -30
@@ -497,7 +487,6 @@ naclon:
 	icon: clonicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 napsis:
 	Defaults:
 		Offset: 1, -30
@@ -537,7 +526,6 @@ napsis:
 	icon: psisicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 namisl:
 	Defaults:
 		Offset: 0, -42
@@ -571,7 +559,6 @@ namisl:
 			LUNAR: LUNAR
 	icon: msslicon
 		Offset: 0,0
-
 nairon:
 	Defaults:
 		Offset: 0, -45
@@ -608,7 +595,6 @@ nairon:
 	icon: ironicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nawall:
 	Defaults:
 		Offset: 0, -12
@@ -623,7 +609,6 @@ nawall:
 	icon: nwalicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nalasr:
 	Inherits@Muzzle: ^WithMachineGunMuzzle
 	Defaults:
@@ -656,7 +641,6 @@ nalasr:
 	icon: plticon
 		Offset: 0,0
 		UseTilesetCode: false
-
 tesla:
 	Defaults:
 		Offset: 0, -15
@@ -708,7 +692,6 @@ tesla:
 	icon: tslaicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 naflak:
 	Inherits@Muzzle: ^WithFlakMuzzle
 	Defaults:
@@ -742,7 +725,6 @@ naflak:
 	icon: flakicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nabnkr:
 	Defaults:
 		Offset: 0, -24
@@ -780,7 +762,6 @@ nabnkr:
 	icon: bnkricon
 		Offset: 0,0
 		UseTilesetCode: false
-        
 naindp:
 	Defaults:
 		Offset: 0, -31
@@ -825,7 +806,6 @@ naindp:
 	icon: indpicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 napsya:
 	Defaults:
 		Offset: 1, -31
@@ -846,7 +826,6 @@ napsya:
 		Length: 14
 		ShadowStart: 42
 		Tick: 100
-
 napsyb:
 	Defaults:
 		Offset: 1, -31

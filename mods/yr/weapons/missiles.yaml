@@ -260,7 +260,7 @@ MissileLauncher:
 		ValidTargets: Water
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: SmallCrater
-		
+
 MissileLauncherE:
 	Inherits: MissileLauncher
 	ReloadDelay: 20

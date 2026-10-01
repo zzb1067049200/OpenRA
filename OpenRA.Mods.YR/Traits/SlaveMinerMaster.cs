@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -22,26 +22,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class SlaveMinerMasterInfo : SpawnerHarvestResourceInfo
     {
         [Desc("When deployed, use this scan radius.")]
         public readonly int ShortScanRadius = 8;
-
         [Desc("Look this far when Searching for Ore (in Cells)")]
         public readonly int LongScanRadius = 24;
-
         [Desc("Look this far when trying to find a deployable position from the target resource patch")]
         public readonly int DeployScanRadius = 8; // 8 * 8 * 3 should be enough candidates, seriously.
-
         [Desc("If no resource within range at each kick, move.")]
         public readonly int KickScanRadius = 5;
-
         [Desc("If the SlaveMiner is idle for this long, he'll try to look for ore again at SlaveMinerShortScan range to find ore and wake up (in ticks)")]
         public readonly int KickDelay = 20;
-
         [Desc("Play this sound when the slave is freed")]
         public readonly string FreeSound = null;
         public override object Create(ActorInitializer init)
@@ -49,7 +47,6 @@ namespace OpenRA.Mods.YR.Traits
             return new SlaveMinerMaster(init, this);
         }
     }
-
     public class SlaveMinerMaster : BaseSpawnerMaster, INotifyTransform, 
         INotifyBuildingPlaced, ITick, IIssueOrder, IResolveOrder
     {
@@ -57,7 +54,7 @@ namespace OpenRA.Mods.YR.Traits
         public MiningState MiningState = MiningState.Mining;
         public CPos? LastOrderLocation = null;
         private SlaveMinerMasterInfo info;
-        private readonly ResourceLayer resLayer;
+        private readonly IResourceLayer resLayer;
         private int respawnTicks = 0;
         private int kickTicks;
         private bool allowKicks = true; // allow kicks?
@@ -65,19 +62,16 @@ namespace OpenRA.Mods.YR.Traits
         private bool force = false;
         private CPos? forceMovePos = null;
         private const string orderID = "SlaveMinerMasterHarvest";
-
         public IEnumerable<IOrderTargeter> Orders
         {
             get { yield return new SlaveMinerHarvestOrderTargeter<SlaveMinerMasterInfo>(orderID); }
         }
-
         public SlaveMinerMaster(ActorInitializer init, SlaveMinerMasterInfo info) : base(init, info)
         {
             this.info = info;
-            resLayer = init.Self.World.WorldActor.Trait<ResourceLayer>();
+            resLayer = init.Self.World.WorldActor.Trait<IResourceLayer>();
             transforms = init.Self.Trait<Transforms>();
         }
-
 		#region Transform
 		public void AfterTransform(Actor toActor)
         {
@@ -101,68 +95,50 @@ namespace OpenRA.Mods.YR.Traits
                 toActor.QueueActivity(new SlaveMinerHarvesterHarvest(toActor));
             }
         }
-
         public void BeforeTransform(Actor self)
         {
-
         }
-
         public void OnTransform(Actor self)
         {
         }
-
 		#endregion
-
 		public bool CanHarvestCell(Actor self, CPos cell)
         {
             // Resources only exist in the ground layer
             if (cell.Layer != 0)
                 return false;
-
             var resType = resLayer.GetResource(cell).Type;
             if (resType == null)
                 return false;
-
             // Can the harvester collect this kind of resource?
-            return info.Resources.Contains(resType.Info.Type);
+            return info.Resources.Contains(resType);
         }
-
         private void Launch(Actor master, BaseSpawnerSlaveEntry slaveEntry, CPos targetLocation)
         {
             var slave = slaveEntry.Actor;
-
             SpawnIntoWorld(master, slave, master.CenterPosition);
         }
-
         public override void SpawnIntoWorld(Actor self, Actor slave, WPos centerPosition)
         {
             var exit = ChooseExit(self);
             SetSpawnedFacing(slave, self, exit);
-
             self.World.AddFrameEndTask(w =>
             {
                 if (self.IsDead)
                     return;
-
                 var spawnOffset = exit == null ? WVec.Zero : exit.SpawnOffset;
                 slave.Trait<IPositionable>().SetVisualPosition(slave, centerPosition + spawnOffset);
-
                 var location = centerPosition + spawnOffset;
-
                 w.Add(slave);
-
                 slave.CancelActivity();
-
-                slave.CurrentActivity.QueueChild(new FindAndDeliverResources(slave, self));
+                slave.CurrentActivity.QueueChild(new FindAndDeliverResources(slave));
             });
         }
-
         private void HandleSpawnerHarvest(Actor self, Order order)
         {
             //Maybe player have a better idea, let's move
             ForceMove(self.World.Map.CellContaining(order.Target.CenterPosition));
         }
-
         public void ForceMove(CPos pos)
         {
             force = true;
@@ -175,21 +151,17 @@ namespace OpenRA.Mods.YR.Traits
             if (respawnTicks <= 0) // Don't interrupt an already running timer!
                 respawnTicks = Info.RespawnTicks;
         }
-
         public override void Killed(Actor self, AttackInfo e)
         {
             base.Killed(self, e);
-
             if (!string.IsNullOrEmpty(info.FreeSound))
             {
                 Game.Sound.Play(SoundType.World, info.FreeSound, self.CenterPosition);
             }
         }
-
-        public void BuildingPlaced(Actor self)
+        public void BuildingPlaced(Actor self, Actor building)
         {
         }
-
         public void ResolveOrder(Actor self, Order order)
         {
             if (order.OrderString == orderID)
@@ -202,14 +174,12 @@ namespace OpenRA.Mods.YR.Traits
                 MiningState = MiningState.Scan;
             }
         }
-
-        public Order IssueOrder(Actor self, IOrderTargeter order, Target target, bool queued)
+        public Order IssueOrder(Actor self, IOrderTargeter order, in Target target, bool queued)
         {
             if (order.OrderID == orderID)
                 return new Order(order.OrderID, self, target, queued);
             return null;
         }
-
         public void TickIdle(Actor self)
         {
             // wake up on idle for long (to find new resource patch. i.e., kick)
@@ -217,7 +187,6 @@ namespace OpenRA.Mods.YR.Traits
                 kickTicks--;
             else
                 kickTicks = info.KickDelay;
-
             if (kickTicks <= 0)
             {
                 kickTicks = info.KickDelay;
@@ -225,25 +194,19 @@ namespace OpenRA.Mods.YR.Traits
                 self.QueueActivity(new SlaveMinerMasterHarvest(self));
             }
         }
-
         public BaseSpawnerSlaveEntry[] GetSlaves()
         {
             return SlaveEntries;
         }
-
         public void Tick(Actor self)
         {
             respawnTicks--;
             if (respawnTicks > 0)
                 return;
-
             if (MiningState != MiningState.Mining)
                 return;
-
             Replenish(self, SlaveEntries);
-
             CPos destination = LastOrderLocation.HasValue ? LastOrderLocation.Value : self.Location;
-
             // Launch whatever we can.
             bool hasInvalidEntry = false;
             foreach (var slaveEntry in SlaveEntries)
@@ -257,7 +220,6 @@ namespace OpenRA.Mods.YR.Traits
                     Launch(self, slaveEntry, destination);
                 }
             }
-
             if (hasInvalidEntry)
             {
                 respawnTicks = Info.RespawnTicks;

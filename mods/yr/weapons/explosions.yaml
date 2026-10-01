@@ -23,14 +23,12 @@ LargeBarrelExplode:
 		ValidTargets: Ground, Water, Air
 	Warhead@3Smu: LeaveSmudge
 		SmudgeType: MediumCrater, MediumScorch
-
 SmallBarrelExplode:
 	Inherits: LargeBarrelExplode
 	Warhead@2Eff: CreateEffect
 		Explosions: small_barrel_explosion
 	Warhead@3Smu: LeaveSmudge
 		SmudgeType: SmallCrater
-
 DerrickExplode:
 	Inherits: LargeBarrelExplode
 	Warhead@1Dam: SpreadDamage
@@ -39,30 +37,25 @@ DerrickExplode:
 		Explosions: large_twlt, large_bang, large_brnl, verylarge_clsn, large_tumu
 	Warhead@3Smu: LeaveSmudge
 		SmudgeType: MediumCrater, MediumScorch
-
 UnitExplode:
 	Warhead@1Eff: CreateEffect
 		Explosions: large_twlt
 		ImpactSounds: expnew09.wav
 		ValidTargets: Ground, Water, Air
-
 UnitExplodeSmall:
 	Inherits: UnitExplode
 	Warhead@1Eff: CreateEffect
 		Explosions: medium_brnl
 		ImpactSounds: expnew13.wav
 		ValidTargets: Ground, Water, Air
-		
 V3AmmunitionExplode:
 	Inherits: UnitExplodeSmall
 	Warhead@1Eff: CreateEffect
 		Explosions: terrorist_explosion
-		
 BuildingExplode:
 	Inherits: UnitExplodeSmall
 	Warhead@1Eff: CreateEffect
 		Explosions: building, large_bang, large_brnl, verylarge_clsn, large_tumu
-
 KirovExplode:
 	Inherits: UnitExplode
 	Warhead@2Dam: SpreadDamage
@@ -70,17 +63,14 @@ KirovExplode:
 		Damage: 75
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
-
 ApocExplode:
 	Inherits: KirovExplode
 	Warhead@2Dam: SpreadDamage
 		Damage: 40
-
 PlaneExplode:
 	Inherits: KirovExplode
 	Warhead@2Dam: SpreadDamage
 		Damage: 20
-		
 IvanBomber:
 	ReloadDelay: 50
 	Range: 1c849
@@ -116,12 +106,10 @@ IvanBomber:
 		Explosions: ivan_explosion
 		ImpactSounds: gexpcraa.wav
 		ValidTargets: Ground, Water, Air
-
 IvanBomberE:
 	Inherits: IvanBomber
 	Warhead@2Eff: CreateEffect
 		Explosions: ivan_explosionE
-
 IvanDeath:
 	Inherits: IvanBomber
 	-Warhead@0Eff: CreateEffect
@@ -129,7 +117,6 @@ IvanDeath:
 		Delay: 0
 	Warhead@2Eff: CreateEffect
 		Delay: 0
-
 TerrorBomb:
 	ReloadDelay: 20
 	Range: 4c0
@@ -157,12 +144,10 @@ TerrorBomb:
 	Warhead@2Eff: CreateEffect
 		Explosions: terrorist_explosion
 		ValidTargets: Ground, Water, Air
-
 CRTerrorBomb:
 	Inherits: TerrorBomb
 	Warhead@1Dam: SpreadDamage
 		Damage: 425
-
 NukePayload:
 	ValidTargets: Ground, Water, Air
 	Warhead@1Dam_impact: SpreadDamage
@@ -190,7 +175,6 @@ NukePayload:
 		Explosions: nuke_explosion
 		ImpactSounds: snukexpl.wav
 		ValidTargets: Ground, Water, Air
-
 atomic:
 	Inherits: NukePayload
 	Warhead@0Eff_impact: CreateEffect
@@ -207,7 +191,6 @@ atomic:
 		ValidTargets: Ground, Water, Air
 	Warhead@4Smu_areanuke: LeaveSmudge
 		Delay: 25
-
 demobomb:
 	Inherits: NukePayload
 	Warhead@1Dam_impact: SpreadDamage
@@ -298,8 +281,6 @@ demobomb:
 		SmudgeType: LargeScorch
 		Size: 2
 		Delay: 15
-		
-
 MigDeath:
 	ReloadDelay: 0
 	Range: 1c849
@@ -328,7 +309,6 @@ MigDeath:
 		Delay: 0
 		Explosions: small_tumu
 		ValidTargets: Ground, Water
-		
 DominatorWH:
 	ReloadDelay: 0
 	Range: 5c0
@@ -362,44 +342,32 @@ DominatorWH:
 		Explosions: psychicdomloc
 		ValidTargets: Ground, Water
 		ImpactActors: false
-        
 LightningStormWeapon1:
 	Inherits: ^LightningStorm1
-        
 LightningStormWeapon2:
 	Inherits: ^LightningStorm2
-        
 LightningStormWeapon3:
 	Inherits: ^LightningStorm3
-        
 LightningStormWeapon4:
 	Inherits: ^LightningStorm1
-        
 LightningStormWeapon5:
 	Inherits: ^LightningStorm2
-        
 LightningStormWeapon6:
 	Inherits: ^LightningStorm3
-        
 LightningStormWeapon7:
 	Inherits: ^LightningStorm1
-        
 LightningStormWeapon8:
 	Inherits: ^LightningStorm2
-        
 LightningStormWeapon9:
 	Inherits: ^LightningStorm3
-        
 LightningStormWeapon10:
 	Inherits: ^LightningStorm3
-		
 Demolish:
 	Warhead@1Dam: SpreadDamage
 		DamageTypes: DefaultDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: large_twlt
 		ImpactSounds: expnew09.wav
-		
 V3WH:
 	Inherits: UnitExplode
 	Warhead@1Dam: SpreadDamage
@@ -420,7 +388,6 @@ V3WH:
 		Explosions: medium_brnl
 		ImpactSounds: expnew13.wav
 		ValidTargets: Ground, Water
-		
 V3EWH:
 	Inherits: UnitExplode
 	Warhead@1Dam: SpreadDamage
@@ -441,7 +408,6 @@ V3EWH:
 		Explosions: medium_brnl
 		ImpactSounds: expnew13.wav
 		ValidTargets: Ground, Water
-		
 VirusCloudDamage:
 	ReloadDelay: 5
 	Projectile: InstantHit

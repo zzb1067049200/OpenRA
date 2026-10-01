@@ -24,7 +24,7 @@ carrier:
 
 cdest:	
 	idle:
-	
+
 cdestwo:
 	idle:
 
@@ -233,99 +233,99 @@ zep:
 
 ambu:
 	idle:
-    
+
 bcab:
 	idle:
-  
+
 bfrt: 
 	idle:
-    
+
 bpln:
 	idle:
-  
+
 bsub:
 	idle:
 
 bsubmisl:
 	idle:
-  
+
 cahead:
 	idle:
-    
+
 caheaddm:
 	idle:
 
 caos:
 	idle:
-    
+
 cblc:
 	idle:
-    
+
 civp:
 	idle:
-    
+
 ddbx:
 	idle:
-    
+
 disk:
 	idle:
 	turret: disktur
-    
+
 doly:
 	idle:
-    
+
 ftrk:
 	idle:
-    
+
 hovr:
 	idle:
-    
+
 jeep:
 	idle:
-    
+
 mind:
 	idle:
 
 pcv: 
 	idle:
-    
+
 robo:
 	idle:
 	turret: robotur
-    
+
 schd:
 	idle:
 	turret: schdtur
-    
+
 schp:
 	idle:
-    
+
 smin:
 	idle:
 	turret: smintur
-    
+
 spyp:
 	idle:
-    
+
 tele:
 	idle:
 	turret: teletur
-    
+
 yaggun:
 	turret: yaggun
-    
+
 ycab:
 	idle:
-    
+
 yhvr:
 	idle:
-    
+
 ytnk:
 	idle:
 	turret: ytnktur
-    
+
 bpln:
 	idle:
-    
+
 robo:
 	idle: 

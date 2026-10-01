@@ -18,7 +18,7 @@ viruscloud:
 	-Targetable@ground:
 	Health:
 		HP: 100
-	SelfHealing:
+	ChangesHealth:
 		Step: -1
 		Delay: 25
 		HealIfBelow: 200
@@ -33,7 +33,7 @@ viruscloud:
 		DeathSequence: die
 		UseDeathTypeSuffix: false
 	Interactable:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: VirusCloudDamage
 		Chance: 75
 	HitShape:
@@ -157,7 +157,7 @@ zep:
 	WithVoxelBody:
 	Hovers:
 		BobDistance: -10
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		Chance: 75
 	VoiceAnnouncement:
@@ -458,7 +458,7 @@ bpln:
 		Image: bpln
 	RenderVoxels:
 		Image: bpln
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: MigDeath
 		EmptyWeapon: MigDeath
 	HitShape:
@@ -477,7 +477,7 @@ bplnhusk:
 		Speed: 180
 	RenderVoxels:
 		Image: bpln
-	
+
 schp:
 	Inherits: ^Aircraft
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -540,7 +540,7 @@ schp:
 		Facing: 96
 		DeployCursor: deploy
 		NoTransformNotification: BuildingCannotPlaceAudio
-	
+
 schd:
 	Inherits: ^Vehicle
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -628,7 +628,7 @@ spyp:
 		Weapon: SpyCameraWeapon
 	-Selectable:
 	RejectsOrders:
-		
+
 v3rocket:
 	Inherits: ^ShootableMissileVoxel
 	Valued:
@@ -654,7 +654,7 @@ v3rocket:
 		VoiceSet: HindVoice
 	Selectable:
 	MissileSpawnerSlave:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: Footprint
 		Weapon: V3WH
 	RejectsOrders:
@@ -682,7 +682,7 @@ dmisl:
 		VoiceSet: HindVoice
 	Selectable:
 	MissileSpawnerSlave:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: Footprint
 		Weapon: V3WH
 	RenderVoxels:
@@ -711,7 +711,7 @@ cmisl:
 		VoiceSet: HindVoice
 	Selectable:
 	MissileSpawnerSlave:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: Footprint
 		Weapon: V3WH
 	RenderVoxels:

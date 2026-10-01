@@ -123,7 +123,6 @@ gapowr:
 	PowerTooltip:
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate, powerplant
-
 gapile:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
@@ -194,7 +193,6 @@ gapile:
 		Proxy: barracks.infiltrated
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate
-
 garefn:
 	Inherits: ^Building
 	Inherits@shape: ^4x3Shape
@@ -223,13 +221,11 @@ garefn:
 		Type: Wood
 	RevealsShroud:
 		Range: 6c0
-	TiberianSunRefinery:
-		DockOffset: 3,1
+	Refinery:
 		ShowTicks: True
 		TickLifetime: 30
 		TickVelocity: 1
 		TickRate: 10
-		DockAngle: 160
 		UseStorage: false
 	CustomSellValue:
 		Value: 300
@@ -253,7 +249,10 @@ garefn:
 		Amount: -50
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate
-
+	DockHost:
+		Type: Unload
+		DockAngle: 160
+		DockOffset: 1086,1086,0
 gaairc:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
@@ -343,7 +342,6 @@ gaairc:
 		RequiresCondition: primary
 	InfiltrateForExploration:
 		Types: SpyInfiltrate
-
 amradr:
 	Inherits: gaairc
 	Inherits@SMC: ^SuperMindControllable
@@ -367,7 +365,6 @@ amradr:
 		UnitType: pdplane
 		CameraActor: camera
 		ArrowSequence: arrow
-
 gaweap:
 	Inherits: ^Building
 	Inherits@shape: ^5x3Shape
@@ -452,7 +449,6 @@ gaweap:
 		UnitNames: zep, shad, schp, disk, hind
 		Condition: roof-open
 		ConditionDelay: 50
-
 gayard:
 	Inherits: ^Building
 	Inherits@shape: ^4x4Shape
@@ -586,7 +582,6 @@ gayard:
 	-SpawnActorsOnSell@yuris:
 	RequiresBuildableArea:
 		Adjacent: 13
-
 gadept:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -631,7 +626,6 @@ gadept:
 		Amount: -25
 	ProvidesPrerequisite:
 		Prerequisite: repairpad
-
 gatech:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
@@ -682,7 +676,6 @@ gatech:
 		BlockedCursor: forceshield-blocked
 		LowPower: true
 		LowPowerDuration: 625
-
 gawall:
 	Inherits: ^Wall
 	Buildable:
@@ -692,7 +685,6 @@ gawall:
 		Description: Light wall.\nCrushable by vehicles.
 	Tooltip:
 		Name: Allied Wall
-
 gapill:
 	Inherits: ^SupportBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -735,7 +727,6 @@ gapill:
 	AutoTarget:
 	RequiresBuildableArea:
 		Adjacent: 5
-
 nasam:
 	Inherits: ^VoxelLighting
 	Inherits@AUTOTARGET: ^AutoTargetAir
@@ -787,7 +778,6 @@ nasam:
 		ValidPowerStates: Low, Critical
 	RequiresBuildableArea:
 		Adjacent: 5
-
 gtgcan:
 	Inherits: ^VoxelLighting
 	Inherits@shape: ^2x2Shape
@@ -843,7 +833,6 @@ gtgcan:
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
-
 gaorep:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -875,7 +864,6 @@ gaorep:
 		Modifier: 25
 	Power:
 		Amount: -200
-
 garobo:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -907,7 +895,6 @@ garobo:
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
-
 gaspysat:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -943,7 +930,6 @@ gaspysat:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
 	ShowWholeMap:
-
 gagap:
 	Inherits: ^SupportBuilding
 	Inherits@SMC: ^SuperMindControllable
@@ -978,7 +964,6 @@ gagap:
 		Amount: -100
 	MustBeDestroyed:
 		RequiredForShortGame: false
-
 gaweat:
 	Inherits: ^SupportBuilding
 	Inherits@shape: ^3x3Shape
@@ -1043,7 +1028,6 @@ gaweat:
 		ActiveSequence: active
 		DeactiveSequence: deactive
 		Condition: build-incomplete
-
 gacsph:
 	Inherits: ^Building
 	Inherits@shape: ^4x3Shape
@@ -1078,6 +1062,8 @@ gacsph:
 		ValidPowerStates: Low, Critical
 	SupportPowerChargeBar:
 	ChronoshiftPower@chronoshift:
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
 		OrderName: Chronoshift
 		Icon: chrono
 		ChargeInterval: 7500
@@ -1096,7 +1082,6 @@ gacsph:
 		TargetOverlayPalette: effect75alpha
 		PauseOnCondition: lowpower
 		Range: 3
-
 atesla:
 	Inherits: ^SupportBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -1146,33 +1131,23 @@ atesla:
 	WithRangeCircle:
 		Range: 8c0
 		Type: prismcannon
-
 power:
-	AlwaysVisible:
 	Interactable:
 	Tooltip:
 		Name: Power Plant
-
 refinery:
-	AlwaysVisible:
 	Interactable:
 	Tooltip:
 		Name: Ore Refinery
-
 barracks:
-	AlwaysVisible:
 	Interactable:
 	Tooltip:
 		Name: Infantry Production
-
 radar:
-	AlwaysVisible:
 	Interactable:
 	Tooltip:
 		Name: Radar
-
 repairpad:
-	AlwaysVisible:
 	Interactable:
 	Tooltip:
 		Name: Service Depot

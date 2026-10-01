@@ -6,7 +6,6 @@ General:
 	EditorTemplateOrder: Lat Grass, Blank, ZMM Ramps, Obsolete Height Pieces, Ramps, Cliff Set, Shore Pieces, LAT Grass, thick, GrassThick Idividual, DirtRoads Bendy, DirtRoads Junctions, DirtRoads Straight, Bridges, Paved Roads, Water, ZMM Cliff Set, DirtRoads Slopes, ZMM Dirt Road Slopes, Slope Set Pieces, ZSlope Set Pieces, New MM Height Pieces, LAT Grass Rough, GrassRough Individual, Farm Crops, Paved Road Ends, Pavement, Pavement Individual, Paved road bits, LAT Sand, Sand Individual, Ramp edge fixup, Ramp edge fixup - Marble Madness, LAT Pavement, Paved Road Slopes, Newest MM Height, Tunnel Floor, Tunnel Side, Destroyable Cliffs, ZMM Bendy Dirt Roads, ZMM Dirt Road Junctions, ZMM Straight Dirt Roads, ZMM Shore Pieces, ZMM Water, DirtTunnel Floor, Sand (beach), Sand (beach) Transitions, Water bridge, Wood Bridges # Cliff/Water pieces, Waterfalls, Waterfalls-B, Waterfalls-C, Waterfalls-D, Water Caves, ZMM Waterfalls, ZMM Waterfalls-B, ZMM Waterfalls-C, ZMM Waterfalls-D, ZMM Water Caves, ZMMCliff/Water pieces, RA2 rubble farm, RA2 rubble mobile, RA2 rubble mexican, RA2 uss arizona
 	SheetSize: 4096
 	EnableDepth: true
-
 Terrain:
 	TerrainType@Clear:
 		Type: Clear
@@ -63,7 +62,6 @@ Terrain:
 		AcceptsSmudgeType: SmallCrater, MediumCrater, LargeCrater, SmallScorch, MediumScorch, LargeScorch
 		Color: 8470FF
 		TargetTypes: Ground
-
 Templates:
 	Template@0:
 		Categories: Lat Grass

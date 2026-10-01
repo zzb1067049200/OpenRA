@@ -36,7 +36,6 @@ resources:
 	gem10: gem10
 	gem11: gem11
 	gem12: gem12
-	
 overlay:
 	Defaults: place
 		Offset: 0, -15
@@ -63,27 +62,23 @@ overlay:
 		Start: 2
 	target-valid-lunar:
 		Start: 2
-
 editor-overlay:
 	Defaults: place
 		Offset: 0, -15
 	copy:
 	paste:
 		Start: 1
-
 poweroff:
 	offline: poweroff
 		Length: *
 		Tick: 160
 		Offset: 0,-50
 		ZOffset: 2047
-
 allyrepair:
 	repair: wrench
 		Length: 7
 		Tick: 160
 		ZOffset: 2047
-
 rallypoint:
 	flag: mouse
 		Start: 269
@@ -94,7 +89,6 @@ rallypoint:
 		Start: 249
 		Length: 10
 		ZOffset: -2047
-
 beacon:
 	idle: pbeacon
 		Length: 20
@@ -106,7 +100,6 @@ beacon:
 	circles: pbeacon
 		Length: *
 		ZOffset: 2047
-
 crate-effects: #Temp Null Some SHPs cannot be read by openra at this time, expect more
 	Defaults: null
 		Length: *
@@ -120,7 +113,6 @@ crate-effects: #Temp Null Some SHPs cannot be read by openra at this time, expec
 	nuke: #mltimisl
 	levelup: veteran
 	speed: #speed
-
 crate:
 	idle:
 		Offset: 0, -12
@@ -134,26 +126,21 @@ crate:
 		ShadowStart: 1
 		Offset: 0, -12
 		UseTilesetExtension: true
-
 rank:
 	veteran: pips
 		Start: 14
 	elite: pips
 		Start: 15
-
 mpspawn:
 	idle:
 		Length: *
-
 waypoint:
 	idle:
 		Length: *
-
 clock:
 	idle:
 		Length: *
 		BlendMode: Multiply
-
 parach:
 	open:
 		Length: 19
@@ -163,12 +150,10 @@ parach:
 	close:
 		Start: 40
 		Length: 29
-
 cameo-chevron:
 	idle:
 		Length: *
 		BlendMode: Additive
-
 pips:
 	medic:
 		Start: 6
@@ -205,7 +190,6 @@ pips:
 		Length: *
 		Tick: 300
 		Offset: 6, -2
-
 explosion:
 	Defaults:
 		Length: *
@@ -295,73 +279,57 @@ explosion:
 		Tick: 50
 	small_barrel_explosion: brrlexp1
 	large_barrel_explosion: brrlexp2
-
 discus:
 	idle:
 		Length: *
-
 zbomb:
 	idle:
 		Facings: 32
-
 dragon:
 	idle:
 		Facings: 32
-
 smokey2:
 	idle:
 		Length: *
-
 120mm:
 	idle:
-
 bbblelrg:
 	idle:
 		Length: *
-
 missile:
 	idle:
 		Facings: 32
-
 largesmoke:
 	idle: lgrysmk1
 		Length: *
-
 smallsmoke:
 	idle: sgrysmk1
 		Length: *
-
 largefire:
 	idle: fire01
 		Length: *
-
 mediumfire:
 	idle: fire02
 		Length: *
-
 smallfire:
 	idle: fire03
 		Length: *
-
 litning:
 	bright:
 		Length: 4
 	dim:
 		Start: 4
 		Length: 4
-
 litningupg:
 	bright:
 		Length: 4
 	dim: litning
 		Start: 4
 		Length: 4
-
 moveflsh:
 	idle: ring
 		Length: *
 		Tick: 30
-
 wake:
 	idle: conquer|wake1
 		Length: *
@@ -369,13 +337,11 @@ wake:
 		ZOffset: -512
 		ZRamp: 1
 		Offset: 0, 0, 1
-
 shroud:
 	shroud:
 		Length: *
 	fog: fog
 		Length: *
-
 smallscorches:
 	Defaults:
 		UseTilesetExtension: true
@@ -386,7 +352,6 @@ smallscorches:
 	sc4: burnt04
 	sc5: burnt05
 	sc6: burnt06
-
 mediumscorches:
 	Defaults:
 		UseTilesetExtension: true
@@ -395,14 +360,12 @@ mediumscorches:
 	sc8: burnt08
 	sc9: burnt09
 	sc10: burnt10
-
 largescorches:
 	Defaults:
 		UseTilesetExtension: true
 		Offset: 0, -30
 	sc11: burnt11
 	sc12: burnt12
-
 smallcraters:
 	Defaults:
 		UseTilesetExtension: true
@@ -413,7 +376,6 @@ smallcraters:
 	cr4: crater04
 	cr5: crater05
 	cr6: crater06
-
 mediumcraters:
 	Defaults:
 		UseTilesetExtension: true
@@ -422,14 +384,12 @@ mediumcraters:
 	cr8: crater08
 	cr9: crater09
 	cr10: crater10
-
 largecraters:
 	Defaults:
 		UseTilesetExtension: true
 		Offset: 0, -30
 	cr11: crater11
 	cr12: crater12
-
 icon:
 	gps: asaticon
 	invuln: ircricon
@@ -443,80 +403,66 @@ icon:
 	lightningstorm: bolticon
 	forceshield: forcicon
 	spyp: spypicon
-
 atomic:
 	up: nkmslup
 	down: nkmsldn
-
 bombcurs:
 	idle:
 		Length: *
 		Tick: 300
-
 trock01:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 trock02:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 trock03:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 trock04:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 trock05:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 srock01:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 srock02:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 srock03:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 srock04:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 srock05:
 	idle:
 		ShadowStart: 1
 		Offset: 0, -15
 		UseTilesetExtension: true
-
 camera:
 	idle:
 		Length: *
-
 flameguy:
 	Defaults:
 		Facings: 8
@@ -529,18 +475,15 @@ flameguy:
 		Start: 44
 		Facings: 1
 		Length: 104
-        
 viruscloud:
 	idle: txgasg
 		Length: *
 		Tick: 200
 		ZOffset: 4096
 	die: txgasg
-    
 smokey2:
 	idle:
 		Length: *
-        
 chrono:
 	warpin: warpin
 		Length: *

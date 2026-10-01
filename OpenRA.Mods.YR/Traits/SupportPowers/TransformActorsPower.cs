@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Modded by Cook Green of YR Mod.
  * Modded from SpawnActorPower.cs but change a lot
@@ -22,7 +22,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits.SupportPowers
 {
     public class TransformActorsPowerInfo : SupportPowerWithNotifyInfo
@@ -31,14 +33,11 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
         public readonly string Actor = null;
         [Desc("Effect Range")]
         public readonly int Range = 10;
-
         public readonly string EffectImage = null;
         [SequenceReference("EffectImage")]
         public readonly string EffectSequence = "idle";
-
         [PaletteReference]
         public readonly string EffectPalette = "player";
-
         [Desc("Some actor you didn't want to transform")]
         public readonly string ExcludeActor = "brute,jumpjet";
         public override object Create(ActorInitializer init)
@@ -65,21 +64,17 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                 excludeActors = info.ExcludeActor.Split(',');
             }
         }
-
         public override void Activate(Actor self, Order order, SupportPowerManager manager)
         {
             base.Activate(self, order, manager);
-
             if (info.Actor != null)
             {
                 self.World.AddFrameEndTask(w =>
                 {
                     dics = new List<TypeDictionary>();
                     var location = order.Target.CenterPosition;
-
                     PlayLaunchSounds();
                     //Game.Sound.Play(SoundType.World, info.DeploySound, location);
-
                     var victimActors = w.FindActorsInCircle(location, WDist.FromCells(10));
                     if (victimActors != null)
                     {
@@ -109,7 +104,7 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                                     new CenterPositionInit(victimPos),
                                     new LocationInit(pos),
                                     new OwnerInit(self.Owner),
-                                    new FacingInit(128)
+                                    new FacingInit(WAngle.FromFacing(128))
                                 });
                                 victimActor.Kill(self);
                             }
@@ -119,7 +114,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                 });
             }
         }
-
         public void Tick(Actor self)
         {
             if (delay >= 0)

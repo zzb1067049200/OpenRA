@@ -1,6 +1,5 @@
 ^BaseWorld:
 	Inherits: ^Palettes
-	AlwaysVisible:
 	MusicPlaylist:
 		VictoryMusic: score
 		DefeatMusic: score
@@ -179,32 +178,16 @@
 		InternalName: yuri
 		Side: Yuris
 		Description: Yuri\nSpecial Vehicle: Mind Control Technology
-	ResourceType@Ore:
-		ResourceType: 1
-		Palette: resource
-		Sequences: tib01, tib02, tib03, tib04, tib05, tib06, tib07, tib08, tib09, tib10, tib11, tib12, tib13, tib14, tib15, tib16, tib17, tib18, tib19, tib20
-		MaxDensity: 12
-		ValuePerUnit: 25
-		Type: Ore
-		Name: Valuable Minerals
-		PipColor: Yellow
-		AllowedTerrainTypes: Clear, Rough, Road
-		AllowUnderActors: false
-		TerrainType: Ore
-	ResourceType@Gems:
-		ResourceType: 2
-		Palette: resource
-		Sequences: gem01, gem02, gem03, gem04, gem05, gem06, gem07, gem08, gem09, gem10, gem11, gem12
-		MaxDensity: 12
-		ValuePerUnit: 50
-		Type: Gems
-		Name: Valuable Minerals
-		PipColor: Red
-		AllowedTerrainTypes: Clear, Rough, Road
-		AllowUnderActors: false
-		TerrainType: Gems
 	ResourceRenderer:
-        RenderTypes: Ore, Gems
+		ResourceTypes:
+			Ore:
+				Sequences: tib01, tib02, tib03, tib04, tib05, tib06, tib07, tib08, tib09, tib10, tib11, tib12, tib13, tib14, tib15, tib16, tib17, tib18, tib19, tib20
+				Palette: resource
+				Name: Valuable Minerals
+			Gems:
+				Sequences: gem01, gem02, gem03, gem04, gem05, gem06, gem07, gem08, gem09, gem10, gem11, gem12
+				Palette: resource
+				Name: Valuable Minerals
 	TerrainRenderer:
 
 World:
@@ -216,9 +199,21 @@ World:
 	HelpCommand:
 	ScreenShaker:
 	BuildingInfluence:
+	ResourceLayer:
+		RecalculateResourceDensity: true
+		ResourceTypes:
+			Ore:
+				ResourceIndex: 1
+				TerrainType: Ore
+				AllowedTerrainTypes: Clear, Rough, Road
+				MaxDensity: 12
+			Gems:
+				ResourceIndex: 2
+				TerrainType: Gems
+				AllowedTerrainTypes: Clear, Rough, Road
+				MaxDensity: 12
 	ProductionQueueFromSelection:
 		ProductionPaletteWidget: PRODUCTION_PALETTE
-	DomainIndex:
 	SmudgeLayer@smallscorch:
 		Type: SmallScorch
 		Sequence: smallscorches
@@ -258,13 +253,13 @@ World:
 		ShortGameCheckboxDisplayOrder: 2
 		TechLevelDropdownDisplayOrder: 3
 		GameSpeedDropdownDisplayOrder: 4
-	CreateMPPlayers:
-	MPStartUnits@amcv:
+	CreateMapPlayers:
+	StartingUnits@amcv:
 		Class: none
 		ClassName: MCV Only
 		Factions: allies, america, germany, england, france, korea
 		BaseActor: amcv
-	MPStartUnits@lightallies:
+	StartingUnits@lightallies:
 		Class: light
 		ClassName: Light Support
 		Factions: allies, america, germany, england, france, korea
@@ -272,7 +267,7 @@ World:
 		SupportActors: dog,e1,e1
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@mediumallies:
+	StartingUnits@mediumallies:
 		Class: medium
 		ClassName: Medium Support
 		Factions: allies, america, germany, england, france, korea
@@ -280,7 +275,7 @@ World:
 		SupportActors: dog,e1,e1,e1,mtnk,engineer
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@heavyallies:
+	StartingUnits@heavyallies:
 		Class: heavy
 		ClassName: Heavy Support
 		Factions: allies, america, germany, england, france, korea
@@ -288,12 +283,12 @@ World:
 		SupportActors: dog,e1,e1,e1,e1,mtnk,mtnk,fv,engineer
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@smcv:
+	StartingUnits@smcv:
 		Class: none
 		ClassName: MCV Only
 		Factions: soviets, cuba, libya, iraq, russia
 		BaseActor: smcv
-	MPStartUnits@lightsoviets:
+	StartingUnits@lightsoviets:
 		Class: light
 		ClassName: Light Support
 		Factions: soviets, cuba, libya, iraq, russia
@@ -301,7 +296,7 @@ World:
 		SupportActors: dog,e2,e2,e2
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@mediumsoviets:
+	StartingUnits@mediumsoviets:
 		Class: medium
 		ClassName: Medium Support
 		Factions: soviets, cuba, libya, iraq, russia
@@ -309,7 +304,7 @@ World:
 		SupportActors: dog,e2,e2,e2,e2,htnk,engineer
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@heavysoviets:
+	StartingUnits@heavysoviets:
 		Class: heavy
 		ClassName: Heavy Support
 		Factions: soviets, cuba, libya, iraq, russia
@@ -317,12 +312,12 @@ World:
 		SupportActors: dog,e2,e2,e2,e2,e2,htnk,htnk,htk,engineer
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@pcv:
+	StartingUnits@pcv:
 		Class: none
 		ClassName: MCV Only
 		Factions: yuris, yuri
 		BaseActor: pcv
-	MPStartUnits@lightyuris:
+	StartingUnits@lightyuris:
 		Class: light
 		ClassName: Light Support
 		Factions: yuris, yuri
@@ -330,7 +325,7 @@ World:
 		SupportActors: brute,init,init,init
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@mediumyuris:
+	StartingUnits@mediumyuris:
 		Class: medium
 		ClassName: Medium Support
 		Factions: yuris, yuri
@@ -338,7 +333,7 @@ World:
 		SupportActors: brute,init,init,init,init,htnk,engineer
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	MPStartUnits@heavyyuris:
+	StartingUnits@heavyyuris:
 		Class: heavy
 		ClassName: Heavy Support
 		Factions: yuri
@@ -353,9 +348,9 @@ World:
 		WaterChance: 25
 		InitialSpawnDelay: 1000
 		CheckboxDisplayOrder: 1
-	MPStartLocations:
+	MapStartingLocations:
 		SeparateTeamSpawnsCheckboxDisplayOrder: 6
-	SpawnMPUnits:
+	SpawnStartingUnits:
 		DropdownDisplayOrder: 2
 	PathFinder:
 	ValidateOrder:
@@ -382,9 +377,20 @@ EditorWorld:
 	Inherits: ^BaseWorld
 	EditorActorLayer:
 	EditorResourceLayer:
-	EditorSelectionLayer:
-		Palette: pips
+		RecalculateResourceDensity: true
+		ResourceTypes:
+			Ore:
+				ResourceIndex: 1
+				TerrainType: Ore
+				AllowedTerrainTypes: Clear, Rough, Road
+				MaxDensity: 12
+			Gems:
+				ResourceIndex: 2
+				TerrainType: Gems
+				AllowedTerrainTypes: Clear, Rough, Road
+				MaxDensity: 12
 	LoadWidgetAtGameStart:
 	Selection:
 	EditorCursorLayer:
 	EditorActionManager:
+	MarkerLayerOverlay:

@@ -32,7 +32,7 @@ lcrf:
 		UnloadTerrainTypes: Clear, Rough, Rail, Road, DirtRoad, Beach, Ore, Gems
 		UnloadVoice: Move
 		LoadingCondition: notmobile
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:
@@ -41,7 +41,6 @@ lcrf:
 		VoiceSet: HoverAlliedVoice
 	HitShape:
 	Hovers:
-
 dest:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -91,7 +90,7 @@ dest:
 		CloakTypes: Underwater
 		Range: 4c0
 	RenderDetectionCircle:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	RenderSprites:
@@ -109,7 +108,6 @@ dest:
 		Sequence: empty
 		RequiresCondition: !loaded
 	WithMuzzleOverlay:
-
 aegis:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -141,7 +139,7 @@ aegis:
 	AttackFrontal:
 		Voice: Attack
 	AutoTarget:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:
@@ -149,7 +147,6 @@ aegis:
 	Voiced:
 		VoiceSet: AegisVoice
 	HitShape:
-
 dlph:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
@@ -228,7 +225,6 @@ dlph:
 		Voice: Attack
 		RepairActors: gayard, nayard
 	HitShape:
-	
 carrier:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -261,7 +257,7 @@ carrier:
 	AttackTurreted:
 		Voice: Attack
 	AutoTarget:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:

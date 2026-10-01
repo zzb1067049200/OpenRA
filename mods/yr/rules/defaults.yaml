@@ -6,7 +6,6 @@
 	GivesExperience:
 		PlayerExperienceModifier: 1
 	ScriptTriggers:
-	ConditionManager:
 	Huntable:
 
 ^SpriteActor:
@@ -204,7 +203,7 @@
 	ReloadDelayMultiplier@ELITE:
 		RequiresCondition: rank-elite
 		Modifier: 75
-	SelfHealing@ELITE:
+	ChangesHealth@ELITE:
 		Step: 2
 		Delay: 100
 		HealIfBelow: 100
@@ -228,7 +227,7 @@
 		ReferencePoint: Bottom, Right
 		RequiresCondition: rank-elite
 		ZOffset: 256
-        
+
 ^AffectedByIndustrialPlant:
 	ProductionCostMultiplier@INDUSTRAL_PLANT:
 		Multiplier: 75
@@ -285,14 +284,14 @@
 		Condition: chaosgasability
 	Berserkable:
 		RequiresCondition: chaosgasability
-		
+
 ^Diskdrainshutdownpowerable:
 	ExternalCondition@diskdrainability:
 		Condition: diskdrainability
 	ShutdownPower:
 		Duration: 10
 		RequiresCondition: diskdrainability
-		
+
 ^Diskdraintransfercashable:
 	ExternalCondition@diskdrainability:
 		Condition: diskdrainability
@@ -306,7 +305,7 @@
 	Targetable@REFIMERY:
 		TargetTypes: refinery
 		RequiresCondition: normalcash
-	
+
 ^Tractable:
 	Tractable:
 		TractingCondition: tracting
@@ -322,7 +321,7 @@
 		Offset: 43, 128, 0
 		ZOffset: -129
 		RequiresCondition: tracting
-		
+
 ^Markerable:
 	WithColoredOverlay@marker:
 		Palette: marker
@@ -380,7 +379,7 @@
 	AttackMove:
 		AssaultMoveCondition: assault-move
 		Voice: Attack
-		
+
 ^AutoTargetRobotTankGroundAssaultMove:
 	AutoTarget:
 		AttackAnythingCondition: stance-attackanything && robotcenter
@@ -452,13 +451,13 @@
 		DamagedSounds: gdamag1a.wav, gdamag1b.wav, gdamag1c.wav, gdamag1d.wav, gdamag1e.wav
 		DestroyedSounds: bgendiea.wav, bgendieb.wav, bgendiec.wav, bgendied.wav, bgendiee.wav, bgendief.wav
 	WithSpriteBody:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: Footprint
 		Weapon: UnitExplodeSmall
 		Sequences: building, large_bang, large_brnl, verylarge_clsn, large_tumu
 	RepairableBuilding:
 		IndicatorPalette: mouse
-	EngineerRepairable:
+	InstantlyRepairable:
 		Voice: Attack
 	SpawnActorsOnSell@allies:
 		ActorTypes: e1, e1, e1
@@ -525,7 +524,7 @@
 		Name: Civilian Building
 	MapEditorData:
 		Categories: Civilian building
-		
+
 ^GarrisonableBuilding:
 	Inherits: ^CivBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -622,7 +621,6 @@
 	FrozenUnderFog:
 	-CombatDebugOverlay:
 	-DrawLineToTarget:
-	-ConditionManager:
 	Building:
 		Dimensions: 1,1
 		Footprint: x
@@ -790,7 +788,7 @@
 		ClosingSequence: close
 	ExternalCondition@PARACHUTE:
 		Condition: parachute
-		
+
 ^WithSwimSuit:
 	WithInfantryBody:
 		RequiresCondition: !swimming
@@ -834,6 +832,7 @@
 		PlayerExperience: 2
 		Voice: Move
 	Tooltip:
+		Name: Civilian
 		GenericName: Civilian
 	Health:
 		HP: 50
@@ -947,7 +946,7 @@
 		QuantizedFacings: 0
 		CameraPitch: 85
 		UseClassicPerspectiveFudge: false
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	RenderVoxels:
@@ -976,6 +975,7 @@
 	OwnerLostAction:
 		Action: ChangeOwner
 	Tooltip:
+		Name: Civilian Vehicle
 		GenericName: Civilian Vehicle
 	Valued:
 		Cost: 800
@@ -1042,13 +1042,6 @@
 	Inherits@1: ^NeutralAircraft
 	Inherits@2: ^GainsExperience
 	WithTextControlGroupDecoration:
-	ChronoshiftableWithSpriteEffect:
-		Image: chrono
-		WarpInSequence: warpin
-		WarpOutSequence: warpout
-		ChronoshiftSound: schrmov.wav
-		ReturnToOrigin: false
-		RequiresCondition: !airborne
 
 ^Plane:
 	Inherits@1: ^Aircraft
@@ -1078,6 +1071,7 @@
 		Type: CenterPosition
 	ScriptTriggers:
 	Tooltip:
+		Name: Destroyed Aircraft
 		GenericName: Destroyed Aircraft
 	Health:
 		HP: 1
@@ -1140,8 +1134,9 @@
 		CameraPitch: 85
 		UseClassicPerspectiveFudge: false
 	Tooltip:
+		Name: Ship
 		GenericName: Ship
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	RenderVoxels:
@@ -1162,7 +1157,7 @@
 		ReturnToOrigin: false
 	MapEditorData:
 		Categories: Naval
-        
+
 ^OreDrill:
 	Inherits@1: ^SpriteActor
 	Tooltip:
@@ -1288,7 +1283,7 @@
 	MapEditorData:
 		Categories: System
 	Interactable:
-	
+
 ^ShootableMissile:
 	Inherits@1: ^ExistsInWorld
 	Inherits@4: ^SpriteActor
@@ -1305,13 +1300,14 @@
 	HiddenUnderFog:
 		Type: GroundPosition
 	Tooltip:
+		Name: Missile
 		GenericName: Missile
 	WithShadow:
 		Offset: 43, 128, 0
 		ZOffset: -129
 	WithFacingSpriteBody:
 	HitShape:
-	
+
 ^ShootableMissileVoxel:
 	Inherits@1: ^ExistsInWorld
 	ShootableBallisticMissile:
@@ -1327,6 +1323,7 @@
 	HiddenUnderFog:
 		Type: GroundPosition
 	Tooltip:
+		Name: Missile
 		GenericName: Missile
 	WithShadow:
 		Offset: 43, 128, 0

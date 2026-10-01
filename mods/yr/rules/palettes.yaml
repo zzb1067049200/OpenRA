@@ -32,7 +32,6 @@
 	PlayerColorPalette:
 		BasePalette: player
 		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
-	PlayerHighlightPalette:
 	PaletteFromFile@playertem:
 		Name: player
 		Tileset: TEMPERATE
@@ -206,12 +205,12 @@
 	VoxelNormalsPalette@ts-normals:
 		Name: ts-normals
 		Type: TiberianSun
-	MenuPaletteEffect:
+	MenuPostProcessEffect:
 	PaletteFromPaletteWithAlpha@effect75alpha:
 		Name: effect75alpha
 		BasePalette: ra
 		Alpha: 0.75
-	FlashPaletteEffect@NUKE:
+	FlashPostProcessEffect@NUKE:
 		Type: Nuke
 		Length: 90
 	EnvironmentPaletteEffect@DOMINATOR:

@@ -19,7 +19,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Widgets.Logic
 {
     public class IngamePowerLogic : ChromeLogic
@@ -28,8 +33,6 @@ namespace OpenRA.Mods.YR.Widgets.Logic
         public IngamePowerLogic(Widget widget, World world)
         {
             var powerManager = world.LocalPlayer.PlayerActor.Trait<PowerManager>();
-
-
             //var powerBar = widget.Get<PowerBarWidge>("POWERBAR");
 			//
             //powerBar.GetProvided = () => powerManager.PowerProvided;

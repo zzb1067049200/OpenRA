@@ -1,12 +1,12 @@
 pcv:
 	icon: ypcvicon
-    
+
 smin:
 	icon: sminicon
-    
+
 ltnk:
 	icon: ltnkicon
-    
+
 ytnk:
 	muzzle0: mgun-n
 		Length: *
@@ -39,10 +39,10 @@ ytnk:
 		Length: *
 		UseTilesetCode: false
 	icon: ytnkicon
-    
+
 tele:
 	icon: teleicon
-    
+
 caos:
 	muzzle: cdgas
 		Length: *
@@ -52,7 +52,7 @@ mind:
 	muzzle: yuricntl
 		Length: *
 	icon: mindicon
-    
+
 disk:
 	muzzle: diskray
 		Length: 4
@@ -61,6 +61,6 @@ disk:
 
 yhvr:
 	icon: yhvricon
-    
+
 bsub:
 	icon: bsubicon

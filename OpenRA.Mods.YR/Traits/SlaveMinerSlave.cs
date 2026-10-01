@@ -14,18 +14,20 @@
  * information, see COPYING.
  */
 #endregion
-
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
-
 /*
 Works without base engine modification...
 But the docking procedure may need to change to fit your needs.
 In OP Mod, docking changed for Harvester.cs and related files to that
 these slaves can "dock" to any adjacent cells near the master.
 */
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public enum SlaveState
@@ -37,7 +39,6 @@ namespace OpenRA.Mods.YR.Traits
 	{
         [Desc("What will happen when master was killed?")]
         public readonly SlaveState OnMasterKilled = SlaveState.Idle;
-
         [Desc("What will happen when master is changed owner?")]
         public readonly SlaveState OnMasterOwnerChanged = SlaveState.Idle;
 		public override object Create(ActorInitializer init)
@@ -45,16 +46,13 @@ namespace OpenRA.Mods.YR.Traits
 			return new SlaveMinerSlave(init, this);
 		}
 	}
-
 	class SlaveMinerSlave : BaseSpawnerSlave, ITick
 	{
 		SlaveMinerHarvester spawnerHarvesterMaster;
         SlaveMinerSlaveInfo info;
-
 		public SlaveMinerSlave(ActorInitializer init, SlaveMinerSlaveInfo info) : base(init, info) {
             this.info = info;
         }
-
 		public override void LinkMaster(Actor self, Actor master, BaseSpawnerMaster spawnerMaster)
 		{
             base.LinkMaster(self, master, spawnerMaster);
@@ -67,7 +65,6 @@ namespace OpenRA.Mods.YR.Traits
             {
             }
 		}
-
         public override void OnMasterKilled(Actor self, Actor attacker, SpawnerSlaveDisposal disposal)
         {
             switch(info.OnMasterKilled)
@@ -77,7 +74,6 @@ namespace OpenRA.Mods.YR.Traits
                     break;
             }
         }
-
         public override void OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
         {
             switch(info.OnMasterOwnerChanged)
@@ -87,7 +83,6 @@ namespace OpenRA.Mods.YR.Traits
                     break;
             }
         }
-
         public void Tick(Actor self)
 		{
             // Compensate for bug #13879 (upstream).
@@ -101,11 +96,9 @@ namespace OpenRA.Mods.YR.Traits
                 /*&& self.CurrentActivity is WaitFor*/)
 			{
 				self.CancelActivity();
-
 				/// No need to run this here, since it already happened.
 				/// This slave is just bugged out by Follow activity not canceling properly.
 				/// AssignTargetForSpawned(s, self.Location);
-
 				self.QueueActivity(new FindAndDeliverResources(self));
 			}
 		}

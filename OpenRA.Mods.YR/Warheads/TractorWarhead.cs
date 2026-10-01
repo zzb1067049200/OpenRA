@@ -11,13 +11,17 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Collections.Generic;
 using OpenRA.Traits;
 using OpenRA.Mods.YR.Traits;
 using OpenRA.Mods.Common;
+using OpenRA.GameRules;
 using OpenRA.Mods.Common.Warheads;
-
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Warheads
 {
 	[Desc("Can this warhead lift the actor that has Tractable trait and move it next to self by force?")]
@@ -25,8 +29,7 @@ namespace OpenRA.Mods.YR.Warheads
 	{
 		[Desc("Let his be -1, 0, 1, or anything else to modify the traction speed.")]
 		public readonly int CruiseSpeedMultiplier = 1;
-
-		public override void DoImpact(WPos pos, Actor firedBy, IEnumerable<int> damageModifiers)
+		protected override void DoImpact(WPos pos, Actor firedBy, WarheadArgs args)
         {
             var victims = firedBy.World.FindActorsOnCircle(pos, WDist.FromCells(1));
             foreach (var victim in victims)
@@ -34,7 +37,6 @@ namespace OpenRA.Mods.YR.Warheads
                 var targetTractable = victim.TraitOrDefault<Tractable>();
                 if (targetTractable == null)
                     return;
-
                 targetTractable.Tract(victim, firedBy, CruiseSpeedMultiplier);
             }
         }

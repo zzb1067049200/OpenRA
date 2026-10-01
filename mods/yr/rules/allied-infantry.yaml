@@ -24,7 +24,7 @@ engineer:
 		Speed: 56
 	Passenger:
 		PipType: Blue
-	EngineerRepair:
+	InstantlyRepairs:
 	RepairsBridges:
 		RepairNotification: BridgeRepaired
 	Captures:
@@ -43,7 +43,6 @@ engineer:
 	WithInfantryBody:
 		DefaultAttackSequence: stand
 	CaptureManager:
-
 dog:
 	Inherits: ^Infantry
 	Buildable:
@@ -74,7 +73,7 @@ dog:
 	-SpeedMultiplier@ELITE:
 	-ReloadDelayMultiplier@VETERAN:
 	-ReloadDelayMultiplier@ELITE:
-	-SelfHealing@ELITE:
+	-ChangesHealth@ELITE:
 	-InaccuracyMultiplier@ELITE:
 	-WithDecoration@VETERAN:
 	-WithDecoration@ELITE:
@@ -117,7 +116,6 @@ dog:
 			ElectroDeath: 2
 	-WithDeathAnimation@effect:
 	-SpawnActorOnDeath@flames:
-
 e1:
 	Inherits@1: ^Infantry
 	Inherits@2: ^Parachutable
@@ -221,7 +219,6 @@ e1:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: nabnkr, bfrt, garrisonable-building
-
 ggi:
 	Inherits@1: ^Infantry
 	Inherits@2: ^Parachutable
@@ -329,7 +326,6 @@ ggi:
 		GrantBunkerCondition: bunkered
 		Accepter: nabnkr, bfrt, garrisonable-building
 		Armaments: deployed
-
 snipe:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -380,7 +376,6 @@ snipe:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-
 spy:
 	Inherits: ^Infantry
 	Buildable:
@@ -433,7 +428,6 @@ spy:
 	QuantizeFacingsFromSequence:
 		Sequence: stand
 	-BunkerPassenger:
-
 ghost:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -500,7 +494,6 @@ ghost:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-
 ccomand:
 	Inherits: ghost
 	Inherits@CHAOSGAS: ^Chaosgasable
@@ -545,7 +538,6 @@ ccomand:
 	RenderSprites:
 		Image: ccomand
 	-Crushable:
-
 ptroop:
 	Inherits: ccomand
 	Inherits@CHAOSGAS: ^Chaosgasable
@@ -587,7 +579,6 @@ ptroop:
 		VoiceSet: YuriVoice
 	RenderSprites:
 		Image: ptroop
-	
 tany:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -647,7 +638,6 @@ tany:
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 	-TakeCover: # TODO: allow multiple sequence modifiers
-
 jumpjet:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -670,6 +660,8 @@ jumpjet:
 	-TimedConditionBar@ChronoDisable:
 	-ExternalCondition@CHRONODISABLE:
 	-Mobile:
+	# 2026 引擎要求 Chronoshiftable 必须有 Mobile/Husk；jumpjet 是飞行单位。
+	-ChronoshiftableWithSpriteEffect:
 	RevealsShroud:
 		Range: 8c0
 		Type: CenterPosition
@@ -732,7 +724,6 @@ jumpjet:
 		Voice: Move
 	Rearmable:
 		RearmActors:
-
 jumpjet.husk:
 	Inherits: ^HelicopterHusk
 	Inherits@1: ^SpriteActor
@@ -749,7 +740,6 @@ jumpjet.husk:
 		Range: 8c0
 		Type: CenterPosition
 	WithShadow:
-
 cleg:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable

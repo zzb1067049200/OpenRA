@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,14 +21,15 @@ using OpenRA.Traits;
 using Size = OpenRA.Primitives.Size;
 using Rectangle = OpenRA.Primitives.Rectangle;
 using OpenRA.Mods.Cnc.FileFormats;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.Cnc.UtilityCommands
 {
 	class ImportRA2MapCommand : IUtilityCommand
 	{
 		string IUtilityCommand.Name { get { return "--import-ra2-map"; } }
 		bool IUtilityCommand.ValidateArguments(string[] args) { return args.Length >= 2; }
-
 		static readonly Dictionary<byte, string> OverlayToActor = new Dictionary<byte, string>()
 		{
 			{ 0x00, "gasand" },
@@ -74,7 +74,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0x47, "palet02" },
 			{ 0x48, "palet03" },
 			{ 0x49, "palet04" },
-
 			// Wooden Bridges
 			{ 0x4A, "lobrdg_b" }, // lobrdg01
 			{ 0x4B, "lobrdg_b" }, // lobrdg02
@@ -104,13 +103,11 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0x63, "lobrdg_r_sw" }, // lobrdg26
 			{ 0x64, "lobrdg_b_d" }, // lobrdg27
 			{ 0x65, "lobrdg_a_d" }, // lobrdg28
-
 			// Wooden Ramps
 			{ 0x7A, "lobrdg_r_se" }, // lobrdg1
 			{ 0x7B, "lobrdg_r_nw" }, // lobrdg2
 			{ 0x7C, "lobrdg_r_ne" }, // lobrdg3
 			{ 0x7D, "lobrdg_r_sw" }, // lobrdg4
-
 			// Other
 			{ 0xA7, "veinhole" },
 			{ 0xA8, "srock01" },
@@ -125,11 +122,9 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xB1, "trock05" },
 			{ 0xB2, null }, // veinholedummy
 			{ 0xB3, "crate" },
-
 			// Fences
 			{ 0xCB, "cafncb" }, // black fence
 			{ 0xCC, "cafncw" }, // white fence
-
 			// Concrete Bridges
 			{ 0xCD, "lobrdb_b" }, // lobrdb01
 			{ 0xCE, "lobrdb_b" }, // lobrdb02
@@ -159,20 +154,17 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xE6, "lobrdb_r_sw" }, // lobrdb26
 			{ 0xE7, "lobrdb_b_d" }, // lobrdb27
 			{ 0xE8, "lobrdb_a_d" }, // lobrdb28
-
 			// Concrete Ramps
 			{ 0xE9, "lobrdb_r_se" }, // lobrdb1
 			{ 0xEA, "lobrdb_r_nw" }, // lobrdb2
 			{ 0xEB, "lobrdb_r_ne" }, // lobrdb3
 			{ 0xEC, "lobrdb_r_sw" }, // lobrdb4
-
 			// Other
 			{ 0xF0, "cakrmw" }, // kremlin walls
 			{ 0xF1, "cafncp" }, // prison camp fence
 			{ 0xF2, "crate" }, // water crate
 			{ 0xF3, "yawall" } // citadel walls
 		};
-
 		static readonly Dictionary<byte, Size> OverlayShapes = new Dictionary<byte, Size>()
 		{
 			{ 0x4A, new Size(1, 3) },
@@ -240,7 +232,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xEB, new Size(3, 1) },
 			{ 0xEC, new Size(3, 1) },
 		};
-
 		static readonly Dictionary<byte, DamageState> OverlayToHealth = new Dictionary<byte, DamageState>()
 		{
 			// 1,3 wooden bridge tiles
@@ -253,7 +244,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0x50, DamageState.Heavy },
 			{ 0x51, DamageState.Critical },
 			{ 0x52, DamageState.Critical },
-
 			// 1,3 concrete bridge tiles
 			{ 0xCD, DamageState.Undamaged },
 			{ 0xCE, DamageState.Undamaged },
@@ -264,7 +254,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xD3, DamageState.Heavy },
 			{ 0xD4, DamageState.Critical },
 			{ 0xD5, DamageState.Critical },
-
 			// 3,1 wooden bridge tiles
 			{ 0x53, DamageState.Undamaged },
 			{ 0x54, DamageState.Undamaged },
@@ -275,7 +264,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0x59, DamageState.Heavy },
 			{ 0x5A, DamageState.Critical },
 			{ 0x5B, DamageState.Critical },
-
 			// 3,1 concrete bridge tiles
 			{ 0xD6, DamageState.Undamaged },
 			{ 0xD7, DamageState.Undamaged },
@@ -286,7 +274,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xDC, DamageState.Heavy },
 			{ 0xDD, DamageState.Critical },
 			{ 0xDE, DamageState.Critical },
-
 			// Wooden Ramps
 			{ 0x5C, DamageState.Undamaged },
 			{ 0x5D, DamageState.Heavy },
@@ -296,7 +283,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0x61, DamageState.Heavy },
 			{ 0x62, DamageState.Undamaged },
 			{ 0x63, DamageState.Heavy },
-
 			// Concrete Ramps
 			{ 0xDF, DamageState.Undamaged },
 			{ 0xE0, DamageState.Heavy },
@@ -306,28 +292,23 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ 0xE4, DamageState.Heavy },
 			{ 0xE5, DamageState.Undamaged },
 			{ 0xE6, DamageState.Heavy },
-
 			// Wooden ramp duplicates
 			{ 0x7A, DamageState.Undamaged },
 			{ 0x7B, DamageState.Undamaged },
 			{ 0x7C, DamageState.Undamaged },
 			{ 0x7D, DamageState.Undamaged },
-
 			// Concrete ramp duplicates
 			{ 0xE9, DamageState.Undamaged },
 			{ 0xEA, DamageState.Undamaged },
 			{ 0xEB, DamageState.Undamaged },
 			{ 0xEC, DamageState.Undamaged },
-
 			// Wooden dead bridge placeholders
 			{ 0x64, DamageState.Undamaged },
 			{ 0x65, DamageState.Undamaged },
-
 			// Concrete dead bridge placeholders
 			{ 0xE7, DamageState.Undamaged },
 			{ 0xE8, DamageState.Undamaged },
 		};
-
 		static readonly Dictionary<byte, byte[]> ResourceFromOverlay = new Dictionary<byte, byte[]>()
 		{
 			// "tib" - Regular Tiberium
@@ -336,30 +317,24 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				{
 					0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F,
 					0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79,
-
 					// Should be "tib2"
 					0x7F, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88,
 					0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92,
-
 					// Should be "tib3"
 					0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B, 0x9C,
 					0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6
 				}
 			},
-
 			// "btib" - Blue Tiberium
 			{ 0x02, new byte[] { 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26 } },
-
 			// Veins
 			{ 0x03, new byte[] { 0x7E } }
 		};
-
 		static readonly Dictionary<string, string> DeployableActors = new Dictionary<string, string>()
 		{
 			{ "gadpsa", "lpst" },
 			{ "gatick", "ttnk" }
 		};
-
 		static readonly Dictionary<string, string> ReplaceActors = new Dictionary<string, string>()
 		{
 			{ "amradr", "gaairc" },
@@ -367,13 +342,11 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{ "yengineer", "engineer" },
 			{ "adog", "dog" }
 		};
-
 		[Desc("FILENAME", "Convert a Red Alert 2 map to the OpenRA format.")]
 		public void Run(Utility utility, string[] args)
 		{
 			// HACK: The engine code assumes that Game.modData is set.
 			Game.ModData = utility.ModData;
-
 			var filename = args[1];
 			var file = new IniFile(File.Open(args[1], FileMode.Open));
 			var basic = file.GetSection("Basic");
@@ -382,7 +355,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			var iniSize = mapSection.GetValue("Size", "0, 0, 0, 0").Split(',').Select(int.Parse).ToArray();
 			var iniBounds = mapSection.GetValue("LocalSize", "0, 0, 0, 0").Split(',').Select(int.Parse).ToArray();
 			var size = new Size(iniSize[2], 2 * iniSize[3]);
-
 			var map = new Map(Game.ModData, utility.ModData.DefaultTileSets[tileset], size.Width, size.Height)
 			{
 				Title = basic.GetValue("Name", Path.GetFileNameWithoutExtension(filename)),
@@ -390,7 +362,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				Bounds = new Rectangle(iniBounds[0], iniBounds[1], iniBounds[2], 2 * iniBounds[3] + 2 * iniBounds[1]),
 				RequiresMod = utility.ModData.Manifest.Id
 			};
-
 			var fullSize = new int2(iniSize[2], iniSize[3]);
 			ReadTiles(map, file, fullSize);
 			ReadActors(map, file, "Structures", fullSize);
@@ -400,21 +371,17 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			ReadWaypoints(map, file, fullSize);
 			ReadOverlay(map, file, fullSize);
 			ReadLighting(map, file);
-
 			var spawnCount = map.ActorDefinitions.Count(n => n.Value.Value == "mpspawn");
 			var mapPlayers = new MapPlayers(map.Rules, spawnCount);
 			map.PlayerDefinitions = mapPlayers.ToMiniYaml();
-
 			var dest = Path.GetFileNameWithoutExtension(args[1]) + ".oramap";
 			map.Save(ZipFileLoader.Create(dest));
 			Console.WriteLine(dest + " saved.");
 		}
-
 		static void UnpackLZO(byte[] src, byte[] dest)
 		{
 			var srcOffset = 0U;
 			var destOffset = 0U;
-
 			while (destOffset < dest.Length && srcOffset < src.Length)
 			{
 				var srcLength = BitConverter.ToUInt16(src, (int)srcOffset);
@@ -425,12 +392,10 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				destOffset += destLength;
 			}
 		}
-
 		static void UnpackLCW(byte[] src, byte[] dest, byte[] temp)
 		{
 			var srcOffset = 0;
 			var destOffset = 0;
-
 			while (destOffset < dest.Length)
 			{
 				var srcLength = BitConverter.ToUInt16(src, srcOffset);
@@ -442,18 +407,15 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				destOffset += destLength;
 			}
 		}
-
 		static void ReadTiles(Map map, IniFile file, int2 fullSize)
 		{
 			var tileset = Game.ModData.DefaultTileSets[map.Tileset];
 			var mapSection = file.GetSection("IsoMapPack5");
-
 			var data = Convert.FromBase64String(string.Concat(mapSection.Select(kvp => kvp.Value)));
 			int cells = (fullSize.X * 2 - 1) * fullSize.Y;
 			int lzoPackSize = cells * 11 + 4; // last 4 bytes contains a lzo pack header saying no more data is left
 			var isoMapPack = new byte[lzoPackSize];
 			UnpackLZO(data, isoMapPack);
-
 			var mf = new MemoryStream(isoMapPack);
 			for (var i = 0; i < cells; i++)
 			{
@@ -464,23 +426,19 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				var subtile = mf.ReadUInt8();
 				var z = mf.ReadUInt8();
 				/*var zero2 = */mf.ReadUInt8();
-
 				int dx = rx - ry + fullSize.X - 1;
 				int dy = rx + ry - fullSize.X - 1;
 				var mapCell = new MPos(dx / 2, dy);
 				var cell = mapCell.ToCPos(map);
-
 				if (map.Tiles.Contains(cell))
 				{
 					if (!tileset.Templates.ContainsKey(tilenum))
 						tilenum = subtile = 0;
-
 					map.Tiles[cell] = new TerrainTile(tilenum, subtile);
 					map.Height[cell] = z;
 				}
 			}
 		}
-
 		static void ReadOverlay(Map map, IniFile file, int2 fullSize)
 		{
 			var overlaySection = file.GetSection("OverlayPack");
@@ -488,45 +446,36 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			var overlayPack = new byte[1 << 18];
 			var temp = new byte[1 << 18];
 			UnpackLCW(overlayCompressed, overlayPack, temp);
-
 			var overlayDataSection = file.GetSection("OverlayDataPack");
 			var overlayDataCompressed = Convert.FromBase64String(string.Concat(overlayDataSection.Select(kvp => kvp.Value)));
 			var overlayDataPack = new byte[1 << 18];
 			UnpackLCW(overlayDataCompressed, overlayDataPack, temp);
-
 			var overlayIndex = new CellLayer<int>(map);
 			overlayIndex.Clear(0xFF);
-
 			for (var y = 0; y < fullSize.Y; y++)
 			{
 				for (var x = fullSize.X * 2 - 2; x >= 0; x--)
 				{
 					var dx = (ushort)x;
 					var dy = (ushort)(y * 2 + x % 2);
-
 					var uv = new MPos(dx / 2, dy);
 					var rx = (ushort)((dx + dy) / 2 + 1);
 					var ry = (ushort)(dy - rx + fullSize.X + 1);
-
 					if (!map.Resources.Contains(uv))
 						continue;
-
 					overlayIndex[uv] = rx + 512 * ry;
 				}
 			}
-
 			foreach (var cell in map.AllCells)
 			{
 				var overlayType = overlayPack[overlayIndex[cell]];
 				if (overlayType == 0xFF)
 					continue;
-
 				string actorType;
 				if (OverlayToActor.TryGetValue(overlayType, out actorType))
 				{
 					if (string.IsNullOrEmpty(actorType))
 						continue;
-
 					var shape = new Size(1, 1);
 					if (OverlayShapes.TryGetValue(overlayType, out shape))
 					{
@@ -538,7 +487,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 							if (OverlayToActor.TryGetValue(aboveType, out a) && a == actorType)
 								continue;
 						}
-
 						var leftType = overlayPack[overlayIndex[cell - new CVec(0, 1)]];
 						if (shape.Height > 1 && leftType != 0xFF)
 						{
@@ -547,13 +495,11 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 								continue;
 						}
 					}
-
 					var ar = new ActorReference(actorType)
 					{
 						new LocationInit(cell),
 						new OwnerInit("Neutral")
 					};
-
 					DamageState damageState;
 					if (OverlayToHealth.TryGetValue(overlayType, out damageState))
 					{
@@ -564,31 +510,24 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 							health = 50;
 						else if (damageState == DamageState.Medium)
 							health = 75;
-
 						if (health != 100)
 							ar.Add(new HealthInit(health));
 					}
-
 					map.ActorDefinitions.Add(new MiniYamlNode("Actor" + map.ActorDefinitions.Count, ar.Save()));
-
 					continue;
 				}
-
 				var resourceType = ResourceFromOverlay
 					.Where(kv => kv.Value.Contains(overlayType))
 					.Select(kv => kv.Key)
 					.FirstOrDefault();
-
 				if (resourceType != 0)
 				{
 					map.Resources[cell] = new ResourceTile(resourceType, overlayDataPack[overlayIndex[cell]]);
 					continue;
 				}
-
 				Console.WriteLine("{0} unknown overlay {1}", cell, overlayType);
 			}
 		}
-
 		static void ReadWaypoints(Map map, IniFile file, int2 fullSize)
 		{
 			var waypointsSection = file.GetSection("Waypoints", true);
@@ -600,16 +539,13 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				var dx = rx - ry + fullSize.X - 1;
 				var dy = rx + ry - fullSize.X - 1;
 				var cell = new MPos(dx / 2, dy).ToCPos(map);
-
 				int wpindex;
 				var ar = new ActorReference((!int.TryParse(kv.Key, out wpindex) || wpindex > 7) ? "waypoint" : "mpspawn");
 				ar.Add(new LocationInit(cell));
 				ar.Add(new OwnerInit("Neutral"));
-
 				map.ActorDefinitions.Add(new MiniYamlNode("Actor" + map.ActorDefinitions.Count, ar.Save()));
 			}
 		}
-
 		static void ReadTerrainActors(Map map, IniFile file, int2 fullSize)
 		{
 			var terrainSection = file.GetSection("Terrain", true);
@@ -622,18 +558,15 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				var dy = rx + ry - fullSize.X - 1;
 				var cell = new MPos(dx / 2, dy).ToCPos(map);
 				var name = kv.Value.ToLowerInvariant();
-
 				var ar = new ActorReference(name);
 				ar.Add(new LocationInit(cell));
 				ar.Add(new OwnerInit("Neutral"));
-
 				if (!map.Rules.Actors.ContainsKey(name))
 					Console.WriteLine("Ignoring unknown actor type: `{0}`".F(name));
 				else
 					map.ActorDefinitions.Add(new MiniYamlNode("Actor" + map.ActorDefinitions.Count, ar.Save()));
 			}
 		}
-
 		static void ReadActors(Map map, IniFile file, string type, int2 fullSize)
 		{
 			var structuresSection = file.GetSection(type, true);
@@ -641,57 +574,45 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 			{
 				var isDeployed = false;
 				var entries = kv.Value.Split(',');
-
 				var name = entries[1].ToLowerInvariant();
-
 				if (DeployableActors.ContainsKey(name))
 				{
 					name = DeployableActors[name];
 					isDeployed = true;
 				}
-
 				if (ReplaceActors.ContainsKey(name))
 				{
 					name = ReplaceActors[name];
 				}
-
 				var health = short.Parse(entries[2]);
 				var rx = int.Parse(entries[3]);
 				var ry = int.Parse(entries[4]);
 				var facing = byte.Parse(entries[5]) + 96;
-
 				var dx = rx - ry + fullSize.X - 1;
 				var dy = rx + ry - fullSize.X - 1;
 				var cell = new MPos(dx / 2, dy).ToCPos(map);
-
 				var ar = new ActorReference(name)
 				{
 					new LocationInit(cell),
 					new OwnerInit("Neutral")
 				};
-
 				if (health != 256)
 					ar.Add(new HealthInit(100 * health / 256));
-
 				if (facing != 96)
 					ar.Add(new FacingInit(facing));
-
 				if (isDeployed)
 					ar.Add(new DeployStateInit(DeployState.Deployed));
-
 				if (!map.Rules.Actors.ContainsKey(name))
 					Console.WriteLine("Ignoring unknown actor type: `{0}`".F(name));
 				else
 					map.ActorDefinitions.Add(new MiniYamlNode("Actor" + map.ActorDefinitions.Count, ar.Save()));
 			}
 		}
-
 		static void ReadLighting(Map map, IniFile file)
 		{
 			var lightingTypes = new[] { "Red", "Green", "Blue", "Ambient" };
 			var lightingSection = file.GetSection("Lighting");
 			var lightingNodes = new List<MiniYamlNode>();
-
 			foreach (var kv in lightingSection)
 			{
 				if (lightingTypes.Contains(kv.Key))
@@ -703,7 +624,6 @@ namespace OpenRA.Mods.Cnc.UtilityCommands
 				else
 					Console.WriteLine("Ignoring unknown lighting type: `{0}`".F(kv.Key));
 			}
-
 			if (lightingNodes.Any())
 			{
 				map.RuleDefinitions.Nodes.Add(new MiniYamlNode("World", new MiniYaml("", new List<MiniYamlNode>()

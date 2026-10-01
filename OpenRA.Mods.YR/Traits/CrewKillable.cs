@@ -18,7 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     /// <summary>
@@ -31,7 +35,6 @@ namespace OpenRA.Mods.YR.Traits
             return new CrewKillable(this);
         }
     }
-
     public class CrewKillable : PausableConditionalTrait<CrewKillableInfo>
     {
         public CrewKillable(CrewKillableInfo info) : base(info)

@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -19,7 +19,10 @@ using System.Threading.Tasks;
 using OpenRA.Mods.Common;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class SelfRotationCraftInfo : ConditionalTraitInfo
@@ -48,21 +51,18 @@ namespace OpenRA.Mods.YR.Traits
         {
             this.info = info;
             this.actor = init.Self;
-
             GetCycleFacing(actor);
         }
-
         private void GetCycleFacing(Actor actor)
         {
             int finalAngle = info.RotateAngle * 360 / 1024;
             WAngle angle = WAngle.FromDegrees(finalAngle);
             int cycle = 360 / finalAngle;
             plane = actor.Trait<Aircraft>();
-            originalFacing = plane.Facing;
+            originalFacing = plane.Facing.Facing;
             rotFacing = angle.Facing;
-            cycleFacing = plane.Facing + cycle * rotFacing;
+            cycleFacing = plane.Facing.Facing + cycle * rotFacing;
         }
-
         public void Tick(Actor self)
         {
             /*
@@ -74,10 +74,10 @@ namespace OpenRA.Mods.YR.Traits
              * maybe need engine update?
              * 
              */
-            plane.Facing += rotFacing;
-            if (plane.Facing >= cycleFacing)
+            plane.Facing += WAngle.FromFacing(rotFacing);
+            if (plane.Facing.Facing >= cycleFacing)
             {
-                plane.Facing = originalFacing;
+                plane.Facing = WAngle.FromFacing(originalFacing);
             }
         }
     }

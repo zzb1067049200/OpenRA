@@ -15,9 +15,7 @@ cabhut:
 	MapEditorData:
 		Categories: Bridge
 	Interactable:
-
 ^LowBridgeRamp:
-	AlwaysVisible:
 	RenderSprites:
 		Palette: terrain
 	WithSpriteBody:
@@ -32,7 +30,6 @@ cabhut:
 	MapEditorData:
 		Categories: Bridge
 	Interactable:
-
 ^LowBridge:
 	Inherits: ^LowBridgeRamp
 	Targetable:
@@ -43,7 +40,6 @@ cabhut:
 	Armor:
 		Type: Concrete
 	HitShape:
-
 lobrdg_a:
 	Inherits: ^LowBridge
 	Building:
@@ -64,7 +60,6 @@ lobrdg_a:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdg_a_d:
 	Inherits: lobrdg_a
 	EditorOnlyTooltip:
@@ -85,7 +80,6 @@ lobrdg_a_d:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdg_b:
 	Inherits: ^LowBridge
 	Building:
@@ -106,7 +100,6 @@ lobrdg_b:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdg_b_d:
 	Inherits: lobrdg_b
 	EditorOnlyTooltip:
@@ -127,7 +120,6 @@ lobrdg_b_d:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdg_r_se:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -137,7 +129,6 @@ lobrdg_r_se:
 		NeighbourOffsets: -1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdg_r_nw:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -147,7 +138,6 @@ lobrdg_r_nw:
 		NeighbourOffsets: 1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdg_r_ne:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -157,7 +147,6 @@ lobrdg_r_ne:
 		NeighbourOffsets: 1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdg_r_sw:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -167,9 +156,7 @@ lobrdg_r_sw:
 		NeighbourOffsets: 1,-1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-	
 ^ElevatedBridgePlaceholder:
-	AlwaysVisible:
 	RenderSprites:
 		Palette: terrain
 	WithSpriteBody:
@@ -187,13 +174,10 @@ lobrdg_r_sw:
 		Categories: Bridge
 	Interactable:
 		Bounds: 96, 144
-
 bridge1:
 	Inherits: ^ElevatedBridgePlaceholder
-
 bridge2:
 	Inherits: ^ElevatedBridgePlaceholder
-		
 lobrdb_a:
 	Inherits: ^LowBridge
 	Tooltip:
@@ -216,7 +200,6 @@ lobrdb_a:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdb_a_d:
 	Inherits: lobrdb_a
 	EditorOnlyTooltip:
@@ -237,7 +220,6 @@ lobrdb_a_d:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdb_b:
 	Inherits: ^LowBridge
 	Tooltip:
@@ -260,7 +242,6 @@ lobrdb_b:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdb_b_d:
 	Inherits: lobrdb_b
 	EditorOnlyTooltip:
@@ -281,7 +262,6 @@ lobrdb_b_d:
 	ShakeOnDeath:
 		Duration: 15
 		Intensity: 6
-
 lobrdb_r_se:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -291,7 +271,6 @@ lobrdb_r_se:
 		NeighbourOffsets: -1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdb_r_nw:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -301,7 +280,6 @@ lobrdb_r_nw:
 		NeighbourOffsets: 1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdb_r_ne:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -311,7 +289,6 @@ lobrdb_r_ne:
 		NeighbourOffsets: 1,1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 lobrdb_r_sw:
 	Inherits: ^LowBridgeRamp
 	Building:
@@ -321,12 +298,10 @@ lobrdb_r_sw:
 		NeighbourOffsets: 1,-1
 	EditorOnlyTooltip:
 		Name: Bridge Ramp
-
 bridgb1:
 	Inherits: ^ElevatedBridgePlaceholder
 	Tooltip:
 		Name: Wooden Bridge
-
 bridgb2:
 	Inherits: ^ElevatedBridgePlaceholder
 	Tooltip:

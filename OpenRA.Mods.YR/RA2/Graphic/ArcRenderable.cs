@@ -8,12 +8,16 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using OpenRA.Graphics;
 using OpenRA.Primitives;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Traits;
 namespace OpenRA.Mods.RA2.Graphics
 {
 	public struct ArcRenderable : IRenderable, IFinalizedRenderable
@@ -24,7 +28,6 @@ namespace OpenRA.Mods.RA2.Graphics
 		readonly int zOffset;
 		readonly WDist width;
 		readonly int segments;
-
 		public ArcRenderable(WPos a, WPos b, int zOffset, WAngle angle, Primitives.Color color, WDist width, int segments)
 		{
 			this.a = a;
@@ -35,31 +38,24 @@ namespace OpenRA.Mods.RA2.Graphics
 			this.width = width;
 			this.segments = segments;
 		}
-
 		public WPos Pos { get { return a; } }
 		public PaletteReference Palette { get { return null; } }
 		public int ZOffset { get { return zOffset; } }
 		public bool IsDecoration { get { return true; } }
-
 		public IRenderable WithPalette(PaletteReference newPalette) { return new ArcRenderable(a, b, zOffset, angle, color, width, segments); }
 		public IRenderable WithZOffset(int newOffset) { return new ArcRenderable(a, b, zOffset, angle, color, width, segments); }
-		public IRenderable OffsetBy(WVec vec) { return new ArcRenderable(a + vec, b + vec, zOffset, angle, color, width, segments); }
+		public IRenderable OffsetBy(in WVec vec) { return new ArcRenderable(a + vec, b + vec, zOffset, angle, color, width, segments); }
 		public IRenderable AsDecoration() { return this; }
-
 		public IFinalizedRenderable PrepareRender(WorldRenderer wr) { return this; }
 		public void Render(WorldRenderer wr)
 		{
 			var screenWidth = wr.ScreenVector(new WVec(width, WDist.Zero, WDist.Zero))[0];
-
-			float3[] points = new float3[segments + 1];
+			var points = new Vector3[segments + 1];
 			for (int i = 0; i <= segments; i++)
 				points[i] = wr.Screen3DPosition(WPos.LerpQuadratic(a, b, angle, i, segments));
-
 			Game.Renderer.WorldRgbaColorRenderer.DrawLine(points, screenWidth, color, false);
 		}
-
 		public void RenderDebugGeometry(WorldRenderer wr) { }
-
         Primitives.Rectangle IFinalizedRenderable.ScreenBounds(WorldRenderer wr)
         {
             return Primitives.Rectangle.Empty;

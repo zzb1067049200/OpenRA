@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +16,12 @@ using OpenRA.FileSystem;
 using OpenRA.Mods.Cnc.FileFormats;
 using OpenRA.Primitives;
 using FS = OpenRA.FileSystem.FileSystem;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.Cnc.FileSystem
 {
 	public class AudioBagLoader : IPackageLoader
@@ -26,30 +30,23 @@ namespace OpenRA.Mods.Cnc.FileSystem
 		{
 			public string Name { get; private set; }
 			public IEnumerable<string> Contents { get { return index.Keys; } }
-
 			readonly Stream s;
 			readonly Dictionary<string, IdxEntry> index;
-
 			public BagFile(Stream s, List<IdxEntry> entries, string filename)
 			{
 				Name = filename;
 				this.s = s;
-
 				index = entries.ToDictionaryWithConflictLog(x => x.Filename,
 					"{0} (bag format)".F(filename),
 					null, x => "(offs={0}, len={1})".F(x.Offset, x.Length));
 			}
-
 			public Stream GetStream(string filename)
 			{
 				IdxEntry entry;
 				if (!index.TryGetValue(filename, out entry))
 					return null;
-
 				var waveHeaderMemoryStream = new MemoryStream();
-
 				var channels = (entry.Flags & 1) > 0 ? 2 : 1;
-
 				if ((entry.Flags & 2) > 0)
 				{
 					// PCM
@@ -67,14 +64,12 @@ namespace OpenRA.Mods.Cnc.FileSystem
 					waveHeaderMemoryStream.WriteArray(Encoding.ASCII.GetBytes("data"));
 					waveHeaderMemoryStream.WriteArray(BitConverter.GetBytes(entry.Length));
 				}
-
 				if ((entry.Flags & 8) > 0)
 				{
 					// IMA ADPCM
 					var samplesPerChunk = (2 * (entry.ChunkSize - 4)) + 1;
 					var bytesPerSec = (int)Math.Floor(((double)(2 * entry.ChunkSize) / samplesPerChunk) * ((double)entry.SampleRate / 2));
 					var chunkSize = entry.ChunkSize > entry.Length ? entry.Length : entry.ChunkSize;
-
 					waveHeaderMemoryStream.WriteArray(Encoding.ASCII.GetBytes("RIFF"));
 					waveHeaderMemoryStream.WriteArray(BitConverter.GetBytes(entry.Length + 52));
 					waveHeaderMemoryStream.WriteArray(Encoding.ASCII.GetBytes("WAVE"));
@@ -94,34 +89,27 @@ namespace OpenRA.Mods.Cnc.FileSystem
 					waveHeaderMemoryStream.WriteArray(Encoding.ASCII.GetBytes("data"));
 					waveHeaderMemoryStream.WriteArray(BitConverter.GetBytes(entry.Length));
 				}
-
 				waveHeaderMemoryStream.Seek(0, SeekOrigin.Begin);
-
 				// Construct a merged stream
 				var waveStream = SegmentStream.CreateWithoutOwningStream(s, entry.Offset, (int)entry.Length);
 				var mergedStream = new MergedStream(waveHeaderMemoryStream, waveStream);
 				mergedStream.SetLength(waveHeaderMemoryStream.Length + entry.Length);
-
 				return mergedStream;
 			}
-
 			public bool Contains(string filename)
 			{
 				return index.ContainsKey(filename);
 			}
-
 			public IReadOnlyPackage OpenPackage(string filename, FS context)
 			{
 				// Not implemented
 				return null;
 			}
-
 			public void Dispose()
 			{
 				s.Dispose();
 			}
 		}
-
 		bool IPackageLoader.TryParsePackage(Stream s, string filename, FS context, out IReadOnlyPackage package)
 		{
 			if (!filename.EndsWith(".bag", StringComparison.InvariantCultureIgnoreCase))
@@ -129,12 +117,10 @@ namespace OpenRA.Mods.Cnc.FileSystem
 				package = null;
 				return false;
 			}
-
 			// A bag file is always accompanied with an .idx counterpart
 			// For example: audio.bag requires the audio.idx file
 			var indexFilename = Path.ChangeExtension(filename, ".idx");
 			List<IdxEntry> entries  = null;
-
 			try
 			{
 				// Build the index and dispose the stream, it is no longer needed after this
@@ -146,7 +132,6 @@ namespace OpenRA.Mods.Cnc.FileSystem
 				package = null;
 				return false;
 			}
-
 			package = new BagFile(s, entries, filename);
 			return true;
 		}

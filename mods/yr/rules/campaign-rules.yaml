@@ -13,13 +13,12 @@ Player:
 	ModularBot@CampaignAI:
 		Name: Campaign Player AI
 		Type: campaign
-
 World:
 	CrateSpawner:
 		CheckboxEnabled: False
 		CheckboxLocked: True
-	-SpawnMPUnits:
-	-MPStartLocations:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
 	ObjectivesPanel:
 		PanelName: MISSION_OBJECTIVES
 	MapBuildRadius:

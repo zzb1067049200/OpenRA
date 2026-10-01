@@ -6,7 +6,6 @@ General:
 	EditorTemplateOrder: Lat Moon Dirt, Blank, ZMM Ramps, Ramps, LAT Moon Dirt Dark, Moon Dirt Dark Individual, LAT Grass Rough, GrassRough Individual, Pavement Individual, LAT Moon Dirt Light, Moon Dirt Light Individual, Ramp edge fixup, LAT Pavement, Sand (beach), Sand (beach) Transitions, Craters, LunarLander, Lunar Crevas # Obsolete Height Pieces, Cliff Set, Shore Pieces, Cliff/Water pieces, DirtRoads Bendy, DirtRoads Junctions, DirtRoads Straight, Bridges, Paved Roads, Water, ZMM Cliff Set, DirtRoads Slopes, ZMM Dirt Road Slopes, Slope Set Pieces, ZSlope Set Pieces, New MM Height Pieces, Waterfalls, Farm Crops, Paved Road Ends, Pavement, Paved road bits, Ramp edge fixup - Marble Madness, Paved Road Slopes, Waterfalls-B, Waterfalls-C, Waterfalls-D, Newest MM Height, Tunnel Floor, Tunnel Side, Destroyable Cliffs, Water Caves, ZMM Bendy Dirt Roads, ZMM Dirt Road Junctions, ZMM Straight Dirt Roads, ZMM Shore Pieces, ZMM Waterfalls, ZMM Waterfalls-B, ZMM Waterfalls-C, ZMM Waterfalls-D, ZMM Water Caves, ZMMCliff/Water pieces, ZMM Water, DirtTunnel Floor, Water bridge, RA2 rubble farm, RA2 rubble mobile, RA2 rubble mexican, Wood Bridges, RA2 uss arizona
 	SheetSize: 4096
 	EnableDepth: true
-
 Terrain:
 	TerrainType@Clear:
 		Type: Clear
@@ -71,7 +70,6 @@ Terrain:
 		AcceptsSmudgeType: SmallCrater, MediumCrater, LargeCrater, SmallScorch, MediumScorch, LargeScorch
 		Color: 600060
 		TargetTypes: Ground
-
 Templates:
 	Template@0:
 		Categories: Lat Moon Dirt

@@ -13,17 +13,19 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Collections.Generic;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
 using OpenRA.Mods.YR.Traits;
 using OpenRA.Mods.YR.Activities;
-
 /*
  * Works without base engine modification?
  */
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
 	[Desc("This actor can spawn missile actors.")]
@@ -32,123 +34,92 @@ namespace OpenRA.Mods.YR.Traits
 		[GrantedConditionReference]
 		[Desc("The condition to grant to self right after launching a spawned unit. (Used by V3 to make immobile.)")]
 		public readonly string LaunchingCondition = null;
-
 		[Desc("After this many ticks, we remove the condition.")]
 		public readonly int LaunchingTicks = 15;
-
 		[Desc("Pip color for the spawn count.")]
 		public readonly PipType PipType = PipType.Yellow;
-
 		[GrantedConditionReference]
 		[Desc("The condition to grant to self while spawned units are loaded.",
 			"Condition can stack with multiple spawns.")]
 		public readonly string LoadedCondition = null;
-
 		[Desc("Conditions to grant when specified actors are contained inside the transport.",
 			"A dictionary of [actor id]: [condition].")]
 		public readonly Dictionary<string, string> SpawnContainConditions = new Dictionary<string, string>();
-
 		[GrantedConditionReference]
 		public IEnumerable<string> LinterSpawnContainConditions { get { return SpawnContainConditions.Values; } }
-
 		public override object Create(ActorInitializer init) { return new MissileSpawnerMaster(init, this); }
 	}
-
 	public class MissileSpawnerMaster : BaseSpawnerMaster, IPips, ITick, INotifyAttack
 	{
 		public new MissileSpawnerMasterInfo Info { get; private set; }
-
-		ConditionManager conditionManager;
-		int loadedConditionToken = ConditionManager.InvalidConditionToken;
-
+		int loadedConditionToken = Actor.InvalidConditionToken;
 		//// Stack<int> loadedTokens = new Stack<int>();
-
 		int respawnTicks = 0;
-
 		public MissileSpawnerMaster(ActorInitializer init, MissileSpawnerMasterInfo info) : base(init, info)
 		{
 			Info = info;
 		}
-
 		protected override void Created(Actor self)
 		{
 			base.Created(self);
-			conditionManager = self.Trait<ConditionManager>();
-
+			
 			if (!string.IsNullOrEmpty(Info.LoadedCondition) &&
-				loadedConditionToken == ConditionManager.InvalidConditionToken)
+				loadedConditionToken == Actor.InvalidConditionToken)
 			{
-				loadedConditionToken = conditionManager.GrantCondition(self, 
-					Info.LoadedCondition);
+				loadedConditionToken = self.GrantCondition(Info.LoadedCondition);
 			}
 		}
-
 		public override void OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
 		{
 			// Do nothing, because missiles can't be captured or mind controlled.
 			return;
 		}
-
-		void INotifyAttack.PreparingAttack(Actor self, Target target, Armament a, Barrel barrel) { }
-
+		void INotifyAttack.PreparingAttack(Actor self, in Target target, Armament a, Barrel barrel) { }
 		// The rate of fire of the dummy weapon determines the launch cycle as each shot
 		// invokes Attacking()
-		void INotifyAttack.Attacking(Actor self, Target target, Armament a, Barrel barrel)
+		void INotifyAttack.Attacking(Actor self, in Target target, Armament a, Barrel barrel)
 		{
 			if (IsTraitDisabled)
 				return;
-
 			if (a.Info.Name != Info.SpawnerArmamentName)
 				return;
-
 			// Issue retarget order for already launched ones
 			foreach (var slave in SlaveEntries)
 				if (slave.IsValid)
 					slave.SpawnerSlave.Attack(slave.Actor, target);
-
 			var se = GetLaunchable();
 			if (se == null)
 				return;
-
 			// Program the trajectory.
 			var sbm = se.Actor.Trait<ShootableBallisticMissile>();
 			sbm.Target = Target.FromPos(target.CenterPosition);
-
 			SpawnIntoWorld(self, se.Actor, self.CenterPosition);
-
 			// Queue attack order, too.
 			self.World.AddFrameEndTask(w =>
 			{
 				se.Actor.QueueActivity(new ShootableBallisticMissileFly(se.Actor, sbm.Target, sbm));
-
 				// invalidate the slave entry so that slave will regen.
 				se.Actor = null;
 			});
-
 			// Set clock so that regen happens.
 			if (respawnTicks <= 0) // Don't interrupt an already running timer!
 				respawnTicks = Info.RespawnTicks;
 		}
-
 		BaseSpawnerSlaveEntry GetLaunchable()
 		{
 			foreach (var se in SlaveEntries)
 				if (se.IsValid)
 					return se;
-
 			return null;
 		}
-
 		public IEnumerable<PipType> GetPips(Actor self)
 		{
 			if (IsTraitDisabled)
 				yield break;
-
 			int inside = 0;
 			foreach (var se in SlaveEntries)
 				if (se.IsValid)
 					inside++;
-
 			for (var i = 0; i < Info.Actors.Length; i++)
 			{
 				if (i < inside)
@@ -157,33 +128,29 @@ namespace OpenRA.Mods.YR.Traits
 					yield return PipType.Transparent;
 			}
 		}
-
 		public void Tick(Actor self)
 		{
 			if (respawnTicks > 0)
 			{
 				respawnTicks--;
-
 				// Time to respawn someting.
 				if (respawnTicks <= 0)
 				{
 					Replenish(self, SlaveEntries);
-
 					if (!string.IsNullOrEmpty(Info.LoadedCondition) &&
-						loadedConditionToken == ConditionManager.InvalidConditionToken)
+						loadedConditionToken == Actor.InvalidConditionToken)
 					{
-						loadedConditionToken = conditionManager.GrantCondition(self, Info.LoadedCondition);
+						loadedConditionToken = self.GrantCondition(Info.LoadedCondition);
 					}
-
 					// If there's something left to spawn, restart the timer.
 					if (SelectEntryToSpawn(SlaveEntries) != null)
 						respawnTicks = Info.RespawnTicks;
 				}
 				else
 				{
-					if (loadedConditionToken != ConditionManager.InvalidConditionToken)
+					if (loadedConditionToken != Actor.InvalidConditionToken)
 					{
-						loadedConditionToken = conditionManager.RevokeCondition(self, loadedConditionToken);
+						loadedConditionToken = self.RevokeCondition(loadedConditionToken);
 					}
 				}
 			}

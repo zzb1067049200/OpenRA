@@ -7,7 +7,6 @@ hdstn01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_gen01:
 	Defaults:
 		UseTilesetExtension: true
@@ -17,7 +16,6 @@ lt_gen01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_gen02:
 	Defaults:
 		UseTilesetExtension: true
@@ -27,7 +25,6 @@ lt_gen02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_gen03:
 	Defaults:
 		UseTilesetExtension: true
@@ -37,7 +34,6 @@ lt_gen03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_gen04:
 	Defaults:
 		UseTilesetExtension: true
@@ -47,7 +43,6 @@ lt_gen04:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_sgn01:
 	Defaults:
 		UseTilesetExtension: true
@@ -57,7 +52,6 @@ lt_sgn01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_sgn02:
 	Defaults:
 		UseTilesetExtension: true
@@ -67,7 +61,6 @@ lt_sgn02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_sgn03:
 	Defaults:
 		UseTilesetExtension: true
@@ -77,7 +70,6 @@ lt_sgn03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_sgn04:
 	Defaults:
 		UseTilesetExtension: true
@@ -86,7 +78,6 @@ lt_sgn04:
 			NEWURBAN: URBAN
 			LUNAR: URBAN
 	idle:
-
 lt_eur01:
 	Defaults:
 		UseTilesetExtension: true
@@ -96,7 +87,6 @@ lt_eur01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 lt_eur02:
 	Defaults:
 		UseTilesetExtension: true
@@ -106,7 +96,6 @@ lt_eur02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 pole01:
 	Defaults:
 		UseTilesetExtension: true
@@ -116,7 +105,6 @@ pole01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 pole02:
 	Defaults:
 		UseTilesetExtension: true
@@ -126,7 +114,6 @@ pole02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 sign01:
 	Defaults:
 		UseTilesetExtension: true
@@ -136,7 +123,6 @@ sign01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 sign02:
 	Defaults:
 		UseTilesetExtension: true
@@ -146,7 +132,6 @@ sign02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 sign03:
 	Defaults:
 		UseTilesetExtension: true
@@ -155,7 +140,6 @@ sign03:
 			NEWURBAN: URBAN
 			LUNAR: URBAN
 	idle:
-
 sign04:
 	Defaults:
 		UseTilesetExtension: true
@@ -165,7 +149,6 @@ sign04:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 sign05:
 	Defaults:
 		UseTilesetExtension: true
@@ -175,7 +158,6 @@ sign05:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 sign06:
 	Defaults:
 		UseTilesetExtension: true
@@ -185,7 +167,6 @@ sign06:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 camsc01:
 	Defaults:
 		UseTilesetCode: true
@@ -195,7 +176,6 @@ camsc01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc02:
 	Defaults:
 		UseTilesetCode: true
@@ -205,7 +185,6 @@ camsc02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc03:
 	Defaults:
 		UseTilesetCode: true
@@ -215,7 +194,6 @@ camsc03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc04:
 	Defaults:
 		UseTilesetCode: true
@@ -225,7 +203,6 @@ camsc04:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc05:
 	Defaults:
 		UseTilesetCode: true
@@ -235,7 +212,6 @@ camsc05:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc06:
 	Defaults:
 		UseTilesetCode: true
@@ -249,7 +225,6 @@ camsc06:
 		Length: 4
 		ShadowStart: 4
 		Tick: 80
-
 camsc11:
 	Defaults:
 		UseTilesetCode: true
@@ -259,7 +234,6 @@ camsc11:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc12:
 	Defaults:
 		UseTilesetCode: true
@@ -269,7 +243,6 @@ camsc12:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camsc13:
 	Defaults:
 		UseTilesetCode: true
@@ -288,7 +261,6 @@ trff01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 trff02:
 	Defaults:
 		UseTilesetExtension: true
@@ -298,7 +270,6 @@ trff02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 trff03:
 	Defaults:
 		UseTilesetExtension: true
@@ -308,7 +279,6 @@ trff03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 trff04:
 	Defaults:
 		UseTilesetExtension: true
@@ -318,7 +288,6 @@ trff04:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 1
-
 camisc01:
 	Defaults:
 		UseTilesetCode: true
@@ -328,7 +297,6 @@ camisc01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camisc02:
 	Defaults:
 		UseTilesetCode: true
@@ -337,7 +305,6 @@ camisc02:
 			NEWURBAN: URBAN
 			LUNAR: URBAN
 	idle:
-
 camisc03:
 	Defaults:
 		UseTilesetCode: true
@@ -347,7 +314,6 @@ camisc03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camisc04:
 	Defaults:
 		UseTilesetCode: true
@@ -357,7 +323,6 @@ camisc04:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camisc05:
 	Defaults:
 		UseTilesetCode: true
@@ -367,7 +332,6 @@ camisc05:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 camisc06:
 	Defaults:
 		UseTilesetCode: true
@@ -377,7 +341,6 @@ camisc06:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 caeuro05:
 	Defaults:
 		UseTilesetCode: true
@@ -387,7 +350,6 @@ caeuro05:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 capark01:
 	Defaults:
 		UseTilesetCode: true
@@ -397,7 +359,6 @@ capark01:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 capark02:
 	Defaults:
 		UseTilesetCode: true
@@ -407,7 +368,6 @@ capark02:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 capark03:
 	Defaults:
 		UseTilesetCode: true
@@ -417,15 +377,12 @@ capark03:
 			LUNAR: URBAN
 	idle:
 		ShadowStart: 3
-
 ammo01:
 	idle:
 		ShadowStart: 3
-
 cabhut:
 	idle:
 		ShadowStart: 3
-
 gagate_a:
 	Defaults:
 		UseTilesetCode: true
@@ -438,10 +395,8 @@ gagate_a:
 		Length: 10
 		ShadowStart: 21
 	make: gagate_a
-		Start: 10
-		Length: -10
 		ShadowStart: 30
-
+		Frames: 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 spkr01:
 	Defaults:
 		AddExtension: false

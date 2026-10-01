@@ -7,7 +7,6 @@
  * Foundation. For more information, see COPYING.
  */
 #endregion
-
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.GameRules;
@@ -16,7 +15,9 @@ using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.Common.Warheads;
 using OpenRA.Primitives;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.AS.Warheads
 {
 	[Desc("AS warhead extension class." +
@@ -30,53 +31,42 @@ namespace OpenRA.Mods.AS.Warheads
 			Air,
 			TargetHit
 		}
-
 		public ImpactType GetImpactType(World world, CPos cell, WPos pos, Actor firedBy)
 		{
 			// Missiles need a margin because they sometimes explode a little above ground
 			// due to their explosion check triggering slightly too early (because of CloseEnough).
 			// TODO: Base ImpactType on target altitude instead of explosion altitude.
 			var airMargin = new WDist(128);
-
 			// Matching target actor
 			if (GetDirectHit(world, cell, pos, firedBy, true))
 				return ImpactType.TargetHit;
-
 			var dat = world.Map.DistanceAboveTerrain(pos);
-
 			if (dat.Length > airMargin.Length)
 				return ImpactType.Air;
-
 			return ImpactType.Ground;
 		}
-
 		public bool GetDirectHit(World world, CPos cell, WPos pos, Actor firedBy, bool checkTargetType = false)
 		{
 			foreach (var victim in world.FindActorsOnCircle(pos, WDist.Zero))
 			{
 				if (checkTargetType && !IsValidAgainst(victim, firedBy))
 					continue;
-
 				var healthInfo = victim.Info.TraitInfoOrDefault<HealthInfo>();
 				if (healthInfo == null)
 					continue;
-
 				// If the impact position is within any HitShape, we have a direct hit
 				var activeShapes = victim.TraitsImplementing<HitShape>().Where(Exts.IsTraitEnabled);
 				if (activeShapes.Any(i => i.DistanceFromEdge(victim, pos).Length <= 0))
 					return true;
 			}
-
 			return false;
 		}
-
 		public bool IsValidImpact(WPos pos, Actor firedBy)
 		{
 			var world = firedBy.World;
 			var targetTile = world.Map.CellContaining(pos);
 			if (!world.Map.Contains(targetTile))
 				return false;
-
 			var impactType = GetImpactType(world, targetTile, pos, firedBy);
 			var validImpact = false;
 			switch (impactType)
@@ -92,7 +82,6 @@ namespace OpenRA.Mods.AS.Warheads
 					validImpact = IsValidTarget(tileInfo.TargetTypes);
 					break;
 			}
-
 			return validImpact;
 		}
 	}

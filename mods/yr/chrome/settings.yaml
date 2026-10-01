@@ -223,7 +223,6 @@ Background@SETTINGS_PANEL:
 							Y: 6
 							Width: PARENT_RIGHT - 35
 							Height: PARENT_BOTTOM - 12
-				
 				Label@STATUS_BARS:
 					X: 250
 					Y: 278

@@ -1,6 +1,9 @@
 ^BasePlayer:
-	AlwaysVisible:
 	Shroud:
+	PlayerResources:
+		ResourceValues:
+			Ore: 25
+			Gems: 50
 
 EditorPlayer:
 	Inherits: ^BasePlayer
@@ -115,7 +118,9 @@ Player:
 		DisplayOrder: 9
 		Prerequisites: global-reusable-engineers
 	FrozenActorLayer:
-	BaseAttackNotifier:
+	DamageNotifier:
+		ValidTargets: BaseBuilding
+		Notification: BaseAttack
 	PlayerStatistics:
 	PlaceBeacon:
 	ProvidesTechPrerequisite@infonly:
@@ -140,11 +145,6 @@ Player:
 		Id: unrestricted
 	GrantConditionOnPrerequisiteManager:
 	EnemyWatcher:
-	VeteranProductionIconOverlay:
-		Image: cameo-chevron
-		Sequence: idle
-		Palette: cameo-chevron
 	PlayerExperience:
-	ConditionManager:
 	GameSaveViewportManager:
 	PlayerRadarTerrain:

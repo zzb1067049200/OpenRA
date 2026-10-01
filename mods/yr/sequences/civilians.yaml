@@ -44,7 +44,6 @@ civ1:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civ2:
 	Inherits: ^Civilian
 	stand:
@@ -91,7 +90,6 @@ civ2:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civ3:
 	Inherits: ^Civilian
 	stand:
@@ -138,7 +136,6 @@ civ3:
 		Start: 132
 		Length: 6
 		Facings: 8
-
 vladimir:
 	Inherits: ^Civilian
 	stand:
@@ -193,7 +190,6 @@ vladimir:
 		Start: 8
 		Length: 6
 		Facings: 8
-
 pentgen:
 	Inherits: ^Civilian
 	stand:
@@ -242,7 +238,6 @@ pentgen:
 		Start: 8
 		Length: 6
 		Facings: 8
-
 pres:
 	Inherits: ^Civilian
 	stand:
@@ -287,7 +282,6 @@ pres:
 		Start: 86
 		Length: 6
 		Facings: 8
-
 ssrv:
 	Inherits: ^Civilian
 	stand:
@@ -336,7 +330,6 @@ ssrv:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civa:
 	Inherits: ^Civilian
 	stand:
@@ -385,7 +378,6 @@ civa:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civb:
 	Inherits: ^Civilian
 	stand:
@@ -434,7 +426,6 @@ civb:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civc:
 	Inherits: ^Civilian
 	stand:
@@ -483,7 +474,6 @@ civc:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civbbp:
 	Inherits: ^Civilian
 	stand:
@@ -528,7 +518,6 @@ civbbp:
 		Start: 86
 		Length: 6
 		Facings: 8
-
 civbfm:
 	Inherits: ^Civilian
 	stand:
@@ -573,7 +562,6 @@ civbfm:
 		Start: 86
 		Length: 6
 		Facings: 8
-
 civbf:
 	Inherits: ^Civilian
 	stand:
@@ -618,7 +606,6 @@ civbf:
 		Start: 86
 		Length: 6
 		Facings: 8
-
 civbtm:
 	Inherits: ^Civilian
 	stand:
@@ -663,7 +650,6 @@ civbtm:
 		Start: 86
 		Length: 6
 		Facings: 8
-
 civsfm:
 	Inherits: ^Civilian
 	stand:
@@ -712,7 +698,6 @@ civsfm:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civsf:
 	Inherits: ^Civilian
 	stand:
@@ -761,7 +746,6 @@ civsf:
 		Start: 134
 		Length: 6
 		Facings: 8
-
 civstm:
 	Inherits: ^Civilian
 	stand:
@@ -804,7 +788,6 @@ civstm:
 		Start: 134
 		Length: 6
 		Facings: 8
-		
 mumy:
 	Inherits: ^Animal
 	stand:
@@ -840,7 +823,6 @@ mumy:
 		Start: 8
 		Length: 6
 		Facings: 8
-
 eins:
 	stand:
 		Facings: 8

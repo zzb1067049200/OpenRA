@@ -18,7 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class ShowWholeMapInfo : ConditionalTraitInfo
@@ -40,14 +44,12 @@ namespace OpenRA.Mods.YR.Traits
             this.info = info;
             powerMgr = self.Owner.PlayerActor.Trait<PowerManager>();
         }
-
         public void OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
         {
             if(newOwner.InternalName=="Netural")
             {
                 return;
             }
-
             if(self.Owner == oldOwner)
             {
                 disableShround = true;
@@ -56,13 +58,10 @@ namespace OpenRA.Mods.YR.Traits
             {
                 disableShround = false;
             }
-
             powerMgr = newOwner.PlayerActor.Trait<PowerManager>();
-
             oldOwner.Shroud.Disabled = false;
             newOwner.Shroud.Disabled = true;
         }
-
         public void Tick(Actor self)
         {
             if(powerMgr.PowerState == PowerState.Low)
@@ -74,32 +73,26 @@ namespace OpenRA.Mods.YR.Traits
             {
                 disableShround = true;
             }
-
             if (this.self.IsDead)
             {
                 disableShround = false;
             }
             UpdateShroundState(disableShround);
         }
-
         protected override void Created(Actor self)
         {
             disableShround = true;
             UpdateShroundState(disableShround);
-
             base.Created(self);
         }
-
         public void Selling(Actor self)
         {
         }
-
         public void Sold(Actor self)
         {
             disableShround = false;
             UpdateShroundState(disableShround);
         }
-
         public void Killed(Actor self, AttackInfo e)
         {
             var allActorsCanShowWholeMap = this.self.Owner.World.Actors.Where(o => o.TraitsImplementing<ShowWholeMap>().Count() > 0);
@@ -123,7 +116,6 @@ namespace OpenRA.Mods.YR.Traits
                 UpdateShroundState(disableShround);
             }
         }
-
         private void UpdateShroundState(bool disableShround)
         {
             this.self.Owner.Shroud.Disabled = disableShround;

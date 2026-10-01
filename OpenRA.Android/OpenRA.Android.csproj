@@ -30,11 +30,14 @@
     <!-- EGL/GLES direct-render backend (no SDL2). Drop OpenRA.Platforms.Default — it pulls
          SDL2 which has no Android native lib and is unused on this path. -->
     <ProjectReference Include="..\OpenRA.Platforms.Android\OpenRA.Platforms.Android.csproj" />
-    <!-- Engine core + built-in mods (ra / cnc / d2k). YR comes in a later phase. -->
+    <!-- Engine core + built-in mods (ra / cnc / d2k) + Yuri's Revenge (yr).
+         ObjectCreator.LoadCompiledInAssembly resolves mod assemblies by name on Android, so
+         every mod that ships a custom DLL must be a ProjectReference here. -->
     <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj" />
     <ProjectReference Include="..\OpenRA.Mods.Common\OpenRA.Mods.Common.csproj" />
     <ProjectReference Include="..\OpenRA.Mods.Cnc\OpenRA.Mods.Cnc.csproj" />
     <ProjectReference Include="..\OpenRA.Mods.D2k\OpenRA.Mods.D2k.csproj" />
+    <ProjectReference Include="..\OpenRA.Mods.YR\OpenRA.Mods.YR.csproj" />
   </ItemGroup>
 
   <!-- Engine assets shipped inside the APK. The Activity extracts these to internal storage on

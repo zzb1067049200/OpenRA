@@ -13,18 +13,20 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Linq;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
-
 /*
 Works without base engine modification.
 However, Mods.Common\Activities\Air\Land.cs is modified to support the air units to land "mid air!"
 See landHeight private variable to track the changes.
 */
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
 	[Desc("This unit is \"slaved\" to a missile spawner master.")]
@@ -32,11 +34,9 @@ namespace OpenRA.Mods.YR.Traits
 	{
 		public override object Create(ActorInitializer init) { return new MissileSpawnerSlave(init, this); }
 	}
-
 	public class MissileSpawnerSlave : BaseSpawnerSlave
 	{
 		public CarrierSlaveInfo Info { get; set; }
-
 		public MissileSpawnerSlave(ActorInitializer init, MissileSpawnerSlaveInfo info) : base(init, info) { }
 	}
 }

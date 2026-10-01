@@ -6,7 +6,6 @@ mpspawn:
 		OccupiesSpace: false
 	BodyOrientation:
 		QuantizedFacings: 1
-	AlwaysVisible:
 	RenderSpritesEditorOnly:
 	WithSpriteBody:
 	MapEditorData:
@@ -22,7 +21,6 @@ waypoint:
 		OccupiesSpace: false
 	BodyOrientation:
 		QuantizedFacings: 1
-	AlwaysVisible:
 	RenderSpritesEditorOnly:
 	WithSpriteBody:
 	MapEditorData:
@@ -49,17 +47,17 @@ crate:
 		Sequence: reveal-map
 	LevelUpCrateAction:
 		SelectionShares: 25
-	GiveMcvCrateAction@soviets:
+	GiveBaseBuilderCrateAction@soviets:
 		SelectionShares: 0
 		NoBaseSelectionShares: 150
 		ValidFactions: cuba, libya, iraq, russia
 		Units: smcv
-	GiveMcvCrateAction@allied:
+	GiveBaseBuilderCrateAction@allied:
 		SelectionShares: 0
 		NoBaseSelectionShares: 150
 		ValidFactions: america, germany, england, france, korea
 		Units: amcv
-	GiveMcvCrateAction@yuris:
+	GiveBaseBuilderCrateAction@yuris:
 		SelectionShares: 0
 		NoBaseSelectionShares: 150
 		ValidFactions: yuri
@@ -67,7 +65,6 @@ crate:
 
 pcv.colorpicker:
 	Inherits: pcv
-	AlwaysVisible:
 	Mobile:
 		InitialFacing: 160
 	RenderSprites:
@@ -110,7 +107,6 @@ TROCK05:
 	Inherits: ^Rock
 
 CAMERA:
-	AlwaysVisible:
 	Interactable:
 	Immobile:
 		OccupiesSpace: false
@@ -141,7 +137,7 @@ FLAMEGUY:
 		IdleSequences: run
 	Health:
 		HP: 160
-	SelfHealing:
+	ChangesHealth:
 		Step: -10
 		HealIfBelow: 101
 	ScaredyCat:

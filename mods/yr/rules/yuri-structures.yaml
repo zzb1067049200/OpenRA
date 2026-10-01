@@ -59,7 +59,6 @@ yacnst:
 		Prerequisite: structures.yuris
 	Power:
 		Amount: 0
-
 yapowr:
 	Inherits: ^Building
 	Inherits@SMC: ^SuperMindControllable
@@ -120,7 +119,6 @@ yapowr:
 	PowerTooltip:
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate, powerplant
-
 yabrck:
 	Inherits: ^Building
 	Inherits@shape: ^2x3Shape
@@ -188,7 +186,6 @@ yabrck:
 		Proxy: barracks.infiltrated
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate
-
 yarefn:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -216,12 +213,10 @@ yarefn:
 		Footprint: xx xx
 		Dimensions: 2,2
 	Refinery:
-		DockOffset: 3,0
 		ShowTicks: True
 		TickLifetime: 30
 		TickVelocity: 1
 		TickRate: 10
-		DockAngle: 160
 		UseStorage: false
 	Transforms:
 		IntoActor: smin
@@ -250,7 +245,10 @@ yarefn:
 		DeployedCondition: deploy
 		UndeployedCondition: undeploy
 	-Capturable:
-
+	DockHost:
+		Type: Unload
+		DockAngle: 160
+		DockOffset: 2172,1448,0
 yaweap:
 	Inherits: ^Building
 	Inherits@shape: ^5x3Shape
@@ -327,7 +325,6 @@ yaweap:
 		UnitNames: zep, shad, schp, disk, hind
 		Condition: roof-open
 		ConditionDelay: 50
-
 yayard:
 	Inherits: ^Building
 	Inherits@shape: ^4x4Shape
@@ -473,7 +470,6 @@ yayard:
 	-SpawnActorsOnSell@allies:
 	-SpawnActorsOnSell@soviets:
 	-SpawnActorsOnSell@yuris:
-
 yagrnd:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -507,7 +503,6 @@ yagrnd:
 		Sequence: grind
 	Power:
 		Amount: -50
-
 yatech:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
@@ -559,7 +554,6 @@ yatech:
 		BlockedCursor: forceshield-blocked
 		LowPower: true
 		LowPowerDuration: 625
-
 gafwll:
 	Inherits: ^Wall
 	Buildable:
@@ -569,7 +563,6 @@ gafwll:
 		Description: Protect Yuri Base
 	Tooltip:
 		Name: Citadel Walls
-
 natbnk:
 	Inherits: ^SupportBuilding
 	Inherits@shape: ^2x2Shape
@@ -610,7 +603,6 @@ natbnk:
 		PortCones: 88, 88, 88, 88, 88, 88
 	Power:
 		Amount: 0
-
 yaggun:
 	Inherits: ^VoxelLighting
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -731,7 +723,6 @@ yaggun:
 		Amount: -50
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, powerable-defense
-
 yapsyt:
 	Inherits: ^SupportBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -783,7 +774,6 @@ yapsyt:
 		RequiresCondition: !controlling
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure
-
 yagntc:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -842,7 +832,6 @@ yagntc:
 		Amount: -200
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure
-
 yappet:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -901,7 +890,6 @@ yappet:
 		Condition: build-incomplete
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure
-		
 naclon:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -978,7 +966,6 @@ naclon:
 	SpawnSurvivors:
 		DeathTypes: ExplosionDeath, BulletDeath
 		Actors: init, init, init, init
-
 napsis:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -1032,7 +1019,6 @@ napsis:
 		PauseOnCondition: lowpower
 		Cursor: explore
 		Radius: 15
-
 yarock:
 	Inherits: ^Building
 	Selectable:
@@ -1049,7 +1035,6 @@ yarock:
 		Name: Unknown Building
 	Power:
 		Amount: 0
-
 yacomd:
 	Inherits: ^Building
 	Selectable:
@@ -1068,7 +1053,6 @@ yacomd:
 		Amount: 0
 	SpawnActorOnDeath:
 		Actor: yacomd.rubble
-
 yacomd.rubble:
 	Inherits: ^Rubble
 	Inherits@shape: ^4x4Shape
@@ -1077,7 +1061,6 @@ yacomd.rubble:
 		Dimensions: 4, 4
 	RenderSprites:
 		Image: yacomd
-
 yapppt:
 	Inherits: ^Building
 	Selectable:

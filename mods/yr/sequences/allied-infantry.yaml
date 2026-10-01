@@ -87,7 +87,7 @@ ggi:
 		Start: 323
 		Length: 6
 		Facings: 8
- 	undeploy:
+	undeploy:
 		Start: 180
 		Length: 2
 		Facings: 2
@@ -113,7 +113,7 @@ spy:
 		Start: 196
 	icon: spyicon
 
-seal: 
+seal:
 	Inherits: ^ArmedInfantry
 	stand:
 		UseTilesetSuffix: true
@@ -236,7 +236,7 @@ ccomand:
 	-swim-cheer:
 	-paradrop:
 	icon: ccomicon
-    
+
 ptroop:
 	Inherits: ccomand
 	muzzle: yuricntl
@@ -388,8 +388,8 @@ cleg:
 	cheer:
 		Start: 165
 	icon: clegicon
-    
- ggi:
+
+ggi:
 	Inherits: ^ArmedInfantry
 	run:
 		Tick: 120

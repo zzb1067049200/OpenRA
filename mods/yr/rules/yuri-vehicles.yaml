@@ -40,9 +40,8 @@ pcv:
 	Voiced:
 		VoiceSet: YuriMCVVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
-	
 smin:
 	Inherits: ^Vehicle
 	Buildable:
@@ -107,14 +106,13 @@ smin:
 	Voiced:
 		VoiceSet: SlaveMinerVoice
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	GrantConditionOnDeploy:
 		DeployedCondition: deploy
 		UndeployedCondition: undeploy
 	Targetable@RadiationImmunity:
 		TargetTypes: ImmuneToRadiation
-	
 ltnk:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -168,10 +166,9 @@ ltnk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
-	
 ytnk:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -279,10 +276,9 @@ ytnk:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	Bunkerable:
-	
 tele:
 	Inherits: ^Vehicle
 	Inherits@MC: ^MindControllable
@@ -350,9 +346,8 @@ tele:
 		DefendCondition: stance-defend
 		HoldFireCondition: stance-holdfire
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
-	
 caos:
 	Inherits: ^Vehicle
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -399,12 +394,11 @@ caos:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
 	GrantExternalConditionWeapon@ChaoGas:
 		Condition: chaosgasability
 		EffectDuration: 500
-	
 mind:
 	Inherits: ^Vehicle
 	Inherits@CHAOSGAS: ^Chaosgasable
@@ -463,14 +457,12 @@ mind:
 	ProducibleWithLevel:
 		Prerequisites: warfactory.infiltrated
 	HitShape:
-	SelfHealing:
-	SelfHealing@Overload:
+	ChangesHealth:
+	ChangesHealth@Overload:
 		PercentageStep: -5
 		RequiresCondition: mind-control-overload
-	SelfHealing@MACHSHOP:
+	ChangesHealth@MACHSHOP:
 		RequiresCondition: machshop
-
-
 disk:
 	Inherits: ^Aircraft
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -538,7 +530,6 @@ disk:
 		Interval: 30
 		Amount: 30
 		RequiresCondition: diskdrainabilitytransfercash
-
 diskhusk:
 	Inherits: ^HelicopterHusk
 	Tooltip:

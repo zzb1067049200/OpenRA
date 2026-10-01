@@ -45,7 +45,7 @@ yacnst:
 	icon: xxicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yapowr:
 	Defaults:
 		Offset: 0, -31
@@ -93,7 +93,7 @@ yapowr:
 	icon: ypwricon
 		Offset: 0,0
 		UseTilesetCode: false
-    
+
 yabrck:
 	Defaults:
 		Offset: 15, -31
@@ -136,7 +136,7 @@ yabrck:
 	icon: brckicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yarefn:
 	Defaults:
 		Offset: 0, -31
@@ -172,7 +172,7 @@ yarefn:
 	icon: sminicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yaweap:
 	Defaults:
 		Offset: -30, -60
@@ -301,7 +301,7 @@ yayard:
 	icon: yyrdicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yagrnd:
 	Defaults:
 		Offset: 0, -31
@@ -349,7 +349,7 @@ yagrnd:
 	icon: grndicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yatech:
 	Defaults:
 		Offset: -21, -38
@@ -384,7 +384,7 @@ yatech:
 	icon: ytchicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 gafwll:
 	Defaults:
 		Offset: 0, -12
@@ -405,7 +405,7 @@ gafwll:
 	icon: citwicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 natbnk:
 	Defaults:
 		Offset: 0, -24
@@ -451,7 +451,7 @@ natbnk:
 	icon: tbnkicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yaggun:
 	Defaults:
 		Offset: 0, -20
@@ -629,7 +629,7 @@ yagntc:
 	icon: gtncicon
 		Offset: 0,0
 		UseTilesetCode: false
-        
+
 yappet:
 	Defaults:
 		Offset: 0, -31
@@ -750,4 +750,3 @@ yapppt:
 		Length: 1
 		ShadowStart: 4
 	icon: xxicon
-        

@@ -1,21 +1,12 @@
 MapFormat: 11
-
 RequiresMod: ra2
-
 Title: Dust Bowl
-
 Author: Westwood Studios
-
 Tileset: TEMPERATE
-
 MapSize: 70,152
-
 Bounds: 2,8,65,135
-
 Visibility: Lobby
-
 Categories: Conquest
-
 Players:
 	PlayerReference@Neutral:
 		Name: Neutral
@@ -37,7 +28,6 @@ Players:
 		Playable: True
 		Faction: Random
 		Enemies: Creeps
-
 Actors:
 	Actor0: cahse01
 		Location: 75,12
@@ -1987,7 +1977,6 @@ Actors:
 	Actor555: srock05
 		Location: 126,22
 		Owner: Neutral
-
 Rules:
 	World:
 		GlobalLightingPaletteEffect:

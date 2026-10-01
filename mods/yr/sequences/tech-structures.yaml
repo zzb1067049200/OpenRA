@@ -1,5 +1,5 @@
 caoild:
-    Inherits: ^TechStructure
+	Inherits: ^TechStructure
 	Defaults:
 		UseTilesetCode: true
 	idle:
@@ -21,7 +21,6 @@ caoild:
 	flag: caoild_f
 		Length: 16
 		Offset: 0, -9
-
 caairp:
 	Defaults:
 		UseTilesetCode: true
@@ -41,7 +40,6 @@ caairp:
 	flag: caairp_f
 		Length: 16
 		ZOffset: 128
-
 cahosp:
 	Defaults:
 		UseTilesetCode: true
@@ -65,7 +63,6 @@ cahosp:
 		Length: 16
 		ZOffset: 128
 		Offset: -9,-23
-
 caoutp:
 	Inherits: ^TechStructure
 	Defaults:
@@ -105,18 +102,17 @@ caoutp:
 		ZOffset: -1c511
 		Offset: -15, -50, 15
 		ZRamp: 1
-		-DepthSprite:
+		DepthSprite:
 	damaged-bib: caoutpbb
 		UseTilesetCode: false
 		Start: 1
 		ZOffset: -1c511
 		Offset: -15, -50, 15
 		ZRamp: 1
-		-DepthSprite:
+		DepthSprite:
 	flag: caoutp_f
 	rubble:
 		UseTilesetCode: false
-
 camach:
 	Defaults:
 		UseTilesetCode: false
@@ -129,8 +125,6 @@ camach:
 	flag: camach_f
 		Length: 16
 		Offset: 0, -9
-
-        
 capowr:
 	Defaults:
 		Offset: 0, -30
@@ -143,7 +137,6 @@ capowr:
 	flag: caoild_f
 		Length: 16
 		Offset: 48, -37
-
 caslab:
 	Defaults:
 		Offset: 0, -45

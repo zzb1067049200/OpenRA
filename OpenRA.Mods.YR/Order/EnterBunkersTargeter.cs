@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using System.Collections.Generic;
 using OpenRA.Mods.Common.Activities;
@@ -16,25 +15,25 @@ using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Mods.YR.Traits;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Orders
 {
 	public class EnterBunkersTargeter : EnterAlliedActorTargeter<BunkerCargoInfo>
 	{
         Func<Actor, TargetModifiers, bool> canTarget;
-
         public EnterBunkersTargeter(string order, int priority,
 			Func<Actor, TargetModifiers, bool> canTarget, Func<Actor, bool> useEnterCursor)
-			: base(order, priority, canTarget, useEnterCursor)
+			: base(order, priority, "enter", "enter-blocked", canTarget, useEnterCursor)
         {
             this.canTarget = canTarget;
         }
-
 		public override bool CanTargetActor(Actor self, Actor target, TargetModifiers modifiers, ref string cursor)
         {
             if (target.Owner.InternalName == "Neutral" && target.Info.HasTraitInfo<BunkerCargoInfo>() && canTarget(target, modifiers))
                 return true;
-
             //switch (mode)
 			//{
 			//	case AlternateTransportsMode.None:
@@ -50,7 +49,6 @@ namespace OpenRA.Mods.YR.Orders
 			//	case AlternateTransportsMode.Always:
 			//		break;
             //}
-
             return base.CanTargetActor(self, target, modifiers, ref cursor);
 		}
 	}

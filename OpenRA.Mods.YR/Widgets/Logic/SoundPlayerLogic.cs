@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +15,12 @@ using OpenRA.GameRules;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.Common.Widgets;
 using OpenRA.Widgets;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Widgets.Logic
 {
     public enum SoundPlayType
@@ -29,7 +33,6 @@ namespace OpenRA.Mods.YR.Widgets.Logic
 	{
 		readonly ScrollPanelWidget soundList;
 		readonly ScrollItemWidget itemTemplate;
-
         int soundIndex;
 		readonly MusicPlaylist soundPlaylist;
 		KeyValuePair<string, string[]> currentSound;
@@ -39,14 +42,11 @@ namespace OpenRA.Mods.YR.Widgets.Logic
         Dictionary<string, string[]> voiceSounds;
         Dictionary<string, string[]> notificationSounds;
         World world;
-
         [ObjectCreator.UseCtor]
 		public SoundPlayerLogic(Widget widget, ModData modData, World world, Action onExit)
 		{
             this.world = world;
-
 			var panel = widget;
-
             var notifications = world.Map.Rules.Notifications;
             var voices = world.Map.Rules.Voices;
             sounds = new Dictionary<string, SoundPlayType>();
@@ -92,40 +92,31 @@ namespace OpenRA.Mods.YR.Widgets.Logic
             //    }
             //}
             soundIndex = 0;
-
             soundList = panel.Get<ScrollPanelWidget>("SOUND_LIST");
 			itemTemplate = soundList.Get<ScrollItemWidget>("SOUND_TEMPLATE");
 			soundPlaylist = world.WorldActor.Trait<MusicPlaylist>();
-            
 			BuildSoundTable();
-
 			Func<bool> noMusic = () => !soundPlaylist.IsMusicAvailable || soundPlaylist.CurrentSongIsBackground;
-
 			if (soundPlaylist.IsMusicAvailable)
 			{
 				panel.Get<LabelWidget>("MUTE_LABEL").GetText = () =>
 				{
 					if (Game.Settings.Sound.Mute)
 						return "Audio has been muted in settings.";
-
 					return "";
 				};
 			}
-
 			var playButton = panel.Get<ButtonWidget>("BUTTON_PLAY");
 			playButton.OnClick = Play;
             playButton.IsDisabled = () => sounds.Count == 0;
 			playButton.IsVisible = () => !Game.Sound.MusicPlaying;
-
 			var pauseButton = panel.Get<ButtonWidget>("BUTTON_PAUSE");
 			pauseButton.OnClick = Game.Sound.PauseMusic;
 			pauseButton.IsDisabled = () => sounds.Count == 0;
             pauseButton.IsVisible = () => Game.Sound.MusicPlaying;
-
 			var stopButton = panel.Get<ButtonWidget>("BUTTON_STOP");
             stopButton.IsDisabled = () => sounds.Count == 0;
             stopButton.OnClick = () => { soundPlaylist.Stop(); };
-
             var nextButton = panel.Get<ButtonWidget>("BUTTON_NEXT");
             nextButton.IsDisabled = () => sounds.Count == 0;
             nextButton.OnClick = () => {
@@ -136,7 +127,6 @@ namespace OpenRA.Mods.YR.Widgets.Logic
                     Play();
                 }
             };
-
             var prevButton = panel.Get<ButtonWidget>("BUTTON_PREV");
 			prevButton.OnClick = () => {
                 KeyValuePair<string, string[]> sound;
@@ -147,22 +137,18 @@ namespace OpenRA.Mods.YR.Widgets.Logic
                 }
             };
 			prevButton.IsDisabled = noMusic;
-
 			var shuffleCheckbox = panel.Get<CheckboxWidget>("SHUFFLE");
 			shuffleCheckbox.IsChecked = () => Game.Settings.Sound.Shuffle;
 			shuffleCheckbox.OnClick = () => Game.Settings.Sound.Shuffle ^= true;
 			shuffleCheckbox.IsDisabled = () => soundPlaylist.CurrentSongIsBackground;
-
 			var repeatCheckbox = panel.Get<CheckboxWidget>("REPEAT");
 			repeatCheckbox.IsChecked = () => Game.Settings.Sound.Repeat;
 			repeatCheckbox.OnClick = () => Game.Settings.Sound.Repeat ^= true;
 			repeatCheckbox.IsDisabled = () => soundPlaylist.CurrentSongIsBackground;
-
 			panel.Get<LabelWidget>("TIME_LABEL").GetText = () =>
 			{
 				if (!currentSoundAvaliable)
 					return "";
-
                 return string.Empty;
 				//var seek = Game.Sound.MusicSeekPosition;
 				//var minutes = (int)seek / 60;
@@ -172,15 +158,12 @@ namespace OpenRA.Mods.YR.Widgets.Logic
                 //
 				//return "{0:D2}:{1:D2} / {2:D2}:{3:D2}".F(minutes, seconds, totalMinutes, totalSeconds);
 			};
-
 			var musicTitle = panel.GetOrNull<LabelWidget>("TITLE_LABEL");
 			if (musicTitle != null)
 				musicTitle.GetText = () => currentSoundAvaliable ? currentSound.Key : "No sound playing";
-
 			var musicSlider = panel.Get<SliderWidget>("MUSIC_SLIDER");
 			musicSlider.OnChange += x => Game.Sound.MusicVolume = x;
 			musicSlider.Value = Game.Sound.MusicVolume;
-
 			var soundWatcher = widget.GetOrNull<LogicTickerWidget>("SOUND_WATCHER");
 			if (soundWatcher != null)
 			{
@@ -195,12 +178,10 @@ namespace OpenRA.Mods.YR.Widgets.Logic
 					//currentSound = Game.Sound.CurrentMusic;
 				};
 			}
-
 			var backButton = panel.GetOrNull<ButtonWidget>("BACK_BUTTON");
 			if (backButton != null)
 				backButton.OnClick = () => { Game.Settings.Save(); Ui.CloseWindow(); onExit(); };
 		}
-
         private bool GetSound(int soundIndex, out KeyValuePair<string, string[]> sound)
         {
             int index = 0;
@@ -217,11 +198,9 @@ namespace OpenRA.Mods.YR.Widgets.Logic
             }
             return false;
         }
-
         public void BuildSoundTable()
 		{
             currentSoundAvaliable = GetSound(soundIndex, out currentSound);
-
             soundList.RemoveChildren();
 			foreach (var sound in sounds)
 			{
@@ -233,25 +212,20 @@ namespace OpenRA.Mods.YR.Widgets.Logic
                     () => { });
 				var label = item.Get<LabelWithTooltipWidget>("TITLE");
 				WidgetUtils.TruncateLabelToTooltip(label, sound.Key);
-
 				//item.Get<LabelWidget>("LENGTH").GetText = () => SongLengthLabel(sound);
 				soundList.AddChild(item);
 			}
-
 			if (currentSoundAvaliable)
 				soundList.ScrollToItem(currentSound.Key);
 		}
-
 		void Play()
 		{
             if (!currentSoundAvaliable)
                 return;
-
 			soundList.ScrollToItem(currentSound.Key);
-
             if (currentSoundEntry.Value == SoundPlayType.Voice)
             {
-                Game.Sound.Play(SoundType.UI, currentSound.Value, world);
+                Game.Sound.Play(SoundType.UI, [.. currentSound.Value], world);
             }
             else
             {
@@ -272,9 +246,7 @@ namespace OpenRA.Mods.YR.Widgets.Logic
                     }
                 }
             }
-
 		}
-
 		static string SongLengthLabel(MusicInfo song)
 		{
 			return "{0:D1}:{1:D2}".F(song.Length / 60, song.Length % 60);

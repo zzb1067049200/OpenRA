@@ -3,90 +3,90 @@ Metadata:
 	Version: release-20200503
 	Website: https://github.com/cookgreen/yr
 	WebIcon32: https://raw.githubusercontent.com/cookgreen/yr/master/mods/yr/icon.png
-    
+	WindowTitle: Red Alert 2 Yuri's Revenge
 ModCredits:
 	ModTabTitle: Red Alert 2 Yuri's Revenge
 	ModCreditsFile: yr|CREDITS # TODO rename to AUTHORS as stated in the .cs files when OpenRA#17460 is available
-
 PackageFormats: Mix, AudioBag
-
-Packages:
-	~^Content/ra2
-	~^Content/yr
-	.
-	$yr: yr
-	./mods/common: common
-	~ra2.mix
-	~language.mix
-	~cameo.mix
-	~ra2md.mix
-	~langmd.mix
-	~cache.mix
-	~audiomd.mix
-	~cameomd.mix
-	~multi.mix
-	~conquer.mix: conquer
-	~generic.mix
-	~isogen.mix
-	~isogenmd.mix
-	~isosnow.mix
-	~isotemp.mix
-	~isourb.mix
-	~load.mix
-	~local.mix
-	~neutral.mix
-	~sidec01.mix
-	~sidec02.mix
-	~sno.mix
-	~snow.mix
-	~tem.mix
-	~temperat.mix
-	~urb.mix
-	~urban.mix
-	~cachemd.mix
-	~conqmd.mix
-	~des.mix
-	~desert.mix
-	~genermd.mix
-	~isodes.mix
-	~isodesmd.mix
-	~isolun.mix
-	~isolunmd.mix
-	~isosnomd.mix
-	~isotemmd.mix
-	~isoubn.mix
-	~isoubnmd.mix
-	~isourbmd.mix
-	~loadmd.mix
-	~localmd.mix
-	~lun.mix
-	~lunar.mix
-	~ntrlmd.mix
-	~sidec02md.mix
-	~snowmd.mix
-	~ubn.mix
-	~urbann.mix
-	~audio.bag
-	~thememd.mix
-	~movmd03.mix
-	~wdt.mix
-	yr|bits
-	yr|bits/animations
-	yr|bits/audio
-	yr|bits/cameos
-	yr|bits/misc
-	yr|bits/palettes
-	yr|bits/projectiles
-	yr|bits/structures
-	yr|bits/units
-	yr|data
-	yr|languages/
-	yr|uibits
-
+# The 2026 engine requires an explicit FileSystem section; a bare `Packages:` block is
+# no longer read (see OpenRA.Game/Manifest.cs). DefaultFileSystem keeps the original mount
+# semantics, including the `~` optional marker and mount order / asset priority.
+FileSystem: DefaultFileSystem
+	Packages:
+		^EngineDir
+		$yr: yr
+		^EngineDir|mods/common: common
+		~^SupportDir|Content/ra2
+		~^SupportDir|Content/yr
+		~ra2.mix
+		~language.mix
+		~cameo.mix
+		~ra2md.mix
+		~langmd.mix
+		~cache.mix
+		~audiomd.mix
+		~cameomd.mix
+		~multi.mix
+		~conquer.mix: conquer
+		~generic.mix
+		~isogen.mix
+		~isogenmd.mix
+		~isosnow.mix
+		~isotemp.mix
+		~isourb.mix
+		~load.mix
+		~local.mix
+		~neutral.mix
+		~sidec01.mix
+		~sidec02.mix
+		~sno.mix
+		~snow.mix
+		~tem.mix
+		~temperat.mix
+		~urb.mix
+		~urban.mix
+		~cachemd.mix
+		~conqmd.mix
+		~des.mix
+		~desert.mix
+		~genermd.mix
+		~isodes.mix
+		~isodesmd.mix
+		~isolun.mix
+		~isolunmd.mix
+		~isosnomd.mix
+		~isotemmd.mix
+		~isoubn.mix
+		~isoubnmd.mix
+		~isourbmd.mix
+		~loadmd.mix
+		~localmd.mix
+		~lun.mix
+		~lunar.mix
+		~ntrlmd.mix
+		~sidec02md.mix
+		~snowmd.mix
+		~ubn.mix
+		~urbann.mix
+		~audio.bag
+		~thememd.mix
+		~movmd03.mix
+		~wdt.mix
+		yr|bits
+		yr|bits/animations
+		yr|bits/audio
+		yr|bits/cameos
+		yr|bits/misc
+		yr|bits/palettes
+		yr|bits/projectiles
+		yr|bits/structures
+		yr|bits/units
+		yr|data
+		yr|languages/
+		yr|uibits
 MapFolders:
 	yr|maps: System
-	~^maps/yr/release-20200503: User
-
+	~^SupportDir|maps/yr/release-20200503: User
 Rules:
 	yr|rules/proxy-actors.yaml
 	yr|rules/misc.yaml
@@ -117,7 +117,6 @@ Rules:
 	yr|rules/civilian-props.yaml
 	yr|rules/trees.yaml
 	yr|rules/civilian-naval.yaml
-
 Sequences:
 	yr|sequences/misc.yaml
 	yr|sequences/aircraft.yaml
@@ -137,22 +136,23 @@ Sequences:
 	yr|sequences/yuri-infantry.yaml
 	yr|sequences/yuri-structures.yaml
 	yr|sequences/yuri-vehicles.yaml
-
 ModelSequences:
 	yr|sequences/voxels.yaml
-
 Cursors:
 	yr|cursors.yaml
-
+# The 2026 engine replaced the legacy Translations/languages/*.yaml mechanism with Fluent
+# bundles. YR's chrome already carries inline English text, so only the shared engine
+# bundles are pulled in; YR strings fall back to being their own key.
+FluentMessages:
+	common|fluent/common.ftl
+	common|fluent/chrome.ftl
+	common|fluent/hotkeys.ftl
+	common|fluent/ingame-debug.ftl
+	common|fluent/rules.ftl
 Chrome:
 	yr|chrome.yaml
 	yr|chrome-wdt.yaml
-
-Assemblies:
-	common|OpenRA.Mods.Common.dll
-	common|OpenRA.Mods.Cnc.dll
-	yr|OpenRA.Mods.YR.dll
-
+Assemblies: OpenRA.Mods.Common.dll, OpenRA.Mods.Cnc.dll, OpenRA.Mods.YR.dll
 ChromeLayout:
 	yr|chrome/mainmenu.yaml
 	yr|chrome/vxlbrowser.yaml
@@ -200,7 +200,6 @@ ChromeLayout:
 	common|chrome/editor.yaml
 	common|chrome/playerprofile.yaml
 	yr|chrome/wdtbrowser.yaml
-    
 Hotkeys:
 	common|hotkeys/game.yaml
 	common|hotkeys/observer.yaml
@@ -208,7 +207,6 @@ Hotkeys:
 	common|hotkeys/supportpowers.yaml
 	common|hotkeys/viewport.yaml
 	yr|hotkeys.yaml
-
 Weapons:
 	yr|weapons/bullets.yaml
 	yr|weapons/defaults.yaml
@@ -221,13 +219,10 @@ Weapons:
 	yr|weapons/missiles.yaml
 	yr|weapons/particles.yaml
 	yr|weapons/zaps.yaml
-
 Voices:
 	yr|audio/voices.yaml
-
 Notifications:
 	yr|audio/notifications.yaml
-
 TileSets:
 	yr|tilesets/temperat.yaml
 	yr|tilesets/snow.yaml
@@ -235,34 +230,24 @@ TileSets:
 	yr|tilesets/newurban.yaml
 	yr|tilesets/desert.yaml
 	yr|tilesets/lunar.yaml
-
 MapGrid:
 	Type: RectangularIsometric
 	TileSize: 60,30
 	SubCellsOffsets: 0,0,0, -256,128,0, 0,-128,0, 256,128,0
 	DefaultSubCell: 2
 	MaximumTerrainHeight: 16
-
 Music:
 	yr|audio/music.yaml
-
-Translations:
-	yr|languages/chinese.yaml
-	yr|languages/english.yaml
-
 LoadScreen: LogoStripeLoadScreen
 	Image: yr|uibits/loadscreen.png
 	Text: Carving wooden nickels..., Preparing paratroopers..., Welcoming you to Texas..., Optimizing helium mix..., Receiving thoughts..., Igniting boosters...
-
 ServerTraits:
 	LobbyCommands
 	PlayerPinger
 	MasterServerPinger
-
 ChromeMetrics:
 	common|metrics.yaml
 	yr|metrics.yaml
-
 Fonts:
 	Regular:
 		Font: common|FreeSans.ttf
@@ -296,16 +281,18 @@ Fonts:
 		Font: common|FreeSansBold.ttf
 		Size: 10
 		Ascender: 8
-
 Missions:
 	yr|missions.yaml
-
 SupportsMapsFrom: yr
-
 SoundFormats: Aud, Wav
-
 SpriteFormats: ShpTS, TmpTS, ShpTD, PngSheet
-
+DefaultOrderGenerator: UnitOrderGenerator
+VideoFormats: Vqa, Wsa
+TerrainFormat: DefaultTerrain
+AssetBrowser:
+	SpriteExtensions: .shp, .tmp, .tem, .sno, .urb, .ubn, .des, .lun
+	AudioExtensions: .aud, .wav, .bag
+	VideoExtensions: .vqa, .wsa
 SpriteSequenceFormat: ExtendedTilesetSpecificSpriteSequence
 	TilesetExtensions:
 		TEMPERATE: .tem
@@ -324,65 +311,38 @@ SpriteSequenceFormat: ExtendedTilesetSpecificSpriteSequence
 		LUNAR: l
 	TilesetSuffixes:
 		SNOW: a
-
-ModelSequenceFormat: VoxelModelSequence
-
 GameSpeeds:
-	slowex:
-		Name: Extreme Slow
-		Timestep: 120
-		OrderLatency: 2
-	slowest:
-		Name: Slowest
-		Timestep: 80
-		OrderLatency: 2
-	slower:
-		Name: Slower
-		Timestep: 50
-		OrderLatency: 3
-	default:
-		Name: Default
-		Timestep: 40
-		OrderLatency: 3
-	fast:
-		Name: Fast
-		Timestep: 35
-		OrderLatency: 4
-	faster:
-		Name: Faster
-		Timestep: 30
-		OrderLatency: 4
-	fastest:
-		Name: Fastest
-		Timestep: 20
-		OrderLatency: 6
-	fastex:
-		Name: Extreme Fast
-		Timestep: 10
-		OrderLatency: 6
-
-ModContent:
-	InstallPromptMessage: Red Alert 2 Yuri's Revenge requires artwork and audio from the original game.
-	HeaderMessage: The original game content must be copied from an original game disc.
-	Packages:
-		base: Red Alert 2 Files
-			TestFiles: ^Content/ra2/ra2.mix, ^Content/ra2/language.mix
-			Sources: ra2, origin, tfd
-			Required: true
-		base-md: Yuri's Revenge Files
-			TestFiles: ^Content/yr/ra2md.mix, ^Content/yr/langmd.mix
-			Sources: yr, origin, tfd, yr-german-disc
-			Required: true
-		# music-md / movie-md (thememd.mix, movmd03.mix) intentionally omitted:
-		# user's YR install lacks these files; they are optional (theme music + briefing
-		# movies only) and their absence must not block the content installer. Re-add the
-		# two groups once the full YR discs are available.
-		wdt: Red Alert 2 World Domination Tour
-			TestFiles: ^Content/ra2/wdt.mix
-			Sources: ra2, origin, tfd
-	Sources:
-		yr|installer/ra2.yaml
-		yr|installer/yr.yaml
-		yr|installer/origin.yaml
-		yr|installer/firstdecade.yaml
-		yr|installer/yr-german-disc.yaml
+	DefaultSpeed: default
+	Speeds:
+		slowex:
+			Name: Extreme Slow
+			Timestep: 120
+			OrderLatency: 2
+		slowest:
+			Name: Slowest
+			Timestep: 80
+			OrderLatency: 2
+		slower:
+			Name: Slower
+			Timestep: 50
+			OrderLatency: 3
+		default:
+			Name: Default
+			Timestep: 40
+			OrderLatency: 3
+		fast:
+			Name: Fast
+			Timestep: 35
+			OrderLatency: 4
+		faster:
+			Name: Faster
+			Timestep: 30
+			OrderLatency: 4
+		fastest:
+			Name: Fastest
+			Timestep: 20
+			OrderLatency: 6
+		fastex:
+			Name: Extreme Fast
+			Timestep: 10
+			OrderLatency: 6

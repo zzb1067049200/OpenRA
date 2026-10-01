@@ -21,11 +21,9 @@ DogJaw:
 			Drone: 0
 			Rocket: 0
 		DamageTypes: BulletDeath
-
 DroneJump:
 	Inherits: DogJaw
 	Report: vteratta.wav
-
 AlligatorBite:
 	ReloadDelay: 30
 	Range: 1c512
@@ -36,15 +34,12 @@ AlligatorBite:
 		Spread: 213
 		Damage: 30
 		DamageTypes: BulletDeath
-
 BearBite:
 	Inherits: AlligatorBite
 	Report: gbeaatta.wav, gbeaattb.wav
-
 ChimpBite:
 	Inherits: AlligatorBite
 	Report: gchiatta.wav, gchiattb.wav, gchiattc.wav
-
 SquidPunch:
 	Inherits: AlligatorBite
 	ReloadDelay: 32
@@ -54,25 +49,20 @@ SquidPunch:
 	Warhead@1Dam: SpreadDamage
 		Damage: 50
 		ValidTargets: Water, Underwater
-		
 Punch:
 	Inherits: ^Punch
 	Report: ibrucra.wav, ibrucrb.wav, ibrucrc.wav, ibrucrd.wav
 	Warhead@1Dam: SpreadDamage
 		DamageTypes: BruteDeath
-		
 PunchE:
 	Inherits: Punch
-		
 Smash:
 	Inherits: ^Smash
 	Report: ibrucra.wav, ibrucrb.wav, ibrucrc.wav, ibrucrd.wav
 	Warhead@1Dam: SpreadDamage
 		DamageTypes: BruteDeath
-		
 SmashE:
 	Inherits: Smash
-		
 shovel:
 	Inherits: AlligatorBite
 	ReloadDelay: 30
@@ -96,13 +86,11 @@ shovel:
 		Explosions: piffpiff
 	Warhead@3Eff: CreateEffect
 		Explosions: piffpiff
-
 Mummypunch:
 	Inherits: ^Punch
 	Report: ibruatta, ibruattb, ibruattc, ibruattd, ibruatte, ibruattf
 	Warhead@1Dam: SpreadDamage
 		DamageTypes: BulletDeath
-		
 MummySmash:
 	Inherits: ^Smash
 	Report: ibruatta, ibruattb, ibruattc, ibruattd, ibruatte, ibruattf

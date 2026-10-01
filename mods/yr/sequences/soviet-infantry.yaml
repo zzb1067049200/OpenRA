@@ -123,7 +123,7 @@ ivan:
 	cheer:
 		Start: 259
 	icon: ivanicon
-    
+
 boris:
 	Inherits: ^ArmedInfantry
 	run:
@@ -150,10 +150,10 @@ boris:
 		Start: 297
 	paradrop:
 		Start: 292
-	secondary-fire
+	secondary-fire:
 		Start: 401
 		Length: 1
-	secondary-prone
+	secondary-prone:
 		Start: 217
 		Length: 6
 	icon: brisicon

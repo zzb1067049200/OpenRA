@@ -22,49 +22,46 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.YR.Traits;
 using OpenRA.Traits;
-
 /*
 Requires base engine changes.
 Since this inherits "Enter", you need to make several variables "protected".
 */
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Activities
 {
 	class EnterCarrierMaster : Enter
 	{
 		readonly Actor master; // remember the spawner.
 		readonly CarrierMaster spawnerMaster;
-
 		public EnterCarrierMaster(Actor self, Actor master, CarrierMaster spawnerMaster, EnterBehaviour enterBehaviour, WDist closeEnoughDist)
 			: base(self, Target.FromActor(master))
 		{
 			this.master = master;
 			this.spawnerMaster = spawnerMaster;
 		}
-
 		protected override void OnEnterComplete(Actor self, Actor targetActor)
         {
             // Master got killed :(
             if (master.IsDead)
                 return;
-
             // Load this thingy.
             // Issue attack move to the rally point.
             self.World.AddFrameEndTask(w =>
             {
                 if (self.IsDead || master.IsDead)
                     return;
-
                 spawnerMaster.PickupSlave(master, self);
                 w.Remove(self);
-
                 // Insta repair.
                 if (spawnerMaster.Info.InstaRepair)
                 {
@@ -73,23 +70,19 @@ namespace OpenRA.Mods.YR.Activities
                 }
             });
         }
-
 		protected override void OnFirstRun(Actor self)
         {
             base.OnFirstRun(self);
         }
-
 		protected override void OnLastRun(Actor self)
         {
             base.OnLastRun(self);
         }
-
 		protected override bool TryStartEnter(Actor self, Actor targetActor)
         {
             return base.TryStartEnter(self, targetActor);
         }
-
-		protected override void TickInner(Actor self, Target target, bool targetIsDeadOrHiddenActor)
+		protected override void TickInner(Actor self, in Target target, bool targetIsDeadOrHiddenActor)
         {
             base.TickInner(self, target, targetIsDeadOrHiddenActor);
         }

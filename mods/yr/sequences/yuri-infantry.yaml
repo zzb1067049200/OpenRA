@@ -19,8 +19,6 @@ init:
 	cheer:
 		Start: 201
 	icon: initicon
-    
-
 yengineer:
 	Inherits: ^BasicInfantry
 	Defaults: engineer
@@ -33,7 +31,6 @@ yengineer:
 	paradrop:
 		Start: 244
 	icon: yengicon
-   
 brute:
 	Inherits: ^BasicInfantry
 	run:
@@ -50,8 +47,6 @@ brute:
 	cheer:
 		Start: 276
 	icon: bruticon
-
-
 virus:
 	Inherits: ^ArmedInfantry
 	run:
@@ -69,7 +64,6 @@ virus:
 	cheer:
 		Start: 196
 	icon: vrusicon
-    
 slav:
 	Inherits: ^BasicInfantry
 	idle:
@@ -93,7 +87,6 @@ slav:
 	cheer:
 		Start: 276
 	icon: initicon
-
 yuri:
 	Inherits: ^ArmedInfantry
 	deploy:
@@ -110,7 +103,6 @@ yuri:
 	muzzle: yuricntl
 		Length: *
 	icon: yclnicon
-	
 yurix:
 	Inherits: ^ArmedInfantry
 	idle1:
@@ -135,9 +127,8 @@ yurix:
 	muzzle: yuricntl
 		Length: *
 	icon: yypricon
-
 lunr:
-	Defaults: 
+	Defaults:
 		Length: 6
 		Facings: 8
 	stand:

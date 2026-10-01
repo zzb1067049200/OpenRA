@@ -71,7 +71,6 @@ nacnst:
 	SpawnActorsOnSell@yuris:
 		ActorTypes: init, init, init, init, yengineer
 		Factions: yuri
-
 napowr:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
@@ -115,7 +114,6 @@ napowr:
 	PowerTooltip:
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate, powerplant
-
 nahand:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -205,13 +203,11 @@ nahand:
 		ProductionType: Infantry.Soviets
 	Power:
 		Amount: -10
-	ConditionManager:
 	InfiltrateForSupportPower:
 		Types: SpyInfiltrate
 		Proxy: barracks.infiltrated
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate
-
 narefn:
 	Inherits: ^Building
 	Inherits@shape: ^4x3Shape
@@ -240,13 +236,11 @@ narefn:
 		Type: Wood
 	RevealsShroud:
 		Range: 6c0
-	TiberianSunRefinery:
-		DockOffset: 3, 1
+	Refinery:
 		ShowTicks: True
 		TickLifetime: 30
 		TickVelocity: 1
 		TickRate: 10
-		DockAngle: 160
 		UseStorage: false
 	CustomSellValue:
 		Value: 300
@@ -270,7 +264,10 @@ narefn:
 		Amount: -50
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate
-
+	DockHost:
+		Type: Unload
+		DockAngle: 160
+		DockOffset: 1086,1086,0
 naradr:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -324,7 +321,6 @@ naradr:
 		UnitType: spyp
 		QuantizedFacings: 8
 		Cursor: spyplane
-
 naweap:
 	Inherits: ^Building
 	Inherits@shape: ^5x3Shape
@@ -405,7 +401,6 @@ naweap:
 		UnitNames: zep, shad, schp, disk, hind
 		Condition: roof-open
 		ConditionDelay: 50
-
 nayard:
 	Inherits: ^Building
 	Inherits@shape: ^4x4Shape
@@ -542,7 +537,6 @@ nayard:
 	-SpawnActorsOnSell@yuris:
 	RequiresBuildableArea:
 		Adjacent: 13
-
 nadept:
 	Inherits: ^Building
 	Inherits@shape: ^4x3Shape
@@ -587,7 +581,6 @@ nadept:
 		Sequence: repair
 	Power:
 		Amount: -25
-
 nanrct:
 	Inherits: ^Building
 	Inherits@shape: ^4x4Shape
@@ -618,7 +611,7 @@ nanrct:
 	WithIdleOverlay@lights:
 		Sequence: idle-lights
 		RequiresCondition: !build-incomplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: NukePayload
 		EmptyWeapon: NukePayload
@@ -635,7 +628,6 @@ nanrct:
 	PowerTooltip:
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, SpyInfiltrate, powerplant
-
 natech:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -683,7 +675,6 @@ natech:
 		BlockedCursor: forceshield-blocked
 		LowPower: true
 		LowPowerDuration: 625
-
 nairon:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -711,6 +702,8 @@ nairon:
 	Power:
 		Amount: -200
 	GrantExternalConditionPower@IRONCURTAIN:
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
 		Icon: invuln
 		ChargeInterval: 7500
 		Description: Iron Curtain
@@ -725,11 +718,11 @@ nairon:
 		Condition: invulnerability
 		PauseOnCondition: lowpower
 		Range: 3
+		BlockedCursor: move-blocked
 	SupportPowerChargeBar:
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
-
 namisl:
 	Inherits: ^SupportBuilding
 	Inherits@shape: ^3x3Shape
@@ -784,8 +777,6 @@ namisl:
 		CameraRange: 10
 		PauseOnCondition: lowpower
 		SelectTargetSpeechNotification: SelectTarget
-	WithNukeLaunchAnimation:
-
 nawall:
 	Inherits: ^Wall
 	Buildable:
@@ -795,7 +786,6 @@ nawall:
 		Description: Light wall.\nCrushable by vehicles.
 	Tooltip:
 		Name: Soviet Wall
-
 naflak:
 	Inherits: ^VoxelLighting
 	Inherits@AUTOTARGET: ^AutoTargetAir
@@ -846,7 +836,6 @@ naflak:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
 	WithMuzzleOverlay:
-
 tesla:
 	Inherits: ^SupportBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -903,7 +892,6 @@ tesla:
 		RequiresCondition: !lowpower && !build-incomplete
 	ExternalCondition@CHARGED:
 		Condition: charged
-
 nalasr:
 	Inherits: ^VoxelLighting
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -948,7 +936,6 @@ nalasr:
 		Range: 6c0
 		Type: pillbox
 	AutoTarget:
-	
 nabnkr:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -989,7 +976,6 @@ nabnkr:
 		Cost: 600
 	Power:
 		Amount: 0
-		
 naindp:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -1025,7 +1011,6 @@ naindp:
 		RequiresCondition: !build-incomplete
 	Power:
 		Amount: -200
-		
 napsya:
 	Inherits: ^Building
 	Selectable:
@@ -1042,7 +1027,6 @@ napsya:
 		Amount: -100
 	WithIdleOverlay@active:
 		Sequence: idle-active
-		
 napsyb:
 	Inherits: ^Building
 	Selectable:

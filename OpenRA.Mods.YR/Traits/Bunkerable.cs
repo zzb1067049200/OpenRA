@@ -11,14 +11,18 @@
  * information, see COPYING.
  */
 #endregion
-
 using OpenRA.Mods.Common.Traits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class BunkerableInfo : ConditionalTraitInfo
@@ -28,7 +32,6 @@ namespace OpenRA.Mods.YR.Traits
             return new Bunkerable(init, this);
         }
     }
-
     public class Bunkerable : ConditionalTrait<BunkerableInfo>
     {
         public Bunkerable(ActorInitializer init, BunkerableInfo info) : base(info)

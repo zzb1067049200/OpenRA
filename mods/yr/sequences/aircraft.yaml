@@ -26,16 +26,16 @@ shad:
 
 zep:
 	icon: zepicon
-    
+
 bpln:
 	icon: bplnicon
 
 v3rocket:
 	icon: xxicon
-	
+
 schp:
 	icon: schpicon
-	
+
 schd:
 	make: schpdepl
 		Length: 11

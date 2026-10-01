@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Activities;
@@ -16,7 +15,10 @@ using OpenRA.Mods.Common.Effects;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.YR.Traits;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
 namespace OpenRA.Mods.YR.Activities
 {
 	class EnterBunker : Enter
@@ -25,7 +27,6 @@ namespace OpenRA.Mods.YR.Activities
 		Actor bunkerActor;
 		BunkerCargo bunkerCargo;
 		bool willDisappear;
-
 		public EnterBunker(Actor passengerActor, Actor bunkerActor, WPos pos, bool willDisappear = true, int maxTries = 0, bool repathWhileMoving = true)
 			: base(passengerActor, Target.FromActor(bunkerActor))
 		{
@@ -34,7 +35,6 @@ namespace OpenRA.Mods.YR.Activities
 			bunkerPassenger = passengerActor.Trait<BunkerPassenger>();
 			this.willDisappear = willDisappear;
         }
-
 		protected override void OnEnterComplete(Actor self, Actor targetActor)
         {
             self.World.AddFrameEndTask(w =>
@@ -42,12 +42,10 @@ namespace OpenRA.Mods.YR.Activities
                 Mobile mobile = self.TraitOrDefault<Mobile>();
                 if (self.IsDead || bunkerActor.IsDead || !bunkerCargo.CanLoad(bunkerActor, self))
                     return;
-
                 if (!string.IsNullOrEmpty(bunkerCargo.Info.SequenceOnCargo))
                 {
                     w.Add(new SpriteEffect(bunkerActor.CenterPosition, w, bunkerActor.Info.Name, bunkerCargo.Info.SequenceOnCargo, "player" + self.Owner.InternalName));
                 }
-
                 if (bunkerCargo.GetBunkeredNumber() == 0)
                 {
                     bunkerCargo.ChangeState(BunkerState.Bunkered);
@@ -55,18 +53,15 @@ namespace OpenRA.Mods.YR.Activities
                     {
                         bunkerActor.ChangeOwner(self.Owner);
                     }
-
                     if (!string.IsNullOrEmpty(bunkerCargo.Info.StructureGarrisonSound))
                     {
                         Game.Sound.PlayToPlayer(SoundType.World, self.Owner, bunkerCargo.Info.StructureGarrisonSound);
                     }
-
                     if (!string.IsNullOrEmpty(bunkerCargo.Info.StructureGarrisonedNotification))
                     {
                         Game.Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", bunkerCargo.Info.StructureGarrisonedNotification, self.Owner.Faction.InternalName);
                     }
                 }
-
                 bunkerCargo.Load(bunkerActor, self);
                 bunkerPassenger.GrantCondition();
                 if (willDisappear)
@@ -76,17 +71,15 @@ namespace OpenRA.Mods.YR.Activities
                 else
                 {
                     // If didn't disappear, then move the passenger actor to the bunker center
-                    self.QueueActivity(mobile.VisualMove(self, self.CenterPosition, bunkerActor.CenterPosition));
-                    mobile.SetVisualPosition(self, bunkerActor.CenterPosition);
+                    self.QueueActivity(mobile.LocalMove(self, self.CenterPosition, bunkerActor.CenterPosition));
+                    mobile.SetPosition(self, bunkerActor.CenterPosition);
                 }
             });
         }
-
 		protected override bool TryStartEnter(Actor self, Actor targetActor)
         {
             return bunkerCargo.Unloading || bunkerCargo.CanLoad(bunkerActor, self);
         }
-
 		protected override void OnLastRun(Actor self)
         {
             bunkerPassenger.Unreserve(self);

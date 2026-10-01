@@ -1,21 +1,12 @@
 MapFormat: 11
-
 RequiresMod: yr
-
 Title: Golden State Freeway
-
 Author: Westwood Studios
-
 Tileset: TEMPERATE
-
 MapSize: 93,230
-
 Bounds: 3,5,87,216
-
 Visibility: Lobby
-
 Categories: Conquest
-
 Players:
 	PlayerReference@Neutral:
 		Name: Neutral
@@ -47,7 +38,6 @@ Players:
 		Playable: True
 		Faction: Random
 		Enemies: Creeps
-
 Actors:
 	Actor0: cafarm01
 		Location: 93,-12
@@ -3906,7 +3896,6 @@ Actors:
 	Actor1299: trock03
 		Location: 177,44
 		Owner: Neutral
-
 Rules:
 	World:
 		GlobalLightingPaletteEffect:

@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -20,7 +20,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Cnc.Traits;
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using System.Numerics;
 namespace OpenRA.Mods.YR.Widgets
 {
     public class VoxelWidget : Widget
@@ -46,12 +53,9 @@ namespace OpenRA.Mods.YR.Widgets
         public Func<Voxel> GetVoxel;
         public int2 PreviewOffset { get; private set; }
         public int2 IdealPreviewSize { get; private set; }
-
         private World world;
         IFinalizedRenderable[] renderables;
-
         protected readonly WorldRenderer WorldRenderer;
-
         [ObjectCreator.UseCtor]
         public VoxelWidget(WorldRenderer worldRenderer)
         {
@@ -67,22 +71,18 @@ namespace OpenRA.Mods.YR.Widgets
             WorldRenderer = worldRenderer;
             world = worldRenderer.World;
         }
-
         protected VoxelWidget(VoxelWidget other)
 			: base(other)
 		{
             Palette = other.Palette;
             GetPalette = other.GetPalette;
             GetVoxel = other.GetVoxel;
-
             WorldRenderer = other.WorldRenderer;
         }
-
         public override Widget Clone()
         {
             return new VoxelWidget(this);
         }
-
         private Voxel cachedVoxel;
         private string cachedPalette;
         private string cachedPlayerPalette;
@@ -97,35 +97,18 @@ namespace OpenRA.Mods.YR.Widgets
         private PaletteReference prPlayer;
         private PaletteReference prNormals;
         private PaletteReference prShadow;
-        private float2 offset = float2.Zero;
+        private System.Numerics.Vector2 offset = System.Numerics.Vector2.Zero;
         private float[] GroundNormal = new float[] { 0, 0, 1, 1 };
-
         public override void Draw()
         {
             if (renderables == null)
-            {
                 return;
-            }
-
-            var scale = 1f;
-            var origin = RenderOrigin + new int2(RenderBounds.Size.Width / 2, RenderBounds.Size.Height / 2);
-
-            // The scale affects world -> screen transform, which we don't want when drawing the (fixed) UI.
-            if (scale != 1f)
-                origin = (1f / scale * origin.ToFloat2()).ToInt2();
 
             Game.Renderer.Flush();
-            // TODO: This was completely removed from the API
-            // Game.Renderer.SetViewportParams(-origin - PreviewOffset, scale);
-
             foreach (var r in renderables)
                 r.Render(WorldRenderer);
-            
             Game.Renderer.Flush();
-            // TODO: This was completely removed from the API
-            // Game.Renderer.SetViewportParams(WorldRenderer.Viewport.TopLeft, WorldRenderer.Viewport.Zoom);
         }
-
         public override void PrepareRenderables()
         {
             var voxel = GetVoxel();
@@ -138,16 +121,13 @@ namespace OpenRA.Mods.YR.Widgets
             var lightDiffuseColor = GetLightDiffuseColor();
             var lightPitch = GetLightPitch();
             var lightYaw = GetLightYaw();
-
             if (voxel == null || palette == null)
                 return;
-
             if (voxel != cachedVoxel)
             {
-                offset = 0.5f * (new float2(RenderBounds.Size) - new float2(voxel.Size[0], voxel.Size[1]));
+                offset = 0.5f * (new System.Numerics.Vector2(RenderBounds.Size.Width, RenderBounds.Size.Height) - new System.Numerics.Vector2(voxel.Size[0], voxel.Size[1]));
                 cachedVoxel = voxel;
             }
-
             if (palette != cachedPalette)
             {
                 if (string.IsNullOrEmpty(palette) && string.IsNullOrEmpty(playerPalette))
@@ -158,105 +138,93 @@ namespace OpenRA.Mods.YR.Widgets
                 pr = WorldRenderer.Palette(paletteName);
                 cachedPalette = paletteName;
             }
-
             if (playerPalette != cachedPlayerPalette)
             {
                 prPlayer = WorldRenderer.Palette(playerPalette);
                 cachedPlayerPalette = playerPalette;
             }
-
             if (normalsPalette != cachedNormalsPalette)
             {
                 prNormals = WorldRenderer.Palette(normalsPalette);
                 cachedNormalsPalette = normalsPalette;
             }
-
             if (shadowPalette != cachedShadowPalette)
             {
                 prShadow = WorldRenderer.Palette(shadowPalette);
                 cachedShadowPalette = shadowPalette;
             }
-
             if (scale != cachedScale)
             {
                 //offset *= scale;
                 cachedScale = scale;
             }
-
             if (lightPitch != cachedLightPitch)
             {
                 cachedLightPitch = lightPitch;
             }
-
             if (lightYaw != cachedLightYaw)
             {
                 cachedLightYaw = lightYaw;
             }
-
             if (cachedLightAmbientColor[0] != lightAmbientColor[0] || cachedLightAmbientColor[1] != lightAmbientColor[1] || cachedLightAmbientColor[2] != lightAmbientColor[2])
             {
                 cachedLightAmbientColor = lightAmbientColor;
             }
-
             if (cachedLightDiffuseColor[0] != lightDiffuseColor[0] || cachedLightDiffuseColor[1] != lightDiffuseColor[1] || cachedLightDiffuseColor[2] != lightDiffuseColor[2])
             {
                 cachedLightDiffuseColor = lightDiffuseColor;
             }
             if (cachedVoxel == null)
-            {
                 return;
-            }
-            var size = new float2(cachedVoxel.Size[0] * cachedScale, cachedVoxel.Size[1] * cachedScale);
-            ModelAnimation animation = new ModelAnimation(
-                cachedVoxel, 
-                () => WVec.Zero, 
-                () => new List<WRot>() {
-                    new WRot(
-                        new WAngle(-45),
-                        new WAngle(-30),
-                        new WAngle(360)
-                    )
-                }, 
+
+            // The engine moved model rendering onto a world trait; without it we cannot
+            // build a preview at all, so bail out rather than crash the widget.
+            var modelRenderer = world.WorldActor.TraitOrDefault<ModelRenderer>();
+            if (modelRenderer == null)
+                return;
+
+            var animation = new ModelAnimation(
+                cachedVoxel,
+                () => WVec.Zero,
+                () => new WRot(new WAngle(-45), new WAngle(-30), new WAngle(360)),
                 () => false,
                 () => 0,
                 true);
-            
-            ModelPreview preview = new ModelPreview(
-                new ModelAnimation[] { animation }, WVec.Zero, 0,
+
+            IActorPreview preview = new ModelPreview(
+                modelRenderer,
+                new ModelAnimation[] { animation },
+                WVec.Zero,
+                0,
                 cachedScale,
-                new WAngle(cachedLightPitch), 
+                new WAngle(cachedLightPitch),
                 new WAngle(cachedLightYaw),
-                cachedLightAmbientColor,
-                cachedLightDiffuseColor,
+                [.. cachedLightAmbientColor],
+                [.. cachedLightDiffuseColor],
                 new WAngle(),
                 pr,
                 prNormals,
                 prShadow);
 
-            List<ModelPreview> previews = new List<ModelPreview>() {
-                preview
-            };
-
-
             // Calculate the preview bounds
             PreviewOffset = int2.Zero;
             IdealPreviewSize = int2.Zero;
-
-            var rs = previews.SelectMany(p => ((IActorPreview)p).ScreenBounds(WorldRenderer, WPos.Zero));
-
-            if (rs.Any())
+            var rs = preview.ScreenBounds(WorldRenderer, WPos.Zero).ToArray();
+            if (rs.Length > 0)
             {
-                var b = rs.First();
+                var b = rs[0];
                 foreach (var rr in rs.Skip(1))
                     b = OpenRA.Primitives.Rectangle.Union(b, rr);
-
                 IdealPreviewSize = new int2(b.Width, b.Height);
-                PreviewOffset = -new int2(b.Left, b.Top) - IdealPreviewSize / 2;
+                PreviewOffset = new int2(b.Left, b.Top) + IdealPreviewSize / 2;
             }
 
-            renderables = previews
-                .SelectMany(p => ((IActorPreview)p).Render(WorldRenderer, WPos.Zero))
-                .OrderBy(WorldRenderer.RenderableScreenZPositionComparisonKey)
+            var origin = RenderOrigin - new int2(
+                PreviewOffset.X - RenderBounds.Size.Width / 2,
+                PreviewOffset.Y - RenderBounds.Size.Height / 2);
+
+            renderables = preview.RenderUI(WorldRenderer, origin, cachedScale)
+                .OrderBy(WorldRenderer.RenderableZPositionComparisonKey)
                 .Select(r => r.PrepareRender(WorldRenderer))
                 .ToArray();
         }

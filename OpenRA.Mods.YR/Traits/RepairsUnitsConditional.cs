@@ -1,10 +1,16 @@
-﻿using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
 	public class RepairsUnitsConditionalInfo : RepairsUnitsInfo
@@ -16,42 +22,36 @@ namespace OpenRA.Mods.YR.Traits
 			return new RepairsUnitsConditional(init, this);
 		}
 	}
-
 	public class RepairsUnitsConditional : RepairsUnits, INotifyResupply
 	{
 		private RepairsUnitsConditionalInfo info;
-		private int conditionToken = ConditionManager.InvalidConditionToken;
-		private ConditionManager conditionManager;
+		private int conditionToken = Actor.InvalidConditionToken;
 		public RepairsUnitsConditional(ActorInitializer init, RepairsUnitsConditionalInfo info) : base(info)
 		{
 			this.info = info;
 		}
-
 		protected override void Created(Actor self)
 		{
-			conditionManager = self.Trait<ConditionManager>();
-
+			
 			base.Created(self);
 		}
-
 		public void BeforeResupply(Actor host, Actor target, ResupplyType types)
 		{
 		}
-
 		public void ResupplyTick(Actor host, Actor target, ResupplyType types)
 		{
 			if (types.HasFlag(ResupplyType.Repair))
 			{
-				if (conditionToken == ConditionManager.InvalidConditionToken)
+				if (conditionToken == Actor.InvalidConditionToken)
 				{
-					conditionToken = conditionManager.GrantCondition(host, info.RepairingCondition);
+					conditionToken = host.GrantCondition(info.RepairingCondition);
 				}
 			}
 			else if (types.HasFlag(ResupplyType.None))
 			{
-				if (conditionToken != ConditionManager.InvalidConditionToken)
+				if (conditionToken != Actor.InvalidConditionToken)
 				{
-					conditionToken = conditionManager.RevokeCondition(host, conditionToken);
+					conditionToken = host.RevokeCondition(conditionToken);
 				}
 			}
 		}

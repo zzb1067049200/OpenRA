@@ -8,29 +8,30 @@
  * information, see COPYING.
  */
 #endregion
-
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.Common.Traits
 {
 	[RequireExplicitImplementation]
 	public interface IResourceLogicLayer
 	{
-		void UpdatePosition(CPos cell, ResourceType type, int density);
+		void UpdatePosition(CPos cell, ResourceLayerInfo.ResourceTypeInfo type, int density);
 	}
-
 	[RequireExplicitImplementation]
 	public interface IRefineryResourceDelivered
 	{
 		void ResourceDelivered(Actor self, int amount);
 	}
-
 	[RequireExplicitImplementation]
 	public interface IRemoveInfector
 	{
 		void RemoveInfector(Actor self, bool kill, AttackInfo e = null);
 	}
-
 	[RequireExplicitImplementation]
 	public interface IPointDefense
 	{

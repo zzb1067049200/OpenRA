@@ -32,7 +32,7 @@ sapc:
 		UnloadTerrainTypes: Clear, Rough, Rail, Road, DirtRoad, Beach, Ore, Gems
 		UnloadVoice: Move
 		LoadingCondition: notmobile
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:
@@ -41,7 +41,6 @@ sapc:
 		VoiceSet: HoverSovietVoice
 	HitShape:
 	Hovers:
-
 sub:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -103,7 +102,7 @@ sub:
 		CloakTypes: Underwater
 		Range: 4c0
 	RenderDetectionCircle:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	-MustBeDestroyed:
@@ -115,7 +114,6 @@ sub:
 	HitShape:
 	Voiced:
 		VoiceSet: TyphoonSubVoice
-
 hyd:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -146,13 +144,13 @@ hyd:
 		Voice: Attack
 	Armament@primary:
 		Weapon: FlakTrackGun
- 		LocalOffset: 256,0,1408
+		LocalOffset: 256,0,1408
 		MuzzleSequence: muzzle
 	Armament@secondary:
 		Weapon: FlakWeapon
- 		LocalOffset: 256,0,1408
+		LocalOffset: 256,0,1408
 		MuzzleSequence: muzzle
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:
@@ -161,7 +159,6 @@ hyd:
 	Voiced:
 		VoiceSet: SeaScorpionVoice
 	WithMuzzleOverlay:
-
 sqd:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
@@ -179,7 +176,7 @@ sqd:
 		Type: Light
 	Health:
 		HP: 200
-	SelfHealing:
+	ChangesHealth:
 	Mobile:
 		TurnSpeed: 6
 		Speed: 90
@@ -234,8 +231,6 @@ sqd:
 		Voice: Attack
 		RepairActors: gayard, nayard
 	HitShape:
-
-	
 dred:
 	Inherits: ^Ship
 	Inherits@MC: ^MindControllable
@@ -268,7 +263,7 @@ dred:
 	AttackTurreted:
 		Voice: Attack
 	AutoTarget:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
 	WithVoxelBody:

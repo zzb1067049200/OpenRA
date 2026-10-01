@@ -1,23 +1,16 @@
-
 ^LoadScreen:
 	Image: loadscreen.png
-
 ^Dialog:
 	Image: dialog.png
-
 ^Chrome:
 	Image: chrome.png
-	
 ^Buttons:
 	Image: buttons.png
-
 ^ChromeYR:
 	Image: chrome-yr.png
-
 # -----------------------------------------------------------------------------------
 # Allies
 # -----------------------------------------------------------------------------------
-
 sidebar-allies:
 	Inherits: ^Chrome
 	Regions:
@@ -26,7 +19,6 @@ sidebar-allies:
 		background-bottom: 0,325,234,66
 		background-supportoverlay: 250,20,64,48
 		background-commandbar: 559,278,459,31
-
 # These coordinates point to an empty area of the chrome.png file to make the background of these buttons empty
 sidebar-button-allies:
 	Inherits: ^Chrome
@@ -60,7 +52,6 @@ sidebar-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 5370, 15, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 scrollup-buttons-allies:
 	Inherits: ^Chrome
 	PanelRegion: 117, 395, 0, 0, 77, 27, 0, 0
@@ -93,7 +84,6 @@ scrollup-buttons-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 117, 476, 0, 0, 77, 27, 0, 0
 	PanelSides: Center
-
 scrolldown-buttons-allies:
 	Inherits: ^Chrome
 	PanelRegion: 40, 395, 0, 0, 77, 27, 0, 0
@@ -126,12 +116,10 @@ scrolldown-buttons-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 40, 476, 0, 0, 77, 27, 0, 0
 	PanelSides: Center
-
 radar-allies:
 	Inherits: ^Chrome
 	Regions:
 		insignia: 340, 335, 202, 157
-
 repair-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 580, 15, 0, 0, 44, 34, 0, 0
@@ -164,7 +152,6 @@ repair-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 580, 219, 0, 0, 44, 34, 0, 0
 	PanelSides: Center
-
 beacon-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 665, 15, 0, 0, 41, 34, 0, 0
@@ -197,7 +184,6 @@ beacon-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 665, 219, 0, 0, 41, 34, 0, 0
 	PanelSides: Center
-
 sell-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 706, 15, 0, 0, 43, 34, 0, 0
@@ -230,7 +216,6 @@ sell-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 706, 219, 0, 0, 43, 34, 0, 0
 	PanelSides: Center
-
 buildings-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 340, 15, 0, 0, 30, 32, 0, 0
@@ -263,7 +248,6 @@ buildings-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 340, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 support-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 370, 15, 0, 0, 30, 32, 0, 0
@@ -296,7 +280,6 @@ support-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 370, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 infantry-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 400, 15, 0, 0, 30, 32, 0, 0
@@ -329,7 +312,6 @@ infantry-button-allies-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 400, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 vehicles-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 430, 15, 0, 0, 30, 32, 0, 0
@@ -362,7 +344,6 @@ vehicles-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 430, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 aircrafts-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 460, 15, 0, 0, 30, 32, 0, 0
@@ -395,7 +376,6 @@ aircrafts-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 460, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 ships-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 490, 15, 0, 0, 30, 32, 0, 0
@@ -428,19 +408,16 @@ ships-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 490, 207, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 power-icons-allies:
 	Inherits: ^Chrome
 	Regions:
 		power-normal: 326, 300, 19, 19
 		power-critical: 307, 300, 19, 19
-
 cash-icons-allies:
 	Inherits: ^Chrome
 	Regions:
 		cash-normal: 326, 281, 19, 19
 		cash-critical: 307, 281, 19, 19
-
 diplomacy-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 550, 335, 0, 0, 69, 23, 0, 0
@@ -473,7 +450,6 @@ diplomacy-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 550, 473, 0, 0, 69, 23, 0, 0
 	PanelSides: Center
-
 debug-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 619, 335, 0, 0, 62, 23, 0, 0
@@ -506,7 +482,6 @@ debug-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 619, 473, 0, 0, 62, 23, 0, 0
 	PanelSides: Center
-
 options-button-allies:
 	Inherits: ^Chrome
 	PanelRegion: 681, 335, 0, 0, 69, 23, 0, 0
@@ -539,7 +514,6 @@ options-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 681, 473, 0, 0, 69, 23, 0, 0
 	PanelSides: Center
-
 # bad coordinates - find where to add this button
 stats-button-allies:
 	Inherits: ^Chrome
@@ -573,7 +547,6 @@ stats-button-allies-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 985, 710, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 # These coordinates point to an empty area of the chrome.png file to make the glyph of these buttons not appear
 production-icons-allies:
 	Inherits: ^Chrome
@@ -596,7 +569,6 @@ production-icons-allies:
 		ship: 5250, 205, 19, 19
 		ship-disabled: 5269, 205, 19, 19
 		ship-alert: 5288, 205, 19, 19
-
 command-icons-allies:
 	Inherits: ^Chrome
 	Regions:
@@ -640,7 +612,6 @@ command-icons-allies:
 		queue-orders-active: 975, 387, 35, 26
 		queue-orders-hover: 975, 413, 35, 26
 		queue-orders-active-hover: 975, 439, 35, 26
-
 stance-icons-allies:
 	Inherits: ^Chrome
 	Regions:
@@ -664,11 +635,9 @@ stance-icons-allies:
 		hold-fire-active: 836, 57, 25, 21
 		hold-fire-hover: 836, 78, 25, 21
 		hold-fire-active-hover: 836, 99, 25, 21
-
 # -----------------------------------------------------------------------------------
 # Soviets
 # -----------------------------------------------------------------------------------
-
 sidebar-soviets:
 	Inherits: ^Chrome
 	Regions:
@@ -677,7 +646,6 @@ sidebar-soviets:
 		background-bottom: 0, 837, 234, 66
 		background-supportoverlay: 250, 532, 64, 48
 		background-commandbar: 559, 790, 459, 31
-
 # These coordinates point to an empty area of the chrome.png file to make the background of these buttons empty
 sidebar-button-soviets:
 	Inherits: ^Chrome
@@ -711,7 +679,6 @@ sidebar-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 955, 512, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 scrollup-buttons-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 117, 907, 0, 0, 77, 27, 0, 0
@@ -744,7 +711,6 @@ scrollup-buttons-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 117, 1069, 0, 0, 77, 27, 0, 0
 	PanelSides: Center
-
 scrolldown-buttons-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 40, 907, 0, 0, 77, 27, 0, 0
@@ -777,12 +743,10 @@ scrolldown-buttons-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 40, 1069, 0, 0, 77, 27, 0, 0
 	PanelSides: Center
-
 radar-soviets:
 	Inherits: ^Chrome
 	Regions:
 		insignia: 340, 847, 202, 157
-
 repair-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 580, 527, 0, 0, 44, 34, 0, 0
@@ -815,7 +779,6 @@ repair-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 580, 731, 0, 0, 44, 34, 0, 0
 	PanelSides: Center
-
 beacon-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 665, 527, 0, 0, 41, 34, 0, 0
@@ -848,7 +811,6 @@ beacon-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 665, 731, 0, 0, 41, 34, 0, 0
 	PanelSides: Center
-
 sell-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 706, 527, 0, 0, 43, 34, 0, 0
@@ -881,7 +843,6 @@ sell-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 706, 731, 0, 0, 43, 34, 0, 0
 	PanelSides: Center
-
 buildings-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 340, 532, 0, 0, 30, 32, 0, 0
@@ -914,7 +875,6 @@ buildings-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 340, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 support-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 370, 532, 0, 0, 30, 32, 0, 0
@@ -947,7 +907,6 @@ support-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 370, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 infantry-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 400, 532, 0, 0, 30, 32, 0, 0
@@ -980,7 +939,6 @@ infantry-button-soviets-highlighted-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 400, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 vehicles-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 430, 532, 0, 0, 30, 32, 0, 0
@@ -1013,7 +971,6 @@ vehicles-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 430, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 aircrafts-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 460, 532, 0, 0, 30, 32, 0, 0
@@ -1046,7 +1003,6 @@ aircrafts-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 460, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 ships-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 490, 532, 0, 0, 30, 32, 0, 0
@@ -1079,19 +1035,16 @@ ships-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 490, 724, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 power-icons-soviets:
 	Inherits: ^Chrome
 	Regions:
 		power-normal: 326, 812, 19, 19
 		power-critical: 307, 812, 19, 19
-
 cash-icons-soviets:
 	Inherits: ^Chrome
 	Regions:
 		cash-normal: 326, 793, 19, 19
 		cash-critical: 307, 793, 19, 19
-
 diplomacy-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 550, 847, 0, 0, 69, 23, 0, 0
@@ -1124,7 +1077,6 @@ diplomacy-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 550, 985, 0, 0, 69, 23, 0, 0
 	PanelSides: Center
-
 debug-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 619, 847, 0, 0, 62, 23, 0, 0
@@ -1157,7 +1109,6 @@ debug-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 619, 985, 0, 0, 62, 23, 0, 0
 	PanelSides: Center
-
 options-button-soviets:
 	Inherits: ^Chrome
 	PanelRegion: 681, 847, 0, 0, 69, 23, 0, 0
@@ -1190,8 +1141,6 @@ options-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 681, 985, 0, 0, 69, 23, 0, 0
 	PanelSides: Center
-
-
 # bad coordinates - find where to add this button
 stats-button-soviets:
 	Inherits: ^Chrome
@@ -1225,9 +1174,8 @@ stats-button-soviets-disabled:
 	Inherits: ^Chrome
 	PanelRegion: 985, 710, 0, 0, 30, 32, 0, 0
 	PanelSides: Center
-
 # These coordinates point to an empty area of the chrome.png file to make the glyph of these buttons not appear
-production-icons-soviets: 
+production-icons-soviets:
 	Inherits: ^Chrome
 	Regions:
 		building: 5250,622,19,19
@@ -1248,8 +1196,7 @@ production-icons-soviets:
 		ship: 5250,717,19,19
 		ship-disabled: 5269,717,19,19
 		ship-alert: 5288,717,19,19
-
-command-icons-soviets: 
+command-icons-soviets:
 	Inherits: ^Chrome
 	Regions:
 		attack-move: 783,847,33,26
@@ -1261,17 +1208,17 @@ command-icons-soviets:
 		force-move-disabled: 816,873,26,26
 		force-move-active: 816,899,26,26
 		force-move-hover: 816,925,26,26
-		force-move-active-hover: 816,951,26,26		
+		force-move-active-hover: 816,951,26,26
 		force-attack: 842,847,26,26
 		force-attack-disabled: 842,873,26,26
 		force-attack-active: 842,899,26,26
 		force-attack-hover: 842,925,26,26
-		force-attack-active-hover: 842,951,26,26		
+		force-attack-active-hover: 842,951,26,26
 		guard: 868,847,29,26
 		guard-disabled: 868,873,29,26
 		guard-active: 868,899,29,26
 		guard-hover: 868,925,29,26
-		guard-active-hover: 868,951,29,26		
+		guard-active-hover: 868,951,29,26
 		deploy: 897,847,27,26
 		deploy-disabled: 897,873,27,26
 		deploy-active: 897,899,27,26
@@ -1292,7 +1239,6 @@ command-icons-soviets:
 		queue-orders-active: 975,899,35,26
 		queue-orders-hover: 975,925,35,26
 		queue-orders-active-hover: 975,951,35,26
-
 stance-icons-soviets:
 	Inherits: ^Chrome
 	Regions:
@@ -1310,17 +1256,15 @@ stance-icons-soviets:
 		defend-disabled: 816,548,22,21
 		defend-active: 816,569,22,21
 		defend-hover: 816,590,22,21
-		defend-active-hover: 816,611,22,21		
+		defend-active-hover: 816,611,22,21
 		hold-fire: 836,527,25,21
 		hold-fire-disabled: 836,548,25,21
 		hold-fire-active: 836,569,25,21
 		hold-fire-hover: 836,590,25,21
 		hold-fire-active-hover: 836,611,25,21
-		
 # -----------------------------------------------------------------------------------
 # Yuri
 # -----------------------------------------------------------------------------------
-
 sidebar-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1329,29 +1273,28 @@ sidebar-yuris:
 		background-bottom: 0,837,234,66
 		background-supportoverlay: 250,532,64,48
 		background-commandbar: 559,790,459,31
-
 # These coordinates point to an empty area of the chrome.png file to make the background of these buttons empty
-sidebar-button-yuris: 
+sidebar-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-hover: 
+sidebar-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-pressed: 
+sidebar-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-highlighted: 
+sidebar-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-highlighted-hover: 
+sidebar-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-highlighted-pressed: 
+sidebar-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
@@ -1359,16 +1302,15 @@ sidebar-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-sidebar-button-yuris-disabled: 
+sidebar-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 955,512,30,32
-
 scrollup-buttons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,907,77,27
-scrollup-buttons-yuris-hover: 
+scrollup-buttons-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,934,77,27
@@ -1376,7 +1318,7 @@ scrollup-buttons-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,961,77,27
-scrollup-buttons-yuris-highlighted: 
+scrollup-buttons-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,988,77,27
@@ -1388,7 +1330,7 @@ scrollup-buttons-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,1042,77,27
-scrollup-button-yuris-highlighted-disabled: 
+scrollup-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,1069,77,27
@@ -1396,7 +1338,6 @@ scrollup-buttons-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 117,1069,77,27
-
 scrolldown-buttons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1413,7 +1354,7 @@ scrolldown-buttons-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 40,988,77,27
-scrolldown-buttons-yuris-highlighted-hover: 
+scrolldown-buttons-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 40,1015,77,27
@@ -1425,21 +1366,19 @@ scrolldown-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 40,1069,77,27
-scrolldown-buttons-yuris-disabled: 
+scrolldown-buttons-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 40,1069,77,27
-
-radar-yuris: 
+radar-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		insignia: 340,847,202,157
-
 repair-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,527,44,34
-repair-button-yuris-hover: 
+repair-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,561,44,34
@@ -1455,32 +1394,31 @@ repair-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,663,44,34
-repair-button-yuris-highlighted-pressed: 
+repair-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,697,44,34
-repair-button-yuris-disabled: 
+repair-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,731,44,34
-repair-button-yuris-highlighted-disabled: 
+repair-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 580,731,44,34
-
-power-button-yuris: 
+power-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,527,41,34
-power-button-yuris-hover: 
+power-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,561,41,34
-power-button-yuris-pressed: 
+power-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,595,41,34
-power-button-yuris-highlighted: 
+power-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,629,41,34
@@ -1488,7 +1426,7 @@ power-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,663,41,34
-power-button-yuris-highlighted-pressed: 
+power-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,697,41,34
@@ -1500,7 +1438,6 @@ power-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 624,731,41,34
-
 beacon-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1521,7 +1458,7 @@ beacon-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 665,663,41,34
-beacon-button-yuris-highlighted-pressed: 
+beacon-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 665,697,41,34
@@ -1529,11 +1466,10 @@ beacon-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 665,731,41,34
-beacon-button-yuris-highlighted-disabled: 
+beacon-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 665,731,41,34
-
 sell-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1542,7 +1478,7 @@ sell-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,561,43,34
-sell-button-yuris-pressed: 
+sell-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,595,43,34
@@ -1550,7 +1486,7 @@ sell-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,629,43,34
-sell-button-yuris-highlighted-hover: 
+sell-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,663,43,34
@@ -1558,7 +1494,7 @@ sell-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,697,43,34
-sell-button-yuris-disabled: 
+sell-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,731,43,34
@@ -1566,12 +1502,11 @@ sell-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 706,731,43,34
-
 buildings-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,532,30,32
-buildings-button-yuris-hover: 
+buildings-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,564,30,32
@@ -1583,11 +1518,11 @@ buildings-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,628,30,32
-buildings-button-yuris-highlighted-hover: 
+buildings-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,660,30,32
-buildings-button-yuris-highlighted-pressed: 
+buildings-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,692,30,32
@@ -1595,36 +1530,35 @@ buildings-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,724,30,32
-buildings-button-yuris-highlighted-disabled: 
+buildings-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 340,724,30,32
-
-support-button-yuris: 
+support-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,532,30,32
-support-button-yuris-hover: 
+support-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,564,30,32
-support-button-yuris-pressed: 
+support-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,596,30,32
-support-button-yuris-highlighted: 
+support-button-yuris-highlighted:
 	Inherits: ^ChromeYR
-	Regions: 
+	Regions:
 		background: 370,628,30,32
-support-button-yuris-highlighted-hover: 
+support-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,660,30,32
-support-button-yuris-highlighted-pressed: 
+support-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,692,30,32
-support-button-yuris-disabled: 
+support-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,724,30,32
@@ -1632,12 +1566,11 @@ support-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 370,724,30,32
-
-infantry-button-yuris: 
+infantry-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,532,30,32
-infantry-button-yuris-hover: 
+infantry-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,564,30,32
@@ -1649,15 +1582,15 @@ infantry-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,628,30,32
-infantry-button-yuris-highlighted-hover: 
+infantry-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,660,30,32
-infantry-button-yuris-highlighted-pressed: 
+infantry-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,692,30,32
-infantry-button-yuris-disabled: 
+infantry-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,724,30,32
@@ -1665,12 +1598,11 @@ infantry-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 400,724,30,32
-
-vehicles-button-yuris: 
+vehicles-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,532,30,32
-vehicles-button-yuris-hover: 
+vehicles-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,564,30,32
@@ -1678,48 +1610,47 @@ vehicles-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,596,30,32
-vehicles-button-yuris-highlighted: 
+vehicles-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,628,30,32
-vehicles-button-yuris-highlighted-hover: 
+vehicles-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,660,30,32
-vehicles-button-yuris-highlighted-pressed: 
+vehicles-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,692,30,32
-vehicles-button-yuris-highlighted-disabled: 
+vehicles-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,724,30,32
-vehicles-button-yuris-disabled: 
+vehicles-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 430,724,30,32
-
-aircrafts-button-yuris: 
+aircrafts-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,532,30,32
-aircrafts-button-yuris-hover: 
+aircrafts-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,564,30,32
-aircrafts-button-yuris-pressed: 
+aircrafts-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,596,30,32
-aircrafts-button-yuris-highlighted: 
+aircrafts-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,628,30,32
-aircrafts-button-yuris-highlighted-hover: 
+aircrafts-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,660,30,32
-aircrafts-button-yuris-highlighted-pressed: 
+aircrafts-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,692,30,32
@@ -1727,61 +1658,57 @@ aircrafts-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,724,30,32
-aircrafts-button-yuris-disabled: 
+aircrafts-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 460,724,30,32
-
-ships-button-yuris: 
+ships-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,532,30,32
-ships-button-yuris-hover: 
+ships-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,564,30,32
-ships-button-yuris-pressed: 
+ships-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,596,30,32
-ships-button-yuris-highlighted: 
+ships-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,628,30,32
-ships-button-yuris-highlighted-hover: 
+ships-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,660,30,32
-ships-button-yuris-highlighted-pressed: 
+ships-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,692,30,32
-ships-button-yuris-highlighted-disabled: 
+ships-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,724,30,32
-ships-button-yuris-disabled: 
+ships-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 490,724,30,32
-
-power-icons-yuris: 
+power-icons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		power-normal: 326,812,19,19
 		power-critical: 307,812,19,19
-
 cash-icons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		cash-normal: 326,793,19,19
 		cash-critical: 307,793,19,19
-
-diplomacy-button-yuris: 
+diplomacy-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,847,69,23
-diplomacy-button-yuris-hover: 
+diplomacy-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,870,69,23
@@ -1793,36 +1720,35 @@ diplomacy-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,916,69,23
-diplomacy-button-yuris-highlighted-hover: 
+diplomacy-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,939,69,23
-diplomacy-button-yuris-highlighted-pressed: 
+diplomacy-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,962,69,23
-diplomacy-button-yuris-highlighted-disabled: 
+diplomacy-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,985,69,23
-diplomacy-button-yuris-disabled: 
+diplomacy-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 550,985,69,23
-
-debug-button-yuris: 
+debug-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,847,62,23
-debug-button-yuris-hover: 
+debug-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,870,62,23
-debug-button-yuris-pressed: 
+debug-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,893,62,23
-debug-button-yuris-highlighted: 
+debug-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,916,62,23
@@ -1834,36 +1760,35 @@ debug-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,962,62,23
-debug-button-yuris-highlighted-disabled: 
+debug-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,985,62,23
-debug-button-yuris-disabled: 
+debug-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 619,985,62,23
-
-options-button-yuris: 
+options-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,847,69,23
-options-button-yuris-hover: 
+options-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,870,69,23
-options-button-yuris-pressed: 
+options-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,893,69,23
-options-button-yuris-highlighted: 
+options-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,916,69,23
-options-button-yuris-highlighted-hover: 
+options-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,939,69,23
-options-button-yuris-highlighted-pressed: 
+options-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,962,69,23
@@ -1871,21 +1796,20 @@ options-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,985,69,23
-options-button-yuris-disabled: 
+options-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 681,985,69,23
-
 # bad coordinates - find where to add this button
-stats-button-yuris: 
+stats-button-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,0,30,32
-stats-button-yuris-hover: 
+stats-button-yuris-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,545,30,32
-stats-button-yuris-pressed: 
+stats-button-yuris-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,578,30,32
@@ -1893,25 +1817,24 @@ stats-button-yuris-highlighted:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,611,30,32
-stats-button-yuris-highlighted-hover: 
+stats-button-yuris-highlighted-hover:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,644,30,32
-stats-button-yuris-highlighted-pressed: 
+stats-button-yuris-highlighted-pressed:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,677,30,32
-stats-button-yuris-highlighted-disabled: 
+stats-button-yuris-highlighted-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,710,30,32
-stats-button-yuris-disabled: 
+stats-button-yuris-disabled:
 	Inherits: ^ChromeYR
 	Regions:
 		background: 985,710,30,32
-
 # These coordinates point to an empty area of the chrome-yr.png file to make the glyph of these buttons not appear
-production-icons-yuris: 
+production-icons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
 		building: 5250,622,19,19
@@ -1932,7 +1855,6 @@ production-icons-yuris:
 		ship: 5250,717,19,19
 		ship-disabled: 5269,717,19,19
 		ship-alert: 5288,717,19,19
-
 command-icons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1945,17 +1867,17 @@ command-icons-yuris:
 		force-move-disabled: 816,873,26,26
 		force-move-active: 816,899,26,26
 		force-move-hover: 816,925,26,26
-		force-move-active-hover: 816,951,26,26		
+		force-move-active-hover: 816,951,26,26
 		force-attack: 842,847,26,26
 		force-attack-disabled: 842,873,26,26
 		force-attack-active: 842,899,26,26
 		force-attack-hover: 842,925,26,26
-		force-attack-active-hover: 842,951,26,26		
+		force-attack-active-hover: 842,951,26,26
 		guard: 868,847,29,26
 		guard-disabled: 868,873,29,26
 		guard-active: 868,899,29,26
 		guard-hover: 868,925,29,26
-		guard-active-hover: 868,951,29,26		
+		guard-active-hover: 868,951,29,26
 		deploy: 897,847,27,26
 		deploy-disabled: 897,873,27,26
 		deploy-active: 897,899,27,26
@@ -1976,7 +1898,6 @@ command-icons-yuris:
 		queue-orders-active: 975,899,35,26
 		queue-orders-hover: 975,925,35,26
 		queue-orders-active-hover: 975,951,35,26
-
 stance-icons-yuris:
 	Inherits: ^ChromeYR
 	Regions:
@@ -1994,13 +1915,12 @@ stance-icons-yuris:
 		defend-disabled: 816,548,22,21
 		defend-active: 816,569,22,21
 		defend-hover: 816,590,22,21
-		defend-active-hover: 816,611,22,21		
+		defend-active-hover: 816,611,22,21
 		hold-fire: 836,527,25,21
 		hold-fire-disabled: 836,548,25,21
 		hold-fire-active: 836,569,25,21
 		hold-fire-hover: 836,590,25,21
 		hold-fire-active-hover: 836,611,25,21
-		
 # -----------------------------------------------------------------------------------
 # GENERIC
 # -----------------------------------------------------------------------------------
@@ -2011,10 +1931,8 @@ scrollbar:
 		down_pressed: 116,140,16,16
 		up_arrow: 132,140,16,16
 		up_pressed: 132,140,16,16
-
 #		down_pressed
 #		down_arrow
-
 sidebar-bits:
 	Inherits: ^Chrome
 	Regions:
@@ -2023,7 +1941,6 @@ sidebar-bits:
 		production-tooltip-cost: 326, 281, 19, 19
 		production-iconoverlay: 250,20,64,48
 		commandbar-background: 0,123,434,44
-
 order-icons:
 	Inherits: ^Chrome
 	Regions:
@@ -2048,25 +1965,21 @@ order-icons:
 		stats: 250,414,19,19
 		stats-disabled: 269,414,19,19
 		stats-active: 288,414,19,19
-
 # -----------------------------------------------------------------------------------
 # OBSERVER
 # -----------------------------------------------------------------------------------
-
 sidebar-observer:
 	Inherits: ^Chrome
 	Regions:
 		background: 785,15,219,289
 		replay-bottom: 785,283,219,96
 		observer-bottom: 785,283,219,96
-
-sidebar-button-observershroud: 
+sidebar-button-observershroud:
 	Inherits: ^Chrome
 sidebar-button-observershroud-pressed:
 	Inherits: ^Chrome
-sidebar-button-observershroud-hover: 
+sidebar-button-observershroud-hover:
 	Inherits: ^Chrome
-
 sidebar-button-observer:
 	Inherits: ^Chrome
 	Regions:
@@ -2103,7 +2016,7 @@ sidebar-button-observer-pressed:
 		corner-tr: 135,28,5,5
 		corner-bl: 112,51,5,5
 		corner-br: 135,51,5,5
-sidebar-button-observer-highlighted: 
+sidebar-button-observer-highlighted:
 	Inherits: ^Chrome
 	Regions:
 		background: 145,545,18,18
@@ -2163,7 +2076,6 @@ sidebar-button-observer-highlighted-disabled:
 		corner-tr: 191,0,5,5
 		corner-bl: 168,23,5,5
 		corner-br: 191,23,5,5
-
 observer-scrollpanel-button:
 	Inherits: ^Chrome
 	Regions:
@@ -2176,7 +2088,6 @@ observer-scrollpanel-button:
 		corner-tr: 895,256,1,1
 		corner-bl: 768,383,1,1
 		corner-br: 895,383,1,1
-
 observer-scrollpanel-button-hover:
 	Inherits: ^Chrome
 	Regions:
@@ -2189,7 +2100,6 @@ observer-scrollpanel-button-hover:
 		corner-tr: 895,256,1,1
 		corner-bl: 768,383,1,1
 		corner-br: 895,383,1,1
-
 observer-scrollpanel-button-pressed:
 	Inherits: ^Chrome
 	Regions:
@@ -2202,7 +2112,6 @@ observer-scrollpanel-button-pressed:
 		corner-tr: 1023,256,1,1
 		corner-bl: 896,383,1,1
 		corner-br: 1023,383,1,1
-
 observer-scrollpanel-button-disabled:
 	Inherits: ^Chrome
 	Regions:
@@ -2215,7 +2124,6 @@ observer-scrollpanel-button-disabled:
 		corner-tr: 895,384,1,1
 		corner-bl: 768,511,1,1
 		corner-br: 895,511,1,1
-
 observer-scrollheader-selected:
 	Inherits: ^Chrome
 	Regions:
@@ -2228,7 +2136,6 @@ observer-scrollheader-selected:
 		corner-tr: 895,384,1,1
 		corner-bl: 768,511,1,1
 		corner-br: 895,511,1,1
-
 observer-scrollitem-selected:
 	Inherits: ^Chrome
 	Regions:
@@ -2241,7 +2148,6 @@ observer-scrollitem-selected:
 		corner-tr: 1023,256,1,1
 		corner-bl: 896,383,1,1
 		corner-br: 1023,383,1,1
-
 observer-scrollitem-hover:
 	Inherits: ^Chrome
 	Regions:
@@ -2254,13 +2160,11 @@ observer-scrollitem-hover:
 		corner-tr: 895,256,1,1
 		corner-bl: 768,383,1,1
 		corner-br: 895,383,1,1
-
 # -----------------------------------------------------------------------------------
 # REST OF THE UI
 # -----------------------------------------------------------------------------------
-
 # Used for the main menu frame
-dialog: 
+dialog:
 	Inherits: ^Dialog
 	Regions:
 		background: 0,0,480,480
@@ -2272,7 +2176,6 @@ dialog:
 		corner-tr: 200,480,9,9
 		corner-bl: 191,489,9,9
 		corner-br: 200,489,9,9
-
 # Used for Music and Map selection (normal button)
 dialog2:
 	Inherits: ^Dialog
@@ -2286,7 +2189,6 @@ dialog2:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # It's a Container, used in various places, like Hotkeys, ColorPicker, Asset Browser frames (looks like a pressed button)
 dialog3:
 	Inherits: ^Dialog
@@ -2300,7 +2202,6 @@ dialog3:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # Used for tooltips and the video player
 dialog4:
 	Inherits: ^Dialog
@@ -2314,7 +2215,6 @@ dialog4:
 		corner-tr: 571,387,6,6
 		corner-bl: 512,446,6,6
 		corner-br: 571,446,6,6
-
 # completely black tile
 dialog5:
 	Inherits: ^Dialog
@@ -2328,7 +2228,6 @@ dialog5:
 		corner-tr: 643,387,1,1
 		corner-bl: 579,446,1,1
 		corner-br: 643,446,1,1
-
 lobby-bits:
 	Image: spawnpoints.png
 	Regions:
@@ -2346,16 +2245,14 @@ lobby-bits:
 		player-registered: 102,16,16,16
 		player-anonymous: 118,16,16,16
 		kick: 118,16,16,16
-
-strategic: 
+strategic:
 	Image: strategic.png
 	Regions:
 		unowned: 0,0,32,32
 		critical_unowned: 0,32,32,32
 		enemy_owned: 32,32,32,32
 		player_owned: 96,0,32,32
-
-reload-icon: 
+reload-icon:
 	Inherits: ^Chrome
 		enabled: 768,152,16,16
 		disabled-0: 768,136,16,16
@@ -2370,26 +2267,24 @@ reload-icon:
 		disabled-9: 912,136,16,16
 		disabled-10: 928,136,16,16
 		disabled-11: 944,136,16,16
-
 flags:
 	Inherits: ^Buttons
 	Regions:
 		america: 00, 00, 45, 21
 		germany: 00, 21, 45, 21
 		england: 00, 42, 45, 21
-		france:	00, 63, 45, 21
-		korea:	 00, 84, 45, 21
-		cuba:		45, 00, 45, 21
-		libya:	 45, 21, 45, 21
-		iraq:		45, 42, 45, 21
-		russia:	45, 63, 45, 21
-		yuri:	90, 00, 45, 21
-		Random:	45, 84, 45, 21
-		random-allies:	00, 105, 45, 21
-		random-soviets:	45, 105, 45, 21
-		random-yuri:	90, 105, 45, 21
+		france: 00, 63, 45, 21
+		korea: 00, 84, 45, 21
+		cuba: 45, 00, 45, 21
+		libya: 45, 21, 45, 21
+		iraq: 45, 42, 45, 21
+		russia: 45, 63, 45, 21
+		yuri: 90, 00, 45, 21
+		Random: 45, 84, 45, 21
+		random-allies: 00, 105, 45, 21
+		random-soviets: 45, 105, 45, 21
+		random-yuri: 90, 105, 45, 21
 		spectator: 45, 84, 45, 21
-
 music:
 	Image: musicplayer.png
 	Regions:
@@ -2400,9 +2295,8 @@ music:
 		prev: 112,0,25,25
 		fastforward: 140,0,25,25
 		slowmo: 168,0,25,25
-
 # A copy of dialog3 (pressed button)
-progressbar-bg: 
+progressbar-bg:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,1,126,126
@@ -2414,7 +2308,6 @@ progressbar-bg:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog2 (normal button)
 progressbar-thumb:
 	Inherits: ^Dialog
@@ -2428,9 +2321,8 @@ progressbar-thumb:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of dialog2 (normal button)
-button: 
+button:
 	Inherits: ^Dialog
 	Regions:
 		background: 513, 1, 126, 126
@@ -2442,7 +2334,6 @@ button:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # 5% lighter than a normal button (mouseover)
 button-hover:
 	Inherits: ^Dialog
@@ -2456,7 +2347,6 @@ button-hover:
 		corner-tr: 639,128,1,1
 		corner-bl: 512,255,1,1
 		corner-br: 639,255,1,1
-
 # A copy of dialog3 (pressed button)
 button-pressed:
 	Inherits: ^Dialog
@@ -2470,9 +2360,8 @@ button-pressed:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # 50% grey (disabled button)
-button-disabled: 
+button-disabled:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,257,126,126
@@ -2484,7 +2373,6 @@ button-disabled:
 		corner-tr: 639,256,1,1
 		corner-bl: 512,383,1,1
 		corner-br: 639,383,1,1
-
 # 10% darker than a normal button - Used in Settings when you select Display Audio Input or Advanced
 button-highlighted:
 	Inherits: ^Dialog
@@ -2498,7 +2386,6 @@ button-highlighted:
 		corner-tr: 895,128,1,1
 		corner-bl: 768,255,1,1
 		corner-br: 895,255,1,1
-
 # A copy of button-highlighted - Used in Settings when you select Display Audio Input or Advanced
 button-highlighted-hover:
 	Inherits: ^Dialog
@@ -2512,7 +2399,6 @@ button-highlighted-hover:
 		corner-tr: 895,128,1,1
 		corner-bl: 768,255,1,1
 		corner-br: 895,255,1,1
-
 #	Used in Settings when you select Display Audio Input or Advanced
 button-highlighted-pressed:
 	Inherits: ^Dialog
@@ -2526,7 +2412,6 @@ button-highlighted-pressed:
 		corner-tr: 1023,128,1,1
 		corner-bl: 896,255,1,1
 		corner-br: 1023,255,1,1
-
 # A copy of button-highlighted - Used in Settings when you select Display Audio Input or Advanced
 button-highlighted-disabled:
 	Inherits: ^Dialog
@@ -2540,7 +2425,6 @@ button-highlighted-disabled:
 		corner-tr: 895,128,1,1
 		corner-bl: 768,255,1,1
 		corner-br: 895,255,1,1
-
 # vivid red - Used for the Battlefields News button
 newsbutton:
 	Inherits: ^Dialog
@@ -2554,10 +2438,8 @@ newsbutton:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 		down_pressed: 513,1,126,126
 		down_down: 769,1,126,126
-
 newsbutton-hover:
 	Inherits: ^Dialog
 	Regions:
@@ -2570,7 +2452,6 @@ newsbutton-hover:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 newsbutton-highlighted:
 	Inherits: ^Dialog
 	Regions:
@@ -2583,7 +2464,6 @@ newsbutton-highlighted:
 		corner-tr: 895,0,1,1
 		corner-bl: 768,127,1,1
 		corner-br: 895,127,1,1
-
 newsbutton-highlighted-hover:
 	Inherits: ^Dialog
 	Regions:
@@ -2596,8 +2476,7 @@ newsbutton-highlighted-hover:
 		corner-tr: 895,0,1,1
 		corner-bl: 768,127,1,1
 		corner-br: 895,127,1,1
-
-newsbutton-highlighted-pressed: 
+newsbutton-highlighted-pressed:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,1,126,126
@@ -2609,7 +2488,6 @@ newsbutton-highlighted-pressed:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 newsbutton-pressed:
 	Inherits: ^Dialog
 	Regions:
@@ -2622,7 +2500,6 @@ newsbutton-pressed:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog3 (pressed button)
 textfield:
 	Inherits: ^Dialog
@@ -2636,7 +2513,6 @@ textfield:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of checkbox-hover
 textfield-hover:
 	Inherits: ^Dialog
@@ -2650,9 +2526,8 @@ textfield-hover:
 		corner-tr: 767,128,1,1
 		corner-bl: 640,255,1,1
 		corner-br: 767,255,1,1
-
 # Same as button-disabled-pressed
-textfield-disabled: 
+textfield-disabled:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,257,126,126
@@ -2664,7 +2539,6 @@ textfield-disabled:
 		corner-tr: 767,256,1,1
 		corner-bl: 640,383,1,1
 		corner-br: 767,383,1,1
-
 # A copy of dialog3 (pressed button)
 textfield-focused:
 	Inherits: ^Dialog
@@ -2678,9 +2552,8 @@ textfield-focused:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog3 (pressed button)
-scrollpanel-bg: 
+scrollpanel-bg:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,1,126,126
@@ -2692,10 +2565,8 @@ scrollpanel-bg:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
-
 # A copy of dialog2 (normal button)
-scrollpanel-button: 
+scrollpanel-button:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,1,126,126
@@ -2707,7 +2578,6 @@ scrollpanel-button:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of button-hover
 scrollpanel-button-hover:
 	Inherits: ^Dialog
@@ -2721,9 +2591,8 @@ scrollpanel-button-hover:
 		corner-tr: 639,128,1,1
 		corner-bl: 512,255,1,1
 		corner-br: 639,255,1,1
-
 # A copy of dialog3 (pressed button)
-scrollpanel-button-pressed: 
+scrollpanel-button-pressed:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,1,126,126
@@ -2735,9 +2604,8 @@ scrollpanel-button-pressed:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog2 (normal button)
-scrollpanel-button-disabled: 
+scrollpanel-button-disabled:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,1,126,126
@@ -2749,14 +2617,12 @@ scrollpanel-button-disabled:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
-slider: 
+slider:
 	Inherits: ^Dialog
 	Regions:
 		tick: 512,1,2,4
-
 # A copy of dialog3 (pressed button)
-slider-track: 
+slider-track:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,1,126,126
@@ -2768,9 +2634,8 @@ slider-track:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of dialog2 (normal button)
-slider-thumb: 
+slider-thumb:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,1,126,126
@@ -2782,7 +2647,6 @@ slider-thumb:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of button-hover
 slider-thumb-hover:
 	Inherits: ^Dialog
@@ -2796,7 +2660,6 @@ slider-thumb-hover:
 		corner-tr: 639,128,1,1
 		corner-bl: 512,255,1,1
 		corner-br: 639,255,1,1
-
 # A copy of dialog3 (pressed button)
 slider-thumb-pressed:
 	Inherits: ^Dialog
@@ -2810,7 +2673,6 @@ slider-thumb-pressed:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog2 (normal button)
 slider-thumb-disabled:
 	Inherits: ^Dialog
@@ -2824,9 +2686,8 @@ slider-thumb-disabled:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of dialog3 (pressed button)
-checkbox: 
+checkbox:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,1,126,126
@@ -2838,16 +2699,14 @@ checkbox:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
-checkbox-bits: 
+checkbox-bits:
 	Inherits: ^Buttons
 	Regions:
 		checked: 100,157,16,16
 		checked-disabled: 100,173,16,16
 		crossed: 116,157,16,16
 		crossed-disabled: 116,173,16,16
-
-checkbox-hover: 
+checkbox-hover:
 	Inherits: ^Dialog
 	Regions:
 		background: 641,129,126,126
@@ -2859,7 +2718,6 @@ checkbox-hover:
 		corner-tr: 767,128,1,1
 		corner-bl: 640,255,1,1
 		corner-br: 767,255,1,1
-
 # Same as button-disabled-pressed
 checkbox-disabled:
 	Inherits: ^Dialog
@@ -2873,9 +2731,8 @@ checkbox-disabled:
 		corner-tr: 767,256,1,1
 		corner-bl: 640,383,1,1
 		corner-br: 767,383,1,1
-
 # Same as button-highlighted-pressed
-checkbox-highlighted: 
+checkbox-highlighted:
 	Inherits: ^Dialog
 	Regions:
 		background: 897,1,126,126
@@ -2887,7 +2744,6 @@ checkbox-highlighted:
 		corner-tr: 1023,0,1,1
 		corner-bl: 896,127,1,1
 		corner-br: 1023,127,1,1
-
 # A copy of dialog3 (pressed button)
 scrollitem-selected:
 	Inherits: ^Dialog
@@ -2901,9 +2757,8 @@ scrollitem-selected:
 		corner-tr: 767,0,1,1
 		corner-bl: 640,127,1,1
 		corner-br: 767,127,1,1
-
 # A copy of dialog2 (normal button)
-scrollitem-hover: 
+scrollitem-hover:
 	Inherits: ^Dialog
 	Regions:
 		background: 513,1,126,126
@@ -2915,7 +2770,6 @@ scrollitem-hover:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-
 # A copy of dialog2 (normal button)
 scrollheader-selected:
 	Inherits: ^Dialog
@@ -2929,12 +2783,10 @@ scrollheader-selected:
 		corner-tr: 639,0,1,1
 		corner-bl: 512,127,1,1
 		corner-br: 639,127,1,1
-	
 logos:
 	Inherits: ^LoadScreen
 	Regions:
 		logo: 0, 0, 256, 256
-
 mainmenu-border:
 	Inherits: ^Dialog
 	Regions:
@@ -2947,13 +2799,11 @@ mainmenu-border:
 		corner-tr: 728,387,40,40
 		corner-bl: 648,467,40,40
 		corner-br: 728,467,40,40
-
 dropdown:
 	Inherits: ^Dialog
 	Regions:
 		separator: 512,1,1,19
 		observer-separator: 768,256,1,19
-	
 power-meter:
 	Inherits: ^Chrome
 	Regions:

@@ -124,7 +124,7 @@ ltnk:
 
 apoc:
 	Inherits@MC: ^MindControllable
- 	Inherits@Muzzle: ^WithCannonMuzzle
+	Inherits@Muzzle: ^WithCannonMuzzle
 	muzzle: apmuzzle
 		Length: *
 	icon: mtnkicon
@@ -196,12 +196,12 @@ vlad:
 
 wini:
 	icon: xxicon
-    
+
 robo:
 	icon: roboicon
-	
+
 howi:
 	icon: hwtzicon
-	
+
 bfrt:
 	icon: bfrticon

@@ -5,15 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.UtilityCommands
 {
 	public class ImportTranslationStringCommand : IUtilityCommand
 	{
 		public string Name { get { return "--import-translation-string"; } }
-
 		public bool ValidateArguments(string[] args) { return args.Length >= 3; }
-
 		[Desc("LOCALIZATIONNAME NEWMODID [FONTSETTINGYAMLFILE]", "")]
 		public void Run(Utility utility, string[] args)
 		{
@@ -24,7 +28,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 			{
 				customFontPath = args[3];
 			}
-
 			string localizationName = args[1];
 			var modData = utility.ModData;
 			string localizationFile = string.Format("languages\\{0}.yaml", localizationName);
@@ -39,7 +42,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 			var chromeLayoutsLocalizationNode = nodes[0].Value.Nodes[0].Value.Nodes.Where(o => o.Key == "ChromeLayouts").FirstOrDefault();
 			var worldRulesLocalizationNode = nodes[0].Value.Nodes[0].Value.Nodes.Where(o => o.Key == "World").FirstOrDefault();
 			var modContentLocalizationNode = nodes[0].Value.Nodes[0].Value.Nodes.Where(o => o.Key == "ModContent").FirstOrDefault();
-
 			//Get the original mod install dir
 			string modID = modData.Manifest.Id;
 			string modFolder = null;
@@ -59,13 +61,11 @@ namespace OpenRA.Mods.YR.UtilityCommands
 				DirectoryInfo di = new DirectoryInfo(modFolder);
 				DirectoryInfo modRootDir = di.Parent;
 				string newModFullPath = Path.Combine(modRootDir.FullName, newModID);
-
 				if (Directory.Exists(newModFullPath))
 				{
 					Directory.Delete(newModFullPath, true);
 				}
 				Directory.CreateDirectory(newModFullPath);
-
 				foreach (var fileSystemInfo in di.EnumerateFileSystemInfos())
 				{
 					if (fileSystemInfo.Attributes == FileAttributes.Directory)
@@ -77,7 +77,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 						File.Copy(fileSystemInfo.FullName, Path.Combine(newModFullPath, fileSystemInfo.Name));
 					}
 				}
-
 				string lightFont = null;
 				string normalFont = null;
 				string boldFont = null;
@@ -105,16 +104,13 @@ namespace OpenRA.Mods.YR.UtilityCommands
 						Console.WriteLine("Error: Specific font path can't be found!");
 					}
 				}
-
 				//------------------------------------------------------
 				// Modify all the yaml files using the original mod id
 				//------------------------------------------------------
-
 				List<string> mapFolders = new List<string>();
 				List<string> ruleFilePathes = new List<string>();
 				List<string> chromeLayoutFilePathes = new List<string>();
                 Dictionary<string, string> externalMods = new Dictionary<string, string>();
-
 				//Modify mod.yaml file
 				string newModYaml = Path.Combine(newModFullPath, "mod.yaml");
 				var modYamlNodes = MiniYaml.FromFile(newModYaml);
@@ -188,7 +184,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
                                     oldKey,
                                     string.Format("{0}|", newModID)
                                 );
-
                                 if (modYamlNode.Key == "Rules")
                                 {
                                     ruleFilePathes.Add(Path.Combine(newModFullPath, subYamlNode.Key.Split('|')[1]));
@@ -221,7 +216,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
                                         }
                                         string relativePath = ConvertToRelativeCurrentPath(newFilePath, newModFullPath);
                                         subYamlNode.Key = string.Format("{0}|{1}", newModID, relativePath);
-
                                         if (modYamlNode.Key == "Rules")
                                         {
                                             ruleFilePathes.Add(newFilePath);
@@ -246,7 +240,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 									oldKey,
 									string.Format("{0}|", newModID)
 								);
-
 								string[] tokens = subYamlNode.Key.Split('|');//Relative map folder
 								mapFolders.Add(Path.Combine(newModFullPath, tokens[1]));
 							}
@@ -305,7 +298,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 											string.Format("{0}|", newModID)
 										);
 									}
-
 									if ((subYamlNode.Key == "Tiny" ||
 									   subYamlNode.Key == "Small" ||
 									   subYamlNode.Key == "Regular" ||
@@ -368,7 +360,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 							{
 								foreach (var sNode in subYamlNode.Value.Nodes)
 								{
-
 									//Translate
 									if (modContentLocalizationNode != null)
 									{
@@ -382,7 +373,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 											}
 										}
 									}
-
 									foreach (var sn in sNode.Value.Nodes)
 									{
 										if (sn.Key == "TestFiles")
@@ -429,7 +419,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 					}
 				}
 				modYamlNodes.WriteToFile(newModYaml);
-
 				//Modify all maps
 				foreach (var mapFolder in mapFolders)
 				{
@@ -458,7 +447,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 						}
 					}
 				}
-
 				//Translate Rules file
 				foreach (var ruleFilePath in ruleFilePathes)
 				{
@@ -498,7 +486,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 					}
 					ruleYamlFile.WriteToFile(ruleFilePath);
 				}
-
 				//Translate Chrome Layouts
 				foreach (var chromeLayoutFilePath in chromeLayoutFilePathes)
 				{
@@ -514,10 +501,8 @@ namespace OpenRA.Mods.YR.UtilityCommands
 					chromeLayoutFile.WriteToFile(chromeLayoutFilePath);
 				}
 			}
-
 			Console.WriteLine("Import task has already finished!");
 		}
-
         private string ConvertToRelativeCurrentPath(string fullPath, string relativeTo)
         {
             fullPath = fullPath.Replace("\\", "/");
@@ -536,7 +521,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
             Console.WriteLine(relativePath);
             return relativePath;
         }
-
 		private void translateChrome(MiniYamlNode chromeNode, MiniYamlNode chromeLocalizationNode)
 		{
 			foreach(var subNode in chromeNode.Value.Nodes)
@@ -552,7 +536,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 				}
 			}
 		}
-
 		private string ReplacePathWithNewModID(string path, string oldModID, string newModID)
 		{
 			string[] pathBlocks = path.Split('/');
@@ -569,26 +552,22 @@ namespace OpenRA.Mods.YR.UtilityCommands
 			}
 			return pathAfterModified.Replace("\\", "/");
 		}
-
 		private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 		{
 			// Get the subdirectories for the specified directory.
 			DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
 			if (!dir.Exists)
 			{
 				throw new DirectoryNotFoundException(
 					"Source directory does not exist or could not be found: "
 					+ sourceDirName);
 			}
-
 			DirectoryInfo[] dirs = dir.GetDirectories();
 			// If the destination directory doesn't exist, create it.
 			if (!Directory.Exists(destDirName))
 			{
 				Directory.CreateDirectory(destDirName);
 			}
-
 			// Get the files in the directory and copy them to the new location.
 			FileInfo[] files = dir.GetFiles();
 			foreach (FileInfo file in files)
@@ -596,7 +575,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 				string temppath = Path.Combine(destDirName, file.Name);
 				file.CopyTo(temppath, false);
 			}
-
 			// If copying subdirectories, copy them and their contents to new location.
 			if (copySubDirs)
 			{

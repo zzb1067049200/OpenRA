@@ -146,7 +146,6 @@ Speech:
 		WeathercontrolDeviceDetected: 010
 		WeathercontrolDeviceOffline: 122
 		Win: 022
-
 Sounds:
 	DefaultVariant: .wav
 	Notifications:

@@ -50,7 +50,6 @@ e2:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: nabnkr, bfrt, garrisonable-building
-
 flakt:
 	Inherits@1: ^Infantry
 	Inherits@2: ^Parachutable
@@ -117,7 +116,6 @@ flakt:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: nabnkr, bfrt, garrisonable-building
-
 shk:
 	Inherits@1: ^Infantry
 	Inherits@2: ^Parachutable
@@ -187,7 +185,6 @@ shk:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-
 terror:
 	Inherits: ^Infantry
 	Inherits@CHAOSGAS: ^Chaosgasable
@@ -217,7 +214,7 @@ terror:
 		Type: Flak
 	Passenger:
 		PipType: Red
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: TerrorBomb
 		EmptyWeapon: TerrorBomb
 	AttackFrontal:
@@ -233,7 +230,6 @@ terror:
 	QuantizeFacingsFromSequence:
 		Sequence: stand
 	-BunkerPassenger:
-
 deso:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -290,7 +286,6 @@ deso:
 		Accepter: bfrt
 	Targetable@RadiationImmunity:
 		TargetTypes: ImmuneToRadiation
-
 ivan:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -324,7 +319,7 @@ ivan:
 		Type: None
 	Passenger:
 		PipType: Red
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: IvanDeath
 		EmptyWeapon: IvanDeath
 	Armament@primary:
@@ -345,7 +340,6 @@ ivan:
 		Sequence: stand
 	-Crushable:
 	-BunkerPassenger:
-		
 boris:
 	Inherits@1: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove

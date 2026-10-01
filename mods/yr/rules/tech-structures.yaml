@@ -6,7 +6,7 @@ caoild:
 	Building:
 		Footprint: xx xx
 		Dimensions: 2, 2
-	EngineerRepairable:
+	InstantlyRepairable:
 	CashTrickler:
 		Interval: 100
 		Amount: 20
@@ -25,7 +25,7 @@ caoild:
 		Offset: 1000,0,0
 	GivesCashOnCapture:
 		Amount: 1000
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: DerrickExplode
 	SpawnActorOnDeath:
 		Actor: caoild.rubble
@@ -206,7 +206,7 @@ caoutp.rubble:
 	RenderSprites:
 		Image: caoutp
 
-		
+
 camach:
 	Inherits: ^TechBuilding
 	Inherits@shape: ^3x2Shape
@@ -215,7 +215,7 @@ camach:
 	Building:
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-	EngineerRepairable:
+	InstantlyRepairable:
 	Tooltip:
 		Name: Tech Machine Shop
 	Health:
@@ -232,7 +232,7 @@ camach:
 	WithIdleOverlay@flag:
 		Sequence: flag
 		Offset: 1000,0,0
-		
+
 capowr:
 	Inherits: ^TechBuilding
 	Inherits@shape: ^2x2Shape
@@ -241,7 +241,7 @@ capowr:
 	Building:
 		Footprint: xx xx
 		Dimensions: 2, 2
-	EngineerRepairable:
+	InstantlyRepairable:
 	Tooltip:
 		Name: Tech Power Plant
 	TooltipDescription:

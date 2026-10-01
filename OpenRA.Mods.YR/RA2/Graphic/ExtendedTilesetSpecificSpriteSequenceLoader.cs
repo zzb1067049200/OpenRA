@@ -8,98 +8,113 @@
  * information, see COPYING.
  */
 #endregion
-
+using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Graphics;
-
 namespace OpenRA.Mods.RA2.Graphics
 {
+	/// <summary>
+	/// Ported to the 2026 engine. The engine dropped SpriteSequenceFormat metadata
+	/// blocks (see UpdateRules 20230225/ExplicitSequenceFilenames), so the YR tileset
+	/// tables that used to be read from mods/yr/mod.yaml are declared inline here.
+	/// The engine also constructs sequence loaders through a parameterless constructor
+	/// (ObjectCreator.CreateBasic) and passes ModData per CreateSequence call, so this
+	/// type must not take a ModData constructor argument.
+	/// </summary>
 	public class ExtendedTilesetSpecificSpriteSequenceLoader : DefaultSpriteSequenceLoader
 	{
 		public readonly string DefaultSpriteExtension = ".shp";
-		public readonly Dictionary<string, string> TilesetExtensions = new Dictionary<string, string>();
-		public readonly Dictionary<string, string> TilesetCodes = new Dictionary<string, string>();
-		public readonly Dictionary<string, string> TilesetSuffixes = new Dictionary<string, string>();
+		public readonly FrozenDictionary<string, string> TilesetExtensions;
+		public readonly FrozenDictionary<string, string> TilesetCodes;
+		public readonly FrozenDictionary<string, string> TilesetSuffixes;
 
-		public ExtendedTilesetSpecificSpriteSequenceLoader(ModData modData)
-			: base(modData)
+		public ExtendedTilesetSpecificSpriteSequenceLoader()
 		{
-			var metadata = modData.Manifest.Get<SpriteSequenceFormat>().Metadata;
-			MiniYaml yaml;
+			TilesetExtensions = new Dictionary<string, string>
+			{
+				{ "TEMPERATE", ".tem" },
+				{ "SNOW", ".sno" },
+				{ "URBAN", ".urb" },
+				{ "NEWURBAN", ".ubn" },
+				{ "DESERT", ".des" },
+				{ "LUNAR", ".lun" },
+			}.ToFrozenDictionary();
 
-			if (metadata.TryGetValue("DefaultSpriteExtension", out yaml))
-				DefaultSpriteExtension = yaml.Value;
+			TilesetCodes = new Dictionary<string, string>
+			{
+				{ "GENERIC", "g" },
+				{ "SNOW", "a" },
+				{ "TEMPERATE", "t" },
+				{ "URBAN", "u" },
+				{ "NEWURBAN", "n" },
+				{ "DESERT", "d" },
+				{ "LUNAR", "l" },
+			}.ToFrozenDictionary();
 
-			if (metadata.TryGetValue("TilesetExtensions", out yaml))
-				TilesetExtensions = yaml.ToDictionary(kv => kv.Value);
-
-			if (metadata.TryGetValue("TilesetCodes", out yaml))
-				TilesetCodes = yaml.ToDictionary(kv => kv.Value);
-
-			if (metadata.TryGetValue("TilesetSuffixes", out yaml))
-				TilesetSuffixes = yaml.ToDictionary(kv => kv.Value);
+			TilesetSuffixes = new Dictionary<string, string>
+			{
+				{ "SNOW", "a" },
+			}.ToFrozenDictionary();
 		}
 
-		public override ISpriteSequence CreateSequence(ModData modData, TileSet tileSet, SpriteCache cache, string sequence, string animation, MiniYaml info)
+		public override ISpriteSequence CreateSequence(
+			ModData modData, string tileset, SpriteCache cache, string image, string sequence, MiniYaml data, MiniYaml defaults)
 		{
-			return new ExtendedTilesetSpecificSpriteSequence(modData, tileSet, cache, this, sequence, animation, info);
+			return new ExtendedTilesetSpecificSpriteSequence(cache, this, image, sequence, data, defaults);
 		}
 	}
 
 	public class ExtendedTilesetSpecificSpriteSequence : DefaultSpriteSequence
 	{
-		public ExtendedTilesetSpecificSpriteSequence(ModData modData, TileSet tileSet, SpriteCache cache, ISpriteSequenceLoader loader, string sequence, string animation, MiniYaml info)
-			: base(modData, tileSet, cache, loader, sequence, animation, info) { }
+		public ExtendedTilesetSpecificSpriteSequence(SpriteCache cache, ISpriteSequenceLoader loader, string image, string sequence, MiniYaml data, MiniYaml defaults)
+			: base(cache, loader, image, sequence, data, defaults) { }
 
-		string ResolveTilesetId(TileSet tileSet, Dictionary<string, MiniYaml> d)
+		static string ResolveTilesetId(string tileset, MiniYaml data)
 		{
-			var tsId = tileSet.Id;
-
-			MiniYaml yaml;
-			if (d.TryGetValue("TilesetOverrides", out yaml))
+			var tsId = tileset;
+			var overrides = data.NodeWithKeyOrDefault("TilesetOverrides");
+			if (overrides != null)
 			{
-				var tsNode = yaml.Nodes.FirstOrDefault(n => n.Key == tsId);
+				var tsNode = overrides.Value.Nodes.FirstOrDefault(n => n.Key == tsId);
 				if (tsNode != null)
 					tsId = tsNode.Value.Value;
 			}
-
 			return tsId;
 		}
 
-		protected override string GetSpriteSrc(ModData modData, TileSet tileSet, string sequence, string animation, string sprite, Dictionary<string, MiniYaml> d)
+		protected override IEnumerable<ReservationInfo> ParseFilenames(ModData modData, string tileset, ImmutableArray<int> frames, MiniYaml data, MiniYaml defaults)
 		{
 			var loader = (ExtendedTilesetSpecificSpriteSequenceLoader)Loader;
-
-			var spriteName = sprite ?? sequence;
-
-			if (LoadField(d, "UseTilesetCode", false))
+			var resolvedTileset = ResolveTilesetId(tileset, data);
+			foreach (var r in base.ParseFilenames(modData, tileset, frames, data, defaults))
 			{
-				string code;
-				if (loader.TilesetCodes.TryGetValue(ResolveTilesetId(tileSet, d), out code))
-					spriteName = spriteName.Substring(0, 1) + code + spriteName.Substring(2, spriteName.Length - 2);
+				var spriteName = r.Filename;
+				if (LoadField("UseTilesetCode", false, data))
+				{
+					if (loader.TilesetCodes.TryGetValue(resolvedTileset, out var code) && spriteName.Length >= 2)
+						spriteName = spriteName.Substring(0, 1) + code + spriteName.Substring(2, spriteName.Length - 2);
+				}
+
+				if (LoadField("UseTilesetSuffix", false, data))
+				{
+					if (loader.TilesetSuffixes.TryGetValue(resolvedTileset, out var tilesetSuffix))
+						spriteName += tilesetSuffix;
+				}
+
+				if (LoadField("AddExtension", true, data))
+				{
+					if (LoadField("UseTilesetExtension", false, data)
+						&& loader.TilesetExtensions.TryGetValue(resolvedTileset, out var tilesetExtension))
+						spriteName += tilesetExtension;
+					else
+						spriteName += loader.DefaultSpriteExtension;
+				}
+
+				yield return new ReservationInfo(spriteName, r.LoadFrames, r.Frames, r.Location);
 			}
-
-			if (LoadField(d, "UseTilesetSuffix", false))
-			{
-				string tilesetSuffix;
-				if (loader.TilesetSuffixes.TryGetValue(ResolveTilesetId(tileSet, d), out tilesetSuffix))
-					spriteName = spriteName + tilesetSuffix;
-			}
-
-			if (LoadField(d, "AddExtension", true))
-			{
-				var useTilesetExtension = LoadField(d, "UseTilesetExtension", false);
-
-				string tilesetExtension;
-				if (useTilesetExtension && loader.TilesetExtensions.TryGetValue(ResolveTilesetId(tileSet, d), out tilesetExtension))
-					return spriteName + tilesetExtension;
-
-				return spriteName + loader.DefaultSpriteExtension;
-			}
-
-			return spriteName;
 		}
 	}
 }

@@ -4,28 +4,23 @@ M1Carbine:
 	Report: iconatta.wav, iconattb.wav, iconattc.wav, iconattd.wav, iconatte.wav
 	Warhead@1Dam: SpreadDamage
 		Damage: 15
-
 M1CarbineE:
 	Inherits: M1Carbine
 	ReloadDelay: 20
 	Range: 5c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 20
-
 M60:
 	Inherits: ^MG
-
 M60E:
 	Inherits: M60
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
-
 CRM60:
 	Inherits: M60
 	ReloadDelay: 15
 	Range: 6c0
 	Report: vifvat2a.wav, vifvat2b.wav, vifvat2c.wav
-
 para:
 	Inherits: ^MG
 	Range: 5c0
@@ -39,13 +34,11 @@ para:
 			Medium: 40
 			Heavy: 40
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
-
 paraE:
 	Inherits: para
 	Range: 7c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
-
 MP5:
 	Inherits: ^MG
 	ReloadDelay: 10
@@ -53,10 +46,8 @@ MP5:
 	Report: iseaatta.wav, iseaattb.wav
 	Warhead@1Dam: SpreadDamage
 		Damage: 125
-
 MP5E:
 	Inherits: MP5
-
 DoublePistols:
 	Inherits: ^MG
 	ReloadDelay: 10
@@ -79,14 +70,11 @@ DoublePistols:
 		DamageTypes: BulletDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: piff
-
 DoublePistolsE:
 	Inherits: DoublePistols
 	Range: 8c0
-
 CRMP5:
 	Inherits: DoublePistols
-
 awp:
 	Inherits: DoublePistols
 	ValidTargets: Infantry
@@ -99,11 +87,9 @@ awp:
 		Spread: 42
 		Damage: 125
 		DamageTypes: BulletDeath
-
 AWPE:
 	Inherits: awp
 	ReloadDelay: 60
-
 20mm:
 	Inherits: ^MG
 	Range: 5c0
@@ -121,11 +107,9 @@ AWPE:
 	Warhead@2Eff: CreateEffect
 		Explosions: piff
 		ValidTargets: Ground, Water, Air
-
 20mme:
 	Inherits: 20mm
 	Burst: 2
-
 vulcan:
 	Inherits: ^MG
 	ReloadDelay: 26
@@ -133,11 +117,9 @@ vulcan:
 	Report: bsenatta.wav, bsenattb.wav, bsenattc.wav, bsenattd.wav
 	Warhead@1Dam: SpreadDamage
 		Damage: 50
-
 vulcan2:
 	Inherits: vulcan
 	Report: bpilatta.wav, bpilattb.wav, bpilattc.wav, bpilattd.wav, bpilattc.wav
-
 BlackHawkCannon:
 	Inherits: ^MG
 	ReloadDelay: 40
@@ -145,12 +127,10 @@ BlackHawkCannon:
 	Report: vblhatta.wav, vblhattb.wav
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
-
 BlackHawkCannonE:
 	Inherits: BlackHawkCannon
 	Warhead@1Dam: SpreadDamage
 		Damage: 40
-		
 PsychicJab:
 	Inherits: ^MG
 	ReloadDelay: 15
@@ -174,14 +154,12 @@ PsychicJab:
 		DamageTypes: FlameDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: initfire
-		
 PsychicJabE:
 	Inherits: PsychicJab
 	ReloadDelay: 10
 	Range: 6c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 30
-		
 Virusgun:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -208,12 +186,10 @@ Virusgun:
 		Actors: viruscloud
 	Warhead@3Eff: CreateEffect
 		Explosions: piff
-		
 VirusgunE:
 	Inherits: Virusgun
 	ReloadDelay: 80
 	Range: 16c0
-
 ^Gatling:
 	Inherits: ^MG
 	ReloadDelay: 10
@@ -239,7 +215,6 @@ VirusgunE:
 			Rocket: 50
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-		
 AGGattling:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -248,7 +223,6 @@ AGGattling:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattling:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -257,7 +231,6 @@ AAGattling:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Air
-		
 AGGattling2:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -267,7 +240,6 @@ AGGattling2:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattling2:
 	Inherits: ^Gatling
 	ReloadDelay: 8
@@ -278,7 +250,6 @@ AAGattling2:
 	Warhead@1Dam: SpreadDamage
 		Damage: 30
 		ValidTargets: Air
-		
 AGGattling3:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -288,7 +259,6 @@ AGGattling3:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattling3:
 	Inherits: ^Gatling
 	ReloadDelay: 4
@@ -298,7 +268,6 @@ AAGattling3:
 	Warhead@1Dam: SpreadDamage
 		Damage: 40
 		ValidTargets: Air
-		
 AGGattlingE:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -307,7 +276,6 @@ AGGattlingE:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattlingE:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -316,7 +284,6 @@ AAGattlingE:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Air
-		
 AGGattling2E:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -326,7 +293,6 @@ AGGattling2E:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattling2E:
 	Inherits: ^Gatling
 	ReloadDelay: 8
@@ -336,7 +302,6 @@ AAGattling2E:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Air
-		
 AGGattling3E:
 	Inherits: ^Gatling
 	ReloadDelay: 16
@@ -346,7 +311,6 @@ AGGattling3E:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Ground, Water
-		
 AAGattling3E:
 	Inherits: ^Gatling
 	ReloadDelay: 4
@@ -356,7 +320,6 @@ AAGattling3E:
 	Warhead@1Dam: SpreadDamage
 		Damage: 25
 		ValidTargets: Air
-		
 AAGattCann:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -382,7 +345,6 @@ AAGattCann:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-
 AAGattCann2:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -407,7 +369,6 @@ AAGattCann2:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-	
 AAGattCann3:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -432,7 +393,6 @@ AAGattCann3:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-		
 AAGattCannE:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -457,7 +417,6 @@ AAGattCannE:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-
 AAGattCann2E:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -482,7 +441,6 @@ AAGattCann2E:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-	
 AAGattCann3E:
 	Inherits: ^MG
 	ReloadDelay: 100
@@ -507,7 +465,6 @@ AAGattCann3E:
 			Rocket: 100
 	Warhead@2Eff: CreateEffect
 		Explosions: piffpiff
-		
 AKM:
 	Inherits: ^MG
 	ReloadDelay: 20

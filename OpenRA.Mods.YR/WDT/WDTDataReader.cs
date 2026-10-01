@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.WDT
 {
 	public class WDTDataReader
@@ -13,19 +19,15 @@ namespace OpenRA.Mods.YR.WDT
 		{
 			this.wdtDataFile = wdtDataFile;
 		}
-
 		public WDTData Read(ModData modData)
 		{
 			WDTData wdtData = new WDTData();
-			
-			List<MiniYamlNode> miniYaml = MiniYaml.FromStream(modData.DefaultFileSystem.Open("wdt_data.yaml"));
+			List<MiniYamlNode> miniYaml = MiniYaml.FromStream(modData.DefaultFileSystem.Open("wdt_data.yaml"), "wdt_data.yaml").ToList();
 			var rootNode = miniYaml.FirstOrDefault();
-
 			if (rootNode != null)
 			{
 				var scenarioNode = rootNode.Value.Nodes[0];
 				var blocksNode = rootNode.Value.Nodes[1];
-
 				if (scenarioNode != null && blocksNode != null)
 				{
 					foreach (var node in scenarioNode.Value.Nodes)
@@ -52,7 +54,6 @@ namespace OpenRA.Mods.YR.WDT
 					}
 				}
 			}
-
 			return wdtData;
 		}
 	}

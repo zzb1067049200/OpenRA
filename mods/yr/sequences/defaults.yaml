@@ -17,7 +17,6 @@
 	die9:
 		Start: 86
 		Length: 15
-        
 ^Civilian:
 	die4: nukedie
 		Length: *
@@ -37,7 +36,6 @@
 	die9: gendeath
 		Length: *
 		Tick: 80
-        
 ^BasicInfantry:
 	stand:
 		Facings: 8
@@ -83,7 +81,6 @@
 		Length: *
 		Tick: 80
 	paradrop:
-
 ^ProneInfantry:
 	liedown:
 		Start: 212
@@ -101,11 +98,9 @@
 		Length: 6
 		Facings: 8
 		Tick: 100
-
 ^Infantry:
 	Inherits@1: ^BasicInfantry
 	Inherits@2: ^ProneInfantry
-
 ^CivInfantry:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -133,7 +128,6 @@
 		Start: 134
 		Length: 6
 		Facings: 8
-
 ^ArmedInfantry:
 	Inherits: ^Infantry
 	shoot:
@@ -152,13 +146,11 @@
 		Start: 276
 	cheer:
 		Start: 293
-
 ^MindControllable:
 	mindcontrol: yuricntl
 		Length: *
 		Offset: 0, -24, 24
 		UseTilesetCode: false
-
 ^Fence:
 	Defaults:
 		Offset: 0,-15
@@ -172,7 +164,6 @@
 	icon: wallicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 ^Flag:
 	Defaults:
 		Offset: 0,-15
@@ -186,12 +177,10 @@
 	flag:
 		Length: 16
 		ShadowStart: 16
-
 ^GarrisonableBuilding:
 	garrisoned:
 		Start: 2
 		ShadowStart: 6
-        
 ^WithMachineGunMuzzle:
 	muzzle0: mgun-n
 		Length: *
@@ -225,19 +214,16 @@
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
-
 ^WithCannonMuzzle:
 	muzzle: gunfire
 		Length: *
 	muzzle-2: vtmuzzle
 		Length: *
-
 ^WithFlakMuzzle:
 	muzzle: gunfire
 		Length: *
 		Offset: 0,0
 		UseTilesetCode: false
-        
 ^Structure:
 	Defaults:
 		UseTilesetCode: true
@@ -265,7 +251,6 @@
 	icon:
 		Offset: 0,0
 		UseTilesetCode: false
-        
 ^TechStructure:
 	Defaults:
 		UseTilesetCode: true

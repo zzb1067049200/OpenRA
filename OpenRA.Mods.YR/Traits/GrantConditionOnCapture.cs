@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -19,7 +19,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class GrantConditionOnCaptureInfo : ConditionalTraitInfo
@@ -36,26 +39,20 @@ namespace OpenRA.Mods.YR.Traits
     public class GrantConditionOnCapture : ConditionalTrait<GrantConditionOnCaptureInfo>, INotifyOwnerChanged, ITick
     {
         private int conditionToken;
-        ConditionManager conditionManager;
         private GrantConditionOnCaptureInfo info;
         private Player thisPlayer;
         private Player oldPlayer;
         private string thisFactionName;
-
         public GrantConditionOnCapture(ActorInitializer init, GrantConditionOnCaptureInfo info) : base(info)
         {
             this.info = info;
-            thisFactionName = init.Contains<FactionInit>() ? init.Get<FactionInit, string>() : init.Self.Owner.Faction.InternalName;
+            thisFactionName = init.Contains<FactionInit>() ? init.GetValue<FactionInit, string>() : init.Self.Owner.Faction.InternalName;
         }
-
-
         protected override void Created(Actor self)
         {
-            conditionManager = self.Trait<ConditionManager>();
-
+            
             base.Created(self);
         }
-
         public void OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
         {
             if(newOwner.InternalName == "Netural")
@@ -66,53 +63,47 @@ namespace OpenRA.Mods.YR.Traits
             {
                 thisPlayer = newOwner;
                 oldPlayer = oldOwner;
-
                 TraitDisabled(self);
                 TraitEnabled(self);
-                
             }
         }
         protected override void TraitEnabled(Actor self)
         {
-            if (conditionToken == ConditionManager.InvalidConditionToken)
+            if (conditionToken == Actor.InvalidConditionToken)
             {
                 //Grant condition to all actors belong to this faction
                 World w = self.World;
                 var actorsBelongToThisFaction = w.Actors.Where(o => o.Owner == thisPlayer);
                 foreach (var actor in actorsBelongToThisFaction)
                 {
-                    conditionToken = conditionManager.GrantCondition(actor, info.GrantCaptureCondition);
+                    conditionToken = actor.GrantCondition(info.GrantCaptureCondition);
                 }
             }
         }
-
         protected override void TraitDisabled(Actor self)
         {
-            if (conditionToken == ConditionManager.InvalidConditionToken)
+            if (conditionToken == Actor.InvalidConditionToken)
                 return;
-
             //Disable condition to all actors belong to old faction
             World w = self.World;
             var actorsBelongToOldFaction = w.Actors.Where(o => o.Owner == oldPlayer);
             foreach (var actor in actorsBelongToOldFaction)
             {
-                conditionToken = conditionManager.RevokeCondition(actor, conditionToken);
+                conditionToken = actor.RevokeCondition(conditionToken);
             }
         }
-
         public void Tick(Actor self)
         {
             if(self.IsDead)
             {
-                if (conditionToken == ConditionManager.InvalidConditionToken)
+                if (conditionToken == Actor.InvalidConditionToken)
                     return;
-
                 //Disable condition to all actors belong to this faction when the actor is dead
                 World w = self.World;
                 var actors = w.Actors.Where(o => o.Owner == thisPlayer);
                 foreach (var actor in actors)
                 {
-                    conditionToken = conditionManager.RevokeCondition(actor, conditionToken);
+                    conditionToken = actor.RevokeCondition(conditionToken);
                 }
             }
         }

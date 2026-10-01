@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Modded by Cook Green of YR Mod
  * Modded from Cloak.cs but some changed.
@@ -23,7 +23,8 @@ using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Primitives;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
 namespace OpenRA.Mods.YR.Traits
 {
     public enum UnvarietyType
@@ -50,13 +51,10 @@ namespace OpenRA.Mods.YR.Traits
         public readonly bool IsPlayerPalette = false;
         public readonly HashSet<string> VarietyTypes = new HashSet<string> { "Variety" };
         public readonly string VarietyCondition = null;
-
         [Desc("Measured in game ticks.")]
         public readonly int InitialDelay = 10;
-
         [Desc("Measured in game ticks.")]
         public readonly int VarietyDelay = 30;
-
         public readonly string VarietySound = null;
         public readonly string UnvarietySound = null;
         public override object Create(ActorInitializer init)
@@ -65,13 +63,11 @@ namespace OpenRA.Mods.YR.Traits
         }
     }
     public class Variety : ConditionalTrait<VarietyInfo>, IRenderModifier, INotifyAttack, ITick, INotifyDamage, 
-        IVisibilityModifier, INotifyCreated, INotifyHarvesterAction, INotifyVisualPositionChanged
+        IVisibilityModifier, INotifyCreated, INotifyHarvestAction
     {
-        [Sync]
         private int remainingTime;
         private VarietyInfo info;
-        private ConditionManager conditionManager;
-        private int variedToken = ConditionManager.InvalidConditionToken;
+        private int variedToken = Actor.InvalidConditionToken;
         private Actor varietiedActor;
         private Actor self;
         private CPos? lastPos;//Last position
@@ -79,32 +75,27 @@ namespace OpenRA.Mods.YR.Traits
         private bool firstTick = true;//Run this trait firstly
         private bool isDocking = false;
         private Variety[] otherVaried;
-
         public bool Varied { get { return !IsTraitDisabled && remainingTime <= 0; } }
-
         public Variety(ActorInitializer init, VarietyInfo info) : base(info)
         {
             self = init.Self;
             this.info = info;
             remainingTime = info.InitialDelay;
         }
-
         protected override void Created(Actor self)
         {
-            conditionManager = self.TraitOrDefault<ConditionManager>();
+            
             otherVaried = self.TraitsImplementing<Variety>()
                 .Where(c => c != this)
                 .ToArray();
             if (Varied)
             {
                 wasVaried = true;
-                if (conditionManager != null && variedToken == ConditionManager.InvalidConditionToken && !string.IsNullOrEmpty(Info.VarietyCondition))
-                    variedToken = conditionManager.GrantCondition(self, Info.VarietyCondition);
+                if (variedToken == Actor.InvalidConditionToken && !string.IsNullOrEmpty(Info.VarietyCondition))
+                    variedToken = self.GrantCondition(Info.VarietyCondition);
             }
-
             base.Created(self);
         }
-
         public IEnumerable<IRenderable> ModifyRender(Actor self, WorldRenderer wr, IEnumerable<IRenderable> r)
         {
             if (remainingTime > 0 || IsTraitDisabled)
@@ -115,7 +106,6 @@ namespace OpenRA.Mods.YR.Traits
                 }
                 return r;
             }
-
             if (Varied && IsVisible(self, self.World.RenderPlayer))
 			{
 				var palette = string.IsNullOrEmpty(Info.Palette) ? null : Info.IsPlayerPalette ? wr.Palette(Info.Palette + self.Owner.InternalName) : wr.Palette(Info.Palette);
@@ -136,18 +126,15 @@ namespace OpenRA.Mods.YR.Traits
                 }
             }
         }
-
         public bool IsVisible(Actor self, Player viewer)
         {
             if (!Varied || self.Owner.IsAlliedWith(viewer))
                 return true;
-
             //maybe can use DetectCloak, but we don't want submarines detect varietied units, so...
             return self.World.ActorsWithTrait<DetectVariety>().Any(a => !a.Trait.IsTraitDisabled && a.Actor.Owner.IsAlliedWith(viewer)
                 && Info.VarietyTypes.Overlaps(a.Trait.Info.CloakTypes)
                 && (self.CenterPosition - a.Actor.CenterPosition).LengthSquared <= a.Trait.Info.Range.LengthSquared);
         }
-
         private IEnumerable<IRenderable> createActorAndRender(World world, string actor, WorldRenderer wr)
         {
             TypeDictionary dic = new TypeDictionary
@@ -155,7 +142,7 @@ namespace OpenRA.Mods.YR.Traits
                 new CenterPositionInit(self.CenterPosition),
                 new LocationInit(self.Location),
                 new OwnerInit(self.Owner),
-                new FacingInit(128)
+                new FacingInit(WAngle.FromFacing(128))
             };
             varietiedActor = world.CreateActor(info.Actor, dic);
             if (!varietiedActor.IsInWorld)
@@ -167,61 +154,50 @@ namespace OpenRA.Mods.YR.Traits
             }
             return varietiedActor.Render(wr);
         }
-
         public IEnumerable<Primitives.Rectangle> ModifyScreenBounds(Actor self, WorldRenderer wr, IEnumerable<Primitives.Rectangle> bounds)
         {
             return bounds;
         }
-
-        public void Attacking(Actor self, Target target, Armament a, Barrel barrel)
+        public void Attacking(Actor self, in Target target, Armament a, Barrel barrel)
         {
             Unvariety();
         }
-
-        public void PreparingAttack(Actor self, Target target, Armament a, Barrel barrel) { }
-
+        public void PreparingAttack(Actor self, in Target target, Armament a, Barrel barrel) { }
         public void Tick(Actor self)
         {
             if (!IsTraitDisabled)
             {
                 if (remainingTime > 0 && !isDocking)
                     remainingTime--;
-
                 if (Info.UnvarietyOn.HasFlag(UnvarietyType.Move) && (lastPos == null || lastPos.Value != self.Location))
                 {
                     Unvariety();
                     lastPos = self.Location;
                 }
             }
-
             var isVaried = Varied;
             if (isVaried && !wasVaried)
             {
-                if (conditionManager != null && variedToken == ConditionManager.InvalidConditionToken && !string.IsNullOrEmpty(Info.VarietyCondition))
-                    variedToken = conditionManager.GrantCondition(self, Info.VarietyCondition);
-
+                if (variedToken == Actor.InvalidConditionToken && !string.IsNullOrEmpty(Info.VarietyCondition))
+                    variedToken = self.GrantCondition(Info.VarietyCondition);
                 // Sounds shouldn't play if the actor starts cloaked
                 if (!(firstTick && Info.InitialDelay == 0) && !otherVaried.Any(a => a.Varied))
                     Game.Sound.Play(SoundType.World, Info.VarietySound, self.CenterPosition);
             }
             else if (!isVaried && wasVaried)
             {
-                if (variedToken != ConditionManager.InvalidConditionToken)
-                    variedToken = conditionManager.RevokeCondition(self, variedToken);
-
+                if (variedToken != Actor.InvalidConditionToken)
+                    variedToken = self.RevokeCondition(variedToken);
                 if (!(firstTick && Info.InitialDelay == 0) && !otherVaried.Any(a => a.Varied))
                     Game.Sound.Play(SoundType.World, Info.UnvarietySound, self.CenterPosition);
             }
-
             wasVaried = isVaried;
             firstTick = false;
         }
-
         public void Damaged(Actor self, AttackInfo e)
         {
             if (e.Damage.Value == 0)
                 return;
-
             var type = e.Damage.Value < 0
                 ? (e.Attacker == self ? UnvarietyType.SelfHeal : UnvarietyType.Heal)
                 : UnvarietyType.Damage;
@@ -229,7 +205,6 @@ namespace OpenRA.Mods.YR.Traits
                 Unvariety();
         }
         public void Unvariety() { Unvariety(Info.VarietyDelay); }
-
         public void Unvariety(int time)
         {
             if (varietiedActor != null && varietiedActor.IsInWorld)
@@ -238,19 +213,14 @@ namespace OpenRA.Mods.YR.Traits
             }
             remainingTime = Math.Max(remainingTime, time);
         }
-
         public void MovingToResources(Actor self, CPos targetCell)
         {
         }
-
         public void MovingToRefinery(Actor self, Actor refineryActor)
         {
         }
-
         public void MovementCancelled(Actor self) { }
-
-        public void Harvested(Actor self, ResourceType resource) { }
-
+        public void Harvested(Actor self, string resourceType) { }
         public void Docked()
         {
             if (Info.UnvarietyOn.HasFlag(UnvarietyType.Dock))
@@ -259,14 +229,9 @@ namespace OpenRA.Mods.YR.Traits
                 Unvariety();
             }
         }
-
         public void Undocked()
         {
             isDocking = false;
-        }
-
-        public void VisualPositionChanged(Actor self, byte oldLayer, byte newLayer)
-        {
         }
     }
 }

@@ -10,6 +10,11 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <OutputPath>../mods/yr</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- OutputPath is a source-controlled mod folder, so don't scatter the engine's
+         dependency DLLs (SDL2-CS, Eluant, ...) next to the mod yaml: they are already
+         present in the engine's bin dir, and on Android they would be bundled into
+         assets/mods/yr by the OpenRA.Android AndroidAsset glob. -->
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
@@ -24,6 +29,11 @@
   <ItemGroup>
     <!-- Work around an issue where Rider does not detect files in the project root using the default glob -->
     <Compile Include="**/*.cs" Exclude="$(DefaultItemExcludes)" />
+    <!-- UtilityCommands are dev-only console commands (map/translation import) and are not
+         referenced by any mod.yaml; NewMissionBrowserLogic is dead code (no yaml references it).
+         Both are excluded until the rest of the mod is ported. -->
+    <Compile Remove="UtilityCommands/**/*.cs" />
+    <Compile Remove="Widgets/Logic/NewMissionBrowserLogic.cs" />
   </ItemGroup>
 
   <ItemGroup>

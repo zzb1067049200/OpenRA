@@ -89,13 +89,11 @@ Player:
 		ConstructionYardTypes: gacnst, nacnst, yacnst
 		RefineryTypes: garefn, narefn, yarefn
 		PowerTypes: gapowr, napowr, nanrct, yapowr
-		BarracksTypes: gapile, nahand, yabrck
-		VehiclesFactoryTypes: gaweap, naweap, yaweap
 		ProductionTypes: gapile, nahand, gaweap, naweap, gaairc, amradr, yabrck, yaweap
 		MinimumExcessPower: 60
-        	MaximumExcessPower: 160
-        	ExcessPowerIncrement: 40
-        	ExcessPowerIncreaseThreshold: 3
+			MaximumExcessPower: 160
+			ExcessPowerIncrement: 40
+			ExcessPowerIncreaseThreshold: 3
 		BuildingLimits:
 			garefn: 4
 			narefn: 4

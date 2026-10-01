@@ -13,7 +13,13 @@
 #endregion
 using OpenRA.Activities;
 using OpenRA.Mods.YR.Traits;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Activities
 {
     class MarkerSlaveLeave : Activity
@@ -25,22 +31,18 @@ namespace OpenRA.Mods.YR.Activities
             this.master = master;
 			this.slave = slave;
         }
-
         public override bool Tick(Actor self)
         {
             if (self.IsDead)
                 return false;
-
             self.World.AddFrameEndTask(w =>
             {
                 if (!master.IsDead && master.IsInWorld)
                 {
                     master.Trait<MarkerMaster>().PickupSlave(master, slave);
                 }
-
                 self.World.Remove(self);
             });
-
             return false;
         }
     }

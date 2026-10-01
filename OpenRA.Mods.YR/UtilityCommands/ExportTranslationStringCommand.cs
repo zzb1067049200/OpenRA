@@ -5,21 +5,24 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.UtilityCommands
 {
 	public class ExportTranslationStringCommand : IUtilityCommand
 	{
 		public string Name { get { return "--export-translation-string"; } }
 		bool IUtilityCommand.ValidateArguments(string[] args) { return args.Length >= 2; }
-
 		[Desc("LOCALIZATIONNAME", "Export strings in rules, sequences and chrome into a yaml file with the localization name")]
 		public void Run(Utility utility, string[] args)
 		{
 			var modData = utility.ModData;
-
 			var localizationName = args[1];
-
 			var localizationFile = localizationName + ".yaml";
 			if(File.Exists(localizationFile))
 			{
@@ -32,7 +35,6 @@ namespace OpenRA.Mods.YR.UtilityCommands
 				foreach (var f in modData.Manifest.Rules)
 				{
 					var actors = MiniYaml.FromStream(modData.DefaultFileSystem.Open(f), f);
-
 					// TODO: maybe can export actorInfos
 					foreach (var actor in actors)
 					{
@@ -47,11 +49,9 @@ namespace OpenRA.Mods.YR.UtilityCommands
 					}
 				}
 				subNodes.Add(new MiniYamlNode("Rules", new MiniYaml(null, ruleNodes)));
-
 				List<MiniYamlNode> nodes = new List<MiniYamlNode>();
 				MiniYamlNode node = new MiniYamlNode(localizationName, new MiniYaml(localizationName.SetFirstLetterUpper(), subNodes));
 				nodes.Add(node);
-				
 				MiniYaml tranlsation = new MiniYaml(null, nodes);
 				foreach (var line in tranlsation.ToLines(localizationName))
 				{

@@ -5,7 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class ShutdownPowerInfo : ConditionalTraitInfo
@@ -16,7 +21,6 @@ namespace OpenRA.Mods.YR.Traits
             return new ShutdownPower(init, this);
         }
     }
-
     public class ShutdownPower : ConditionalTrait<ShutdownPowerInfo>, ITick, INotifyOwnerChanged
     {
         private Actor self;
@@ -28,7 +32,6 @@ namespace OpenRA.Mods.YR.Traits
             this.info = info;
             powerMgr = self.Owner.PlayerActor.Trait<PowerManager>();
         }
-
         public void Tick(Actor self)
         {
             if (!IsTraitDisabled && powerMgr.PowerState != PowerState.Low)
@@ -40,7 +43,6 @@ namespace OpenRA.Mods.YR.Traits
                 powerMgr.TriggerPowerOutage(0);
             }
         }
-
         public void OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
         {
             powerMgr = newOwner.PlayerActor.Trait<PowerManager>();

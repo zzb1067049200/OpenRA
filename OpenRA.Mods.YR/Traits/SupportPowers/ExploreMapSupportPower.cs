@@ -1,4 +1,4 @@
-﻿using OpenRA.Mods.Common.Effects;
+using OpenRA.Mods.Common.Effects;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Traits;
@@ -7,30 +7,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class ExploreMapSupportPowerInfo : SupportPowerInfo, IRulesetLoaded
     {
         [Desc("Radius of the explore map support power")]
         public readonly int Radius = 6;
-
         [Desc("Image used by playing the sequence")]
         public readonly string Image = null;
-
         [Desc("Sequence played when explore specific destination")]
         public readonly string Sequence = null;
-
         [Desc("Platte which applied to the sequence")]
         [PaletteReference]
         public readonly string Platte = null;
-
         public override object Create(ActorInitializer init)
         {
             return new ExploreMapSupportPower(init.Self, this);
         }
     }
-
     /// <summary>
     /// 
     /// </summary>
@@ -42,11 +41,9 @@ namespace OpenRA.Mods.YR.Traits
         {
             this.info = info;
         }
-
         public override void Activate(Actor self, Order order, SupportPowerManager manager)
         {
             base.Activate(self, order, manager);
-
             self.World.AddFrameEndTask(w =>
             {
                 Shroud shround = self.Owner.Shroud;
@@ -61,8 +58,7 @@ namespace OpenRA.Mods.YR.Traits
                     shround.RemoveSource(this);
                     shround.AddSource(this, type, cells.ToArray());
                 }
-                shround.ExploreProjectedCells(self.World, cells);
-
+                shround.ExploreProjectedCells(cells);
                 if (!string.IsNullOrEmpty(info.Sequence))
                 {
                     string palette = null;

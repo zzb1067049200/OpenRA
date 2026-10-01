@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -19,27 +19,25 @@ using System.Threading.Tasks;
 using OpenRA.Graphics;
 using OpenRA.Traits;
 using Color = OpenRA.Primitives.Color;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
 namespace OpenRA.Mods.YR.Traits
 {
     using GUtil = OpenRA.Graphics.Util;
-    public class EnvironmentPaletteEffectInfo : ITraitInfo
+    public class EnvironmentPaletteEffectInfo : TraitInfo
     {
         public readonly string[] ExcludePalette = { "cursor", "chrome", "colorpicker", "fog", "shroud", "effect" };
-
         public readonly float Ratio = 0.6f;
-
         [Desc("Measured in ticks.")]
         public readonly int Length = 20;
-
         public readonly Color Color = Color.White;
-
         [Desc("Set this when using multiple independent flash effects.")]
         public readonly string Type = null;
-
-        public object Create(ActorInitializer init) { return new EnvironmentPaletteEffect(this); }
+        public override object Create(ActorInitializer init) { return new EnvironmentPaletteEffect(this); }
     }
-
     public class EnvironmentPaletteEffect : IPaletteModifier, ITick
     {
         private EnvironmentPaletteEffectInfo info;
@@ -51,12 +49,10 @@ namespace OpenRA.Mods.YR.Traits
                 return info;
             }
         }
-
         public EnvironmentPaletteEffect(EnvironmentPaletteEffectInfo info)
         {
             this.info = info;
         }
-
         public void Enable(int ticks)
         {
             if (ticks == -1)
@@ -64,7 +60,6 @@ namespace OpenRA.Mods.YR.Traits
             else
                 remainingFrames = ticks;
         }
-
         void ITick.Tick(Actor self)
         {
             if (remainingFrames > 0)
@@ -74,7 +69,6 @@ namespace OpenRA.Mods.YR.Traits
         {
             if (remainingFrames == 0)
                 return;
-
             foreach (var pal in palettes)
             {
                 if (info.ExcludePalette.Contains(pal.Key))

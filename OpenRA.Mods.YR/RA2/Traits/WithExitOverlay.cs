@@ -8,7 +8,6 @@
  * information, see COPYING.
  */
 #endregion
-
 using System;
 using System.Linq;
 using OpenRA.Graphics;
@@ -16,7 +15,10 @@ using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Traits;
 using OpenRA.Support;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
 namespace OpenRA.Mods.RA2.Traits
 {
 	[Desc("Renders an animation when when the actor is leaving from a production building.")]
@@ -24,60 +26,46 @@ namespace OpenRA.Mods.RA2.Traits
 	{
 		[Desc("Sequence name to use")]
 		[SequenceReference] public readonly string Sequence = "exit-overlay";
-
 		[Desc("Position relative to body")]
 		public readonly WVec Offset = WVec.Zero;
-
 		[Desc("Custom palette name")]
 		[PaletteReference("IsPlayerPalette")] public readonly string Palette = null;
-
 		[Desc("Custom palette is a player palette BaseName")]
 		public readonly bool IsPlayerPalette = false;
-
         public override object Create(ActorInitializer init) { return new WithExitOverlay(init.Self, this); }
 	}
-
 	public class WithExitOverlay : ConditionalTrait<WithExitOverlayInfo>, INotifyDamageStateChanged, INotifySold, INotifyProduction, ITick
 	{
 		readonly Animation overlay;
 		bool buildComplete, enable;
 		CPos exit;
-
 		public WithExitOverlay(Actor self, WithExitOverlayInfo info) : base(info)
 		{
 			var rs = self.Trait<RenderSprites>();
 			var body = self.Trait<BodyOrientation>();
-
 			// Always render instantly for units
 			buildComplete = !self.Info.HasTraitInfo<BuildingInfo>();
-
 			overlay = new Animation(self.World, rs.GetImage(self));
 			overlay.PlayRepeating(info.Sequence);
-
 			var anim = new AnimationWithOffset(overlay,
-				() => body.LocalToWorld(info.Offset.Rotate(body.QuantizeOrientation(self, self.Orientation))),
+				() => body.LocalToWorld(info.Offset.Rotate(body.QuantizeOrientation(self.Orientation))),
 				() => !buildComplete || !enable);
-
 			rs.Add(anim, info.Palette, info.IsPlayerPalette);
 		}
-
 		void INotifySold.Sold(Actor self) { }
 		void INotifySold.Selling(Actor self)
 		{
 			buildComplete = false;
 		}
-
 		void INotifyDamageStateChanged.DamageStateChanged(Actor self, AttackInfo e)
 		{
 			overlay.ReplaceAnim(RenderSprites.NormalizeSequence(overlay, e.DamageState, overlay.CurrentSequence.Name));
 		}
-
 		void INotifyProduction.UnitProduced(Actor self, Actor other, CPos exit)
 		{
 			this.exit = exit;
 			enable = true;
 		}
-
 		void ITick.Tick(Actor self)
 		{
 			if (enable)

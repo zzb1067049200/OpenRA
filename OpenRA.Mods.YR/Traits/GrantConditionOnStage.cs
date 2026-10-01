@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Written by Cook Green of YR Mod
  * Follows GPLv3 License as the OpenRA engine:
@@ -18,7 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits
 {
     public class GrantConditionOnStageInfo : ConditionalTraitInfo
@@ -37,8 +41,7 @@ namespace OpenRA.Mods.YR.Traits
         private string currentCondition;
         private Dictionary<string, int> conditions;
         private int delay = -1;
-        private ConditionManager conditionManager;
-        private int currentConditionToken = ConditionManager.InvalidConditionToken;
+        private int currentConditionToken = Actor.InvalidConditionToken;
         private int currentConditionIndex;
         public GrantConditionOnStage(ActorInitializer init, GrantConditionOnStageInfo info) : base(info)
         {
@@ -47,13 +50,11 @@ namespace OpenRA.Mods.YR.Traits
             delay = conditions.ElementAt(0).Value;
             currentConditionIndex = 0;
         }
-
         protected override void Created(Actor self)
         {
-            conditionManager = self.Trait<ConditionManager>();
-            currentConditionToken = conditionManager.GrantCondition(self, currentCondition);
+            
+            currentConditionToken = self.GrantCondition(currentCondition);
         }
-
         public void Tick(Actor self)
         {
             if (delay >= 0)
@@ -68,9 +69,8 @@ namespace OpenRA.Mods.YR.Traits
                     {
                         currentConditionIndex++;
                     }
-                    currentConditionToken = conditionManager.RevokeCondition(self, currentConditionToken);
-                    currentConditionToken = conditionManager.GrantCondition(self, conditions.ElementAt(currentConditionIndex).Key);
-
+                    currentConditionToken = self.RevokeCondition(currentConditionToken);
+                    currentConditionToken = self.GrantCondition(conditions.ElementAt(currentConditionIndex).Key);
                     delay = conditions.ElementAt(currentConditionIndex).Value;
                 }
                 else

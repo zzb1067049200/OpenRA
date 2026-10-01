@@ -45,7 +45,6 @@ init:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: nabnkr, bfrt, garrisonable-building
-		
 yengineer:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -72,7 +71,7 @@ yengineer:
 		Voice: Move
 	Passenger:
 		PipType: Blue
-	EngineerRepair:
+	InstantlyRepairs:
 	RepairsBridges:
 		RepairNotification: BridgeRepaired
 	Captures:
@@ -90,7 +89,6 @@ yengineer:
 		Sequence: stand
 	WithInfantryBody:
 		DefaultAttackSequence: stand
-		
 	CaptureManager:
 brute:
 	Inherits: ^Infantry
@@ -141,7 +139,6 @@ brute:
 		DefaultAttackSequence: shoot
 	-Crushable:
 	-BunkerPassenger:
-
 virus:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -188,7 +185,6 @@ virus:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-		
 slav:
 	Inherits: ^Infantry
 	Valued:
@@ -203,13 +199,11 @@ slav:
 	Selectable:
 		Bounds: 20, 30, 0, -11
 	Harvester:
-		Capacity: 10
 		Resources: Ore,Gems
 		BaleUnloadDelay: 1
 		SearchFromProcRadius: 30
 		SearchFromHarvesterRadius: 11
 		HarvestVoice: Move
-		DeliverVoice: Move
 	Health:
 		HP: 100
 	Mobile:
@@ -236,7 +230,11 @@ slav:
 	#	OnMasterChangeOwner: Free
 	#	FreeCondition: freed
 	-BunkerPassenger:
-
+	StoresResources:
+		Capacity: 10
+		Resources: Ore,Gems
+	DockClientManager:
+		Voice: Move
 yuri:
 	Inherits: ^Infantry
 	Inherits@MC: ^MindControllable
@@ -319,7 +317,6 @@ yuri:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-		
 yuripr:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -406,7 +403,6 @@ yuripr:
 		CargoType: Infantry
 		GrantBunkerCondition: bunkered
 		Accepter: bfrt
-
 lunr:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -428,6 +424,8 @@ lunr:
 	-TimedConditionBar@ChronoDisable:
 	-ExternalCondition@CHRONODISABLE:
 	-Mobile:
+	# 2026 引擎要求 Chronoshiftable 必须有 Mobile/Husk；lunr 是漂浮单位。
+	-ChronoshiftableWithSpriteEffect:
 	RevealsShroud:
 		Range: 8c0
 		Type: CenterPosition

@@ -43,7 +43,6 @@ gacnst:
 	icon: acnsicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gapowr:
 	Defaults:
 		Offset: 0, -31
@@ -80,7 +79,6 @@ gapowr:
 	icon: powricon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gapile:
 	Defaults:
 		Offset: -15, -38
@@ -119,7 +117,6 @@ gapile:
 	icon: brrkicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 garefn:
 	Defaults:
 		Offset: -12, -52
@@ -160,7 +157,6 @@ garefn:
 	icon: reficon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gaairc:
 	Defaults:
 		Offset: -14, -38
@@ -217,7 +213,6 @@ gaairc:
 	icon: heliicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gaweap:
 	Defaults:
 		Offset: -30, -60
@@ -287,7 +282,6 @@ gaweap:
 	icon: gwepicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gayard:
 	Defaults:
 		Offset: 0, -45
@@ -340,7 +334,6 @@ gayard:
 	icon: ayaricon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gadept:
 	Defaults:
 		Offset: 7, -40
@@ -386,7 +379,6 @@ gadept:
 	icon: fixicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gatech:
 	Defaults:
 		Offset: -15, -40
@@ -421,7 +413,6 @@ gatech:
 	icon: techicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gaorep:
 	Defaults:
 		Offset: 0, -45
@@ -458,7 +449,6 @@ gaorep:
 	icon: gorep
 		Offset: 0,0
 		UseTilesetCode: false
-
 gawall:
 	Defaults:
 		Offset: 0, -12
@@ -473,7 +463,6 @@ gawall:
 	icon: wallicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gapill:
 	Inherits@Muzzle: ^WithMachineGunMuzzle
 	Defaults:
@@ -505,7 +494,6 @@ gapill:
 	icon: pillicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 nasam:
 	Defaults:
 		Offset: 0, -15
@@ -538,7 +526,6 @@ nasam:
 	icon: samicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gtgcan:
 	Defaults:
 		Offset: 0, -30
@@ -576,7 +563,6 @@ gtgcan:
 	icon: gcanicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gaspysat:
 	Defaults:
 		Offset: 0, -31
@@ -614,7 +600,6 @@ gaspysat:
 	icon: asaticon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gagap:
 	Inherits: ^Structure
 	Defaults:
@@ -645,7 +630,6 @@ gagap:
 	icon: gapicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gaweat:
 	Defaults:
 		Offset: 0, -45
@@ -700,7 +684,6 @@ gaweat:
 	icon: wethicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 gacsph:
 	Defaults:
 		Offset: -15, -50
@@ -737,7 +720,6 @@ gacsph:
 	icon: csphicon
 		Offset: 0,0
 		UseTilesetCode: false
-
 atesla:
 	Inherits: ^Structure
 	Defaults:
@@ -780,7 +762,6 @@ atesla:
 		Length: 8
 		ShadowStart: 8
 		Tick: 160
-
 garobo:
 	Defaults:
 		Offset: 0, -31

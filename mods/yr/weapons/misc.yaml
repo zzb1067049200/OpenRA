@@ -37,12 +37,10 @@ BlimpBomb:
 		ValidTargets: Water
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: MediumCrater, MediumScorch
-		
 BlimpBombE:
 	Inherits: BlimpBomb
 	Warhead@2Eff: CreateEffect
 		Explosions: kirovtesla
-
 RepairBullet:
 	ReloadDelay: 80
 	Range: 1c819
@@ -54,7 +52,6 @@ RepairBullet:
 		Spread: 213
 		Damage: -50
 		ValidTargets: Repair
-
 MindControl:
 	ReloadDelay: 200
 	Range: 7c0
@@ -62,11 +59,9 @@ MindControl:
 	Projectile: InstantHit
 	Warhead@1Dam: TargetDamage
 		Damage: 0
-		
 SuperMindControl:
 	Inherits: MindControl
 	ValidTargets: SuperMindControl #Which can control infantry, vehicle and structure
-
 PsiWave:
 	ReloadDelay: 100
 	Range: 1c0
@@ -79,28 +74,22 @@ PsiWave:
 		DamageTypes: PsychicDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: psi_wave
-
 V3Launcher:
 	Inherits: ^Launcher
-        
 HornetLauncher:
 	Inherits: ^Launcher
-        
 DredLauncher:
 	Inherits: ^Launcher
-
 CruiseLauncher:
 	Inherits: ^Launcher
 	ValidTargets: Structure
 	Warhead@1Dam: TargetDamage
 		ValidTargets: Structure
-
 ASWLauncher:
 	Inherits: ^Launcher
 	ValidTargets: Underwater
 	Warhead@1Dam: TargetDamage
 		ValidTargets: Underwater
-        
 SpyCameraWeapon:
 	ReloadDelay: 30
 	Range: 20c0

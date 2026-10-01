@@ -13,27 +13,27 @@
  * information, see COPYING.
  */
 #endregion
-
 using System.Linq;
 using OpenRA.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Mods.YR.Traits;
 using OpenRA.Traits;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Activities
 {
 	public class TractionFallToEarth : Activity
 	{
 		readonly Tractable tractable;
-
 		int fallSpeed = 0;
-
 		public TractionFallToEarth(Actor self, Tractable tractable)
 		{
 			IsInterruptible = false;
 			this.tractable = tractable;
 		}
-
 		void OnGroundLevel(Actor self)
 		{
 			if (tractable.Info.ExplosionWeapon != null)
@@ -41,13 +41,10 @@ namespace OpenRA.Mods.YR.Activities
 				// Use .FromPos since this actor is killed. Cannot use Target.FromActor
 				tractable.Info.ExplosionWeapon.Impact(Target.FromPos(self.CenterPosition), new GameRules.WarheadArgs() { SourceActor = self, DamageModifiers = new int[0] });
 			}
-
 			tractable.RevokeTractingCondition(self);
-
 			// Is where I fell a death trap?
 			var terrain = self.World.Map.GetTerrainInfo(self.Location);
 			var health = self.Trait<Health>();
-
 			if (tractable.Info.DeathTerrainTypes.Contains(terrain.Type))
 			{
 				// If this actor is immobile there, kill it.
@@ -56,7 +53,6 @@ namespace OpenRA.Mods.YR.Activities
 				{
 					// Don't even leave husk behind.
 					self.Dispose();
-
 					// Still do "unit lost" notification.
 					var ai = new AttackInfo
 					{
@@ -65,18 +61,14 @@ namespace OpenRA.Mods.YR.Activities
 						DamageState = DamageState.Dead,
 						PreviousDamageState = DamageState.Undamaged
 					};
-
 					foreach (var nd in self.TraitsImplementing<INotifyKilled>()
 							.Concat(self.Owner.PlayerActor.TraitsImplementing<INotifyKilled>()))
 						nd.Killed(self, ai);
-
 					return;
 				}
 			}
-
 			health.InflictDamage(self, self, new Damage(health.MaxHP * tractable.Info.DamageFactor / 100), false);
 		}
-
 		public override bool Tick(Actor self)
 		{
 			if (self.World.Map.DistanceAboveTerrain(self.CenterPosition).Length <= 0)
@@ -84,16 +76,13 @@ namespace OpenRA.Mods.YR.Activities
 				OnGroundLevel(self);
 				return false;
 			}
-
 			var move = new WVec(0, 0, fallSpeed);
 			fallSpeed -= tractable.Info.FallGravity.Length;
-
 			var pos = self.CenterPosition + move;
 			if (pos.Z < 0)
 				tractable.SetPosition(self, new WPos(pos.X, pos.Y, 0));
 			else
 				tractable.SetPosition(self, pos);
-
 			return true;
 		}
 	}

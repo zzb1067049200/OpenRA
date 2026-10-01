@@ -8,23 +8,25 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Primitives;
+using OpenRA.Traits;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Widgets.Logic
 {
 	public class WDTLogic : ChromeLogic
 	{
-
 		readonly World world;
 		readonly ModData modData;
 		readonly WDTData wdtData;
-
 		Widget panel;
-
 		Sprite[] currentSprites;
 		int currentFrame;
 		string currentPalette;
 		bool isVideoLoaded, isLoadError;
-
 		[ObjectCreator.UseCtor]
 		public WDTLogic(Widget widget, Action onExit, ModData modData, World world, Dictionary<string, MiniYaml> logicArgs)
 		{
@@ -32,15 +34,12 @@ namespace OpenRA.Mods.YR.Widgets.Logic
 			this.world = world;
 			var wdtDataReader = new WDTDataReader("wdt_data.yaml");
 			wdtData = wdtDataReader.Read(modData);
-
 			currentSprites = null;
 			currentFrame = 0;
 			currentPalette = null;
 			isVideoLoaded = false;
 			isLoadError = false;
-
 			panel = widget;
-
 			var spriteWidget = panel.GetOrNull<SpriteWidget>("SPRITE");
 			if (spriteWidget != null)
 			{
@@ -49,7 +48,6 @@ namespace OpenRA.Mods.YR.Widgets.Logic
 				spriteWidget.GetPalette = () => currentPalette;
 				spriteWidget.IsVisible = () => !isVideoLoaded && !isLoadError;
 			}
-
 			var startButton = panel.GetOrNull<ButtonWidget>("START_BUTTON");
 			if (startButton != null)
 				startButton.OnClick = () =>
@@ -58,7 +56,6 @@ namespace OpenRA.Mods.YR.Widgets.Logic
 					//Hosting a multiplayer server and go into the lobby ui
 					//Then start game like the regular multiplayer
 				};
-
 			var closeButton = panel.GetOrNull<ButtonWidget>("CLOSE_BUTTON");
 			if (startButton != null)
 				startButton.OnClick = () =>

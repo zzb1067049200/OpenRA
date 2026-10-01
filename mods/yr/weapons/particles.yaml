@@ -20,7 +20,6 @@ ChaosGasAttack:
 			Concrete: 0
 			Drone: 100
 			Rocket: 100
-			
 VirtusGas:
 	Inherits: ^MG
 	ReloadDelay: 80

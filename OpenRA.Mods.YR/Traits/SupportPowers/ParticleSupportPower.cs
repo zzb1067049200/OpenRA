@@ -1,4 +1,4 @@
-﻿#region Copyright & License Information
+#region Copyright & License Information
 /*
  * Modded by Cook Green of YR Mod.
  * Modded from NukeLaunch.cs but change a lot
@@ -22,7 +22,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Pathfinder;
+using OpenRA.Graphics;
 namespace OpenRA.Mods.YR.Traits.SupportPowers
 {
     public class WeaponBrust
@@ -31,7 +34,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
         private int offsetX;
         private int offsetY;
         private int offsetZ;
-
         public WeaponInfo Weapon
         {
             get
@@ -60,7 +62,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                 return offsetZ;
             }
         }
-
         public WeaponBrust(WeaponInfo weapon, int[] positionOffset)
         {
             this.weapon = weapon;
@@ -74,27 +75,19 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
         [Desc("What weapons will attack the target in the range?")]
         //Weapon-Offset dictionary
         public readonly Dictionary<string, int[]> Weapons = null;
-
         [Desc("Effect Range")]
         public readonly int RangeTotal = 10;
-
         [Desc("Actor Effect Animation when was striked by this support power")]
         public readonly string EffectSequence = null;
-
         [Desc("Will change owner of the undead actor to player?")]
         public readonly bool ChangeOwner = false;
-
         [Desc("Actor type will be effected by `ChangeOwner`")]
         public readonly BitSet<TargetableType> ChangeTargets;
-
         [Desc("The `ChangeOwner` Effect Range")]
         public readonly int ChangeRange = -1;
-
         [Desc("Corresponds to `Type` from `EnvironmentEffectPaletteEffect` on the world actor.")]
         public readonly string EnvironmentEffectType = null;
-
         public List<WeaponBrust> WeaponInfos { get; private set; }
-
         public override void RulesetLoaded(Ruleset rules, ActorInfo ai)
         {
             if (Weapons == null)
@@ -109,7 +102,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                 var weaponToLower = (Weapon ?? string.Empty).ToLowerInvariant();
                 if (!rules.Weapons.TryGetValue(weaponToLower, out weapon))
                     throw new YamlException("Weapons Ruleset does not contain an entry '{0}'".F(weaponToLower));
-
                 WeaponInfos.Add(new WeaponBrust(weapon, Weapons.ElementAt(i).Value));
             }
             base.RulesetLoaded(rules, ai);
@@ -122,21 +114,16 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
     public class ParticleSupportPower : SupportPowerWithNotify
     {
         private ParticleSupportPowerInfo info;
-
         public ParticleSupportPower(Actor self, ParticleSupportPowerInfo info) : base(self, info)
         {
             this.info = info;
         }
-
         public override void Activate(Actor self, Order order, SupportPowerManager manager)
         {
             base.Activate(self, order, manager);
-
             self.World.AddFrameEndTask(w => {
                 WPos targetPos = order.Target.CenterPosition;
-
                 PlayLaunchSounds();
-
                 if (!string.IsNullOrEmpty(info.EnvironmentEffectType))
                 {
                     EnvironmentPaletteEffect environmentEffect = null;
@@ -154,13 +141,11 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                         environmentEffect.Enable(-1);
                     }
                 }
-
                 for (int i = 0; i < info.WeaponInfos.Count; i++)
                 {
                     WeaponInfo weaponInfo = info.WeaponInfos[i].Weapon;
                     if (weaponInfo.Report != null && weaponInfo.Report.Any())
                         Game.Sound.Play(SoundType.World, weaponInfo.Report.Random(self.World.SharedRandom), order.Target.CenterPosition);
-
                     //Boooooom......
                     WVec offset = new WVec(
                         info.WeaponInfos[i].OffsetX,
@@ -169,7 +154,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                     );
                     WPos newPos = targetPos + offset;
                     weaponInfo.Impact(Target.FromPos(newPos), new WarheadArgs { SourceActor = self, DamageModifiers = new int[0] });
-
                     var victimActors = w.FindActorsInCircle(targetPos, weaponInfo.Range);
                     foreach(Actor actor in victimActors)
                     {
@@ -182,7 +166,6 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                         }
                     }
                 }
-
                 if (info.ChangeOwner)
                 {
                     var aliveActors = w.FindActorsInCircle(targetPos, WDist.FromCells(info.ChangeRange));
@@ -197,7 +180,7 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
                             }
                             foreach (var tti in ti.GetTargetTypes())
                             {
-                                if (info.ChangeTargets.Contains(tti) && aliveActor.Owner.Stances[self.Owner] == Stance.Enemy)
+                                if (info.ChangeTargets.Contains(tti) && aliveActor.Owner.RelationshipWith(self.Owner) == PlayerRelationship.Enemy)
                                 {
                                     aliveActor.ChangeOwner(self.Owner);
                                     break;

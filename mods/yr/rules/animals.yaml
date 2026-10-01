@@ -15,7 +15,6 @@ cow:
 	-AttackFrontal:
 	WithInfantryBody:
 		-DefaultAttackSequence:
-
 all:
 	Inherits: ^Animal
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -25,7 +24,6 @@ all:
 		VoiceSet: AlligatorVoice
 	Armament:
 		Weapon: AlligatorBite
-
 polarb:
 	Inherits: ^Animal
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -35,7 +33,6 @@ polarb:
 		VoiceSet: BearVoice
 	Armament:
 		Weapon: BearBite
-
 josh:
 	Inherits: ^Animal
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove

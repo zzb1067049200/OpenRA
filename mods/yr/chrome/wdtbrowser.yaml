@@ -1,13 +1,13 @@
 Background@WDT_PANEL:
 	Logic: WDTLogic
-	X: (WINDOW_RIGHT - WIDTH) / 2
-	Y: (WINDOW_BOTTOM - HEIGHT) / 2
+	X: (WINDOW_WIDTH - WIDTH) / 2
+	Y: (WINDOW_HEIGHT - HEIGHT) / 2
 	Width: 700
 	Height: 500
 	Children:
 		Label@WDTBROWSER_TITLE:
 			Y: 21
-			Width: PARENT_RIGHT
+			Width: PARENT_WIDTH
 			Height: 25
 			Font: Bold
 			Align: Center
@@ -17,7 +17,7 @@ Background@WDT_PANEL:
 			Y: 20
 			Width: 660
 			Height: 455
-			Background: 
+			Background:
 			Children:
 				Image@WDT_BACKGROUND:
 					Logic: AddWDTScenarioSuffixLogic
@@ -26,15 +26,15 @@ Background@WDT_PANEL:
 		Button@START_BUTTON:
 			Key: enter
 			X: 20
-			Y: PARENT_BOTTOM - 45
+			Y: PARENT_HEIGHT - 45
 			Width: 160
 			Height: 25
 			Font: Bold
 			Text: Start
 		Button@CLOSE_BUTTON:
 			Key: escape
-			X: PARENT_RIGHT - 180
-			Y: PARENT_BOTTOM - 45
+			X: PARENT_WIDTH - 180
+			Y: PARENT_HEIGHT - 45
 			Width: 160
 			Height: 25
 			Font: Bold

@@ -4,3 +4,6 @@
 *.dll
 *.cache
 obj/
+# Build side-outputs of OpenRA.Mods.YR (written here by the csproj's OutputPath)
+OpenRA.Mods.YR.deps.json
+OpenRA.Mods.YR.xml
