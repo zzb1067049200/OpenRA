@@ -122,6 +122,10 @@ namespace OpenRA.Android
 			CrashHelper.SetOverlay(overlay);
 			overlay.BringToFront();
 
+			// Attach the on-screen touch control bar (zoom / right-click / box-select / menu).
+			var touchControls = TouchControls.Attach(this, window);
+			touchControls.BringToFront();
+
 			// Start the engine loop once the user picks a mod. The window's WaitForSurfaceAndInitializeGl
 			// handles the Android surface churn (create->destroy->create during layout) by retrying.
 			ShowModChooser();
@@ -405,9 +409,47 @@ namespace OpenRA.Android
 			}
 		}
 
+		// On a phone the engine renders at the full physical resolution (e.g. 3200x1440) but
+		// OpenRA's UI is authored for ~1280x720 logical pixels, so at UIScale=1 everything is
+		// tiny. Derive a scale from the screen height so widgets/buttons are comfortably tappable,
+		// while keeping the *effective* resolution >= the engine's minimum (so it is not reset).
 		float ComputeDefaultUIScale()
 		{
-			return 1f;
+			var metrics = Resources.DisplayMetrics;
+			// In landscape the smaller dimension is the height.
+			var h = Math.Min(metrics.WidthPixels, metrics.HeightPixels);
+			if (h <= 0)
+				return 1.5f;
+
+			// Reference height for which UIScale=1 looks normal on desktop.
+			const float ReferenceHeight = 720f;
+			var scale = h / ReferenceHeight;
+			if (scale < 1.5f) scale = 1.5f;
+			if (scale > 2.0f) scale = 2.0f;
+			return scale;
+		}
+
+		// Reads the currently saved Graphics.UIScale from settings.yaml (best-effort, plain scan).
+		// Returns false if the key is absent (first launch) so the caller can apply the default.
+		static bool TryReadSavedUIScale(string settingsPath, out float scale)
+		{
+			scale = 0f;
+			try
+			{
+				foreach (var line in File.ReadLines(settingsPath))
+				{
+					if (line.Contains("UIScale", StringComparison.Ordinal))
+					{
+						var idx = line.IndexOf(':');
+						if (idx < 0) continue;
+						var val = line.Substring(idx + 1).Trim();
+						if (float.TryParse(val, System.Globalization.CultureInfo.InvariantCulture, out scale))
+							return true;
+					}
+				}
+			}
+			catch { }
+			return false;
 		}
 
 		// Pause rendering and signal the engine when the app is backgrounded so it stops
@@ -449,10 +491,15 @@ namespace OpenRA.Android
 				"Game.ViewportEdgeScrollMargin=25"
 			};
 
-			if (!File.Exists(settingsPath))
+			// Apply a touch-friendly default UI scale. Only override the saved value when the
+			// user has not already tuned it (>1.0 from the in-game Display settings), so a fresh
+			// install and legacy UIScale=1 saves both get the bigger scale, while manual tweaks win.
 			{
 				var uiScale = ComputeDefaultUIScale();
-				if (uiScale > 1f)
+				var apply = !File.Exists(settingsPath);
+				if (!apply && TryReadSavedUIScale(settingsPath, out var saved) && saved <= 1.0f)
+					apply = true;
+				if (apply)
 					argsList.Add($"Graphics.UIScale={uiScale}");
 			}
 

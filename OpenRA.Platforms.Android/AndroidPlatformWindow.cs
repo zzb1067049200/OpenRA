@@ -388,9 +388,26 @@ namespace OpenRA.Platforms.Android
 		public void EnqueueMotion(MotionEvent e) => input.Enqueue(e, EffectiveWindowSize);
 
 		// Input posted from the UI thread (OpenRASurfaceView.OnGenericMotionEvent).
-		// Hardware mouse / trackball motion is routed through a separate path so the
+		// Hardware mouse / trackboard motion is routed through a separate path so the
 		// long-press timer and touch state machine are bypassed.
 		public void EnqueueMouseMotion(MotionEvent e) => input.EnqueueMouse(e, EffectiveWindowSize);
+
+		// ── On-screen control bar hooks (Phase 3 touch UI) ──────────────────────────
+		// Inject a synthetic mouse event (e.g. zoom scroll, right-click at last cursor).
+		public void InjectMouse(MouseInputEvent ev, MouseButton btn, int2 pos, int2 delta = default, Modifiers mods = Modifiers.None, int multiTap = 0)
+			=> input.InjectMouse(ev, btn, pos, delta, mods, multiTap);
+
+		// Inject a synthetic key press (Down then Up), e.g. the Android "menu"/Escape button.
+		public void InjectKey(OpenRA.Keycode kc) => input.InjectKey(kc);
+
+		// Toggle single-finger box-selection mode (on-screen button).
+		public void SetBoxSelectMode(bool on) => input.SetBoxSelectMode(on);
+
+		// Last cursor position in logical coordinates (where the finger last was).
+		public int2 LastCursorPos => input.LastCursorPos;
+
+		// Whether single-finger box-selection mode is active.
+		public bool BoxSelectMode => input.BoxSelectMode;
 
 		public string GetClipboardText() => string.Empty;
 		public bool SetClipboardText(string text) => false;

@@ -116,8 +116,13 @@ namespace OpenRA.Mods.Common.LoadScreens
 			var resolution = Game.Renderer.Resolution;
 			if ((resolution.Width < minResolution.Width || resolution.Height < minResolution.Height) && Game.Settings.Graphics.UIScale > 1.0f)
 			{
-				graphicSettings.UIScale = 1.0f;
-				Game.Renderer.SetUIScale(1.0f);
+				// On Android (phones/tablets) a larger UI scale is intentional and the touch scheme
+				// relies on it, so do not clamp it back to 1.0 the way we do on desktop.
+				if (!OperatingSystem.IsAndroid())
+				{
+					graphicSettings.UIScale = 1.0f;
+					Game.Renderer.SetUIScale(1.0f);
+				}
 			}
 
 			// Saved settings may have been invalidated by a hardware change

@@ -20,11 +20,14 @@ namespace OpenRA.Platforms.Android
 {
 	// Translates Android MotionEvents (multi-touch and hardware/Bluetooth mouse) into OpenRA MouseInputs.
 	//
-	// Touch model:
-	//   - Single tap          = Left click (Select unit / order move or attack in Classic mode / click HUD)
-	//   - Single-finger drag  = Map panning (smooth 1:1 camera navigation across the battlefield, no jump)
-	//   - Two-finger drag     = Unit box-selection (draws green box to select multiple units)
-	//   - Four-finger pinch   = Zoom in/out (natural two-handed gesture, does not compete with box select)
+	// Touch model (phone-friendly, redesigned for Phase 3):
+	//   - Single tap            = Left click (Select unit / issue primary order / click HUD)
+	//   - Single-finger drag    = Map panning (smooth 1:1 camera navigation across the battlefield)
+	//   - Two-finger pinch      = Zoom in/out (natural gesture, does not compete with box select)
+	//   - Two-finger quick tap  = Right click (open building command menu / issue context order)
+	//   - Two/three-finger drag = Unit box-selection (draws green box to select multiple units)
+	//   - Box-select toggle     = When enabled (on-screen button), a single-finger drag draws the
+	//                             selection box instead of panning, so one hand can box-select.
 	//
 	// Mouse model (hardware / Bluetooth mouse):
 	//   - Left/right/middle buttons map directly and instantly to MouseButton events (no touch delays).
@@ -34,7 +37,7 @@ namespace OpenRA.Platforms.Android
 	{
 		readonly ConcurrentQueue<PendingInput> pending = new();
 
-		enum TouchGestureState { None, PotentialTap, Panning, BoxSelecting, Pinching }
+		enum TouchGestureState { None, PotentialTap, Panning, BoxSelecting, Pinching, TwoFinger }
 		TouchGestureState touchState = TouchGestureState.None;
 
 		// Primary finger state
@@ -46,11 +49,18 @@ namespace OpenRA.Platforms.Android
 		int2 boxStartPos;
 		int2 boxLastPos;
 
-		// Pinch tracking (4 fingers)
-		float lastPinchRadius;
+		// Two-finger gesture disambiguation (pinch vs box-drag vs tap)
+		long twoFingerDownTimeMs;
+		int2 twoFingerCentroid;
+		float twoFingerStartDist;
+		bool twoFingerMoved;
+		TouchGestureState twoFingerClass = TouchGestureState.None;
+
 		bool ignoreTouchesUntilAllUp;
 
 		const int TouchSlopPx = 25;
+		const int PinchSlopPx = 18;
+		const int TwoFingerTapMaxMs = 250;
 
 		// Physical-mouse state tracking
 		int lastMouseButtonState;
@@ -59,6 +69,17 @@ namespace OpenRA.Platforms.Android
 		const int MouseBtnPrimary = 1;   // left
 		const int MouseBtnSecondary = 2; // right
 		const int MouseBtnTertiary = 4;  // middle
+
+		// ── Injected input (from on-screen control bar) ───────────────────────────
+		readonly ConcurrentQueue<MouseInput> injectedMouse = new();
+		readonly ConcurrentQueue<KeyInput> injectedKeys = new();
+
+		// When true, a single-finger drag draws a selection box instead of panning.
+		public bool BoxSelectMode { get; private set; }
+
+		// Last cursor position in logical (effective-window) coordinates. Used by the
+		// on-screen "right click / command" button to issue an order where the finger was.
+		public int2 LastCursorPos { get; private set; }
 
 		struct PendingInput
 		{
@@ -90,42 +111,17 @@ namespace OpenRA.Platforms.Android
 				IsMouse = false
 			};
 
-			if (count >= 4)
+			if (count >= 2)
 			{
-				// Four-finger pinch-to-zoom: calculate centroid and average spread
-				float cx = 0, cy = 0;
-				for (var i = 0; i < count; i++)
-				{
-					cx += e.GetX(i);
-					cy += e.GetY(i);
-				}
-
-				cx /= count;
-				cy /= count;
-
-				float avgDist = 0;
-				for (var i = 0; i < count; i++)
-				{
-					var dx = e.GetX(i) - cx;
-					var dy = e.GetY(i) - cy;
-					avgDist += MathF.Sqrt(dx * dx + dy * dy);
-				}
-
-				avgDist /= count;
-
-				pi.X = cx;
-				pi.Y = cy;
-				pi.X2 = avgDist;
+				pi.X = e.GetX(0);
+				pi.Y = e.GetY(0);
+				pi.X2 = e.GetX(1);
+				pi.Y2 = e.GetY(1);
 			}
 			else
 			{
 				pi.X = e.GetX(0);
 				pi.Y = e.GetY(0);
-				if (count >= 2)
-				{
-					pi.X2 = e.GetX(1);
-					pi.Y2 = e.GetY(1);
-				}
 			}
 
 			pending.Enqueue(pi);
@@ -167,8 +163,33 @@ namespace OpenRA.Platforms.Android
 			}
 		}
 
+		// Inject a synthetic mouse event from the on-screen control bar (runs on the game thread via PumpInput).
+		public void InjectMouse(MouseInputEvent ev, MouseButton btn, int2 pos, int2 delta = default, Modifiers mods = Modifiers.None, int multiTap = 0)
+		{
+			injectedMouse.Enqueue(new MouseInput(ev, btn, pos, delta, mods, multiTap));
+		}
+
+		// Inject a synthetic key press (Down then Up) from the on-screen control bar.
+		public void InjectKey(OpenRA.Keycode kc)
+		{
+			injectedKeys.Enqueue(new KeyInput { Event = KeyInputEvent.Down, Key = kc, Modifiers = Modifiers.None });
+			injectedKeys.Enqueue(new KeyInput { Event = KeyInputEvent.Up, Key = kc, Modifiers = Modifiers.None });
+		}
+
+		public void SetBoxSelectMode(bool on) => BoxSelectMode = on;
+
 		public void PumpInput(IInputHandler inputHandler, Size windowSize, Size surfaceSize, float scale)
 		{
+			// Drain injected (on-screen button) input first.
+			while (injectedMouse.TryDequeue(out var mi))
+			{
+				LastCursorPos = mi.Location;
+				inputHandler.OnMouseInput(mi);
+			}
+
+			while (injectedKeys.TryDequeue(out var ki))
+				inputHandler.OnKeyInput(ki);
+
 			var scaleX = (surfaceSize.Width > 0 && windowSize.Width > 0) ? (float)windowSize.Width / surfaceSize.Width : 1f;
 			var scaleY = (surfaceSize.Height > 0 && windowSize.Height > 0) ? (float)windowSize.Height / surfaceSize.Height : 1f;
 
@@ -191,32 +212,52 @@ namespace OpenRA.Platforms.Android
 						primaryDownPos = pos;
 						primaryLastPos = pos;
 						primaryDownTimeMs = p.TimestampMs;
-						touchState = TouchGestureState.PotentialTap;
+						LastCursorPos = pos;
+
+						if (BoxSelectMode)
+						{
+							// Single-finger drag draws a selection box instead of panning.
+							boxStartPos = pos;
+							boxLastPos = pos;
+							touchState = TouchGestureState.BoxSelecting;
+							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Down, MouseButton.Left, boxStartPos, int2.Zero, Modifiers.None, 1));
+						}
+						else
+						{
+							touchState = TouchGestureState.PotentialTap;
+						}
 						break;
 
 					case MotionEventActions.PointerDown:
 						if (ignoreTouchesUntilAllUp)
 							break;
 
-						if (p.PointerCount >= 4)
+						if (p.PointerCount == 2)
 						{
+							// Enter two-finger mode. Finalize any single-finger gesture first.
 							if (touchState == TouchGestureState.Panning)
 								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Right, primaryLastPos, int2.Zero, Modifiers.None, 1));
 							else if (touchState == TouchGestureState.BoxSelecting)
 								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 1));
 
-							touchState = TouchGestureState.Pinching;
-							lastPinchRadius = p.X2 * scaleX;
+							twoFingerDownTimeMs = p.TimestampMs;
+							twoFingerCentroid = (pos + pos2) / 2;
+							twoFingerStartDist = (pos - pos2).Length;
+							twoFingerMoved = false;
+							twoFingerClass = TouchGestureState.None;
+							touchState = TouchGestureState.TwoFinger;
 						}
-						else if (p.PointerCount == 2 || p.PointerCount == 3)
+						else if (p.PointerCount >= 3)
 						{
+							// Three-finger drag = box selection (left drag).
 							if (touchState == TouchGestureState.Panning)
 								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Right, primaryLastPos, int2.Zero, Modifiers.None, 1));
+							else if (touchState == TouchGestureState.TwoFinger)
+								twoFingerClass = TouchGestureState.None; // abandon two-finger; fall through to box
 
 							touchState = TouchGestureState.BoxSelecting;
-							boxStartPos = touchState == TouchGestureState.Panning ? primaryLastPos : primaryDownPos;
+							boxStartPos = (pos + pos2) / 2;
 							boxLastPos = pos2;
-
 							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Down, MouseButton.Left, boxStartPos, int2.Zero, Modifiers.None, 1));
 							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
 						}
@@ -227,40 +268,63 @@ namespace OpenRA.Platforms.Android
 						if (ignoreTouchesUntilAllUp)
 							break;
 
-						if (p.PointerCount >= 4)
+						if (p.PointerCount == 2 && touchState == TouchGestureState.TwoFinger)
 						{
-							var currentRadius = p.X2 * scaleX;
-							if (touchState != TouchGestureState.Pinching)
-							{
-								if (touchState == TouchGestureState.Panning)
-									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Right, primaryLastPos, int2.Zero, Modifiers.None, 1));
-								else if (touchState == TouchGestureState.BoxSelecting)
-									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 1));
+							var centroid = (pos + pos2) / 2;
+							var dist = (pos - pos2).Length;
 
-								touchState = TouchGestureState.Pinching;
-								lastPinchRadius = currentRadius;
-							}
-							else
+							if (twoFingerClass == TouchGestureState.None)
 							{
-								var delta = (int)(currentRadius - lastPinchRadius);
-								if (Math.Abs(delta) >= 3)
+								if (Math.Abs(dist - twoFingerStartDist) > PinchSlopPx)
 								{
-									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Scroll, MouseButton.None, pos, new int2(0, delta), Modifiers.Ctrl, 0));
-									lastPinchRadius = currentRadius;
+									twoFingerClass = TouchGestureState.Pinching;
+									twoFingerMoved = true;
+									LastPinchDist = dist;
+									LastCursorPos = centroid;
+								}
+								else if ((centroid - twoFingerCentroid).Length > TouchSlopPx)
+								{
+									// Two-finger drag (fingers translate together) = box select.
+									twoFingerClass = TouchGestureState.BoxSelecting;
+									twoFingerMoved = true;
+									boxStartPos = twoFingerCentroid;
+									boxLastPos = centroid;
+									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Down, MouseButton.Left, boxStartPos, int2.Zero, Modifiers.None, 1));
+									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
+									LastCursorPos = centroid;
 								}
 							}
-						}
-						else if (p.PointerCount == 2 || p.PointerCount == 3)
-						{
-							if (touchState == TouchGestureState.BoxSelecting)
+							else if (twoFingerClass == TouchGestureState.Pinching)
 							{
-								boxLastPos = pos2;
-								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
+								var d = (int)(dist - LastPinchDist);
+								if (Math.Abs(d) >= 3)
+								{
+									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Scroll, MouseButton.None, centroid, new int2(0, d), Modifiers.Ctrl, 0));
+									LastPinchDist = dist;
+								}
+								LastCursorPos = centroid;
 							}
+							else if (twoFingerClass == TouchGestureState.BoxSelecting)
+							{
+								boxLastPos = centroid;
+								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
+								LastCursorPos = centroid;
+							}
+						}
+						else if (p.PointerCount >= 3 && touchState == TouchGestureState.BoxSelecting)
+						{
+							boxLastPos = pos2;
+							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
 						}
 						else if (p.PointerCount == 1)
 						{
-							if (touchState == TouchGestureState.PotentialTap)
+							LastCursorPos = pos;
+							if (BoxSelectMode && touchState == TouchGestureState.BoxSelecting)
+							{
+								boxLastPos = pos;
+								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 0));
+							}
+							else if (touchState == TouchGestureState.PotentialTap)
 							{
 								if ((pos - primaryDownPos).Length > TouchSlopPx)
 								{
@@ -279,19 +343,45 @@ namespace OpenRA.Platforms.Android
 								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.Right, pos, int2.Zero, Modifiers.None, 0));
 								primaryLastPos = pos;
 							}
+							else if (BoxSelectMode && touchState == TouchGestureState.PotentialTap)
+							{
+								// Box mode but finger hasn't moved: keep waiting (tap will select on Up).
+							}
 						}
 
 						break;
 
 					case MotionEventActions.PointerUp:
-						if (touchState == TouchGestureState.BoxSelecting)
+						if (touchState == TouchGestureState.TwoFinger)
+						{
+							// First finger lifted during a two-finger gesture.
+							if (twoFingerClass == TouchGestureState.Pinching)
+							{
+								ignoreTouchesUntilAllUp = true;
+							}
+							else if (twoFingerClass == TouchGestureState.BoxSelecting)
+							{
+								inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 1));
+								ignoreTouchesUntilAllUp = true;
+							}
+							else
+							{
+								// Quick two-finger tap with no movement = right click (context / command).
+								var duration = p.TimestampMs - twoFingerDownTimeMs;
+								if (duration <= TwoFingerTapMaxMs && !twoFingerMoved)
+								{
+									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Down, MouseButton.Right, twoFingerCentroid, int2.Zero, Modifiers.None, 1));
+									inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Right, twoFingerCentroid, int2.Zero, Modifiers.None, 1));
+									LastCursorPos = twoFingerCentroid;
+								}
+								ignoreTouchesUntilAllUp = true;
+							}
+							touchState = TouchGestureState.None;
+							twoFingerClass = TouchGestureState.None;
+						}
+						else if (touchState == TouchGestureState.BoxSelecting)
 						{
 							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 1));
-							touchState = TouchGestureState.None;
-							ignoreTouchesUntilAllUp = true;
-						}
-						else if (touchState == TouchGestureState.Pinching)
-						{
 							touchState = TouchGestureState.None;
 							ignoreTouchesUntilAllUp = true;
 						}
@@ -304,6 +394,12 @@ namespace OpenRA.Platforms.Android
 							var tapCount = MultiTapDetection.DetectFromMouse(0, primaryDownPos);
 							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Down, MouseButton.Left, primaryDownPos, int2.Zero, Modifiers.None, tapCount));
 							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, primaryDownPos, int2.Zero, Modifiers.None, tapCount));
+							LastCursorPos = primaryDownPos;
+						}
+						else if (!ignoreTouchesUntilAllUp && touchState == TouchGestureState.BoxSelecting && BoxSelectMode)
+						{
+							inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Up, MouseButton.Left, boxLastPos, int2.Zero, Modifiers.None, 1));
+							LastCursorPos = boxLastPos;
 						}
 						else if (touchState == TouchGestureState.Panning)
 						{
@@ -316,6 +412,7 @@ namespace OpenRA.Platforms.Android
 
 						touchState = TouchGestureState.None;
 						ignoreTouchesUntilAllUp = false;
+						twoFingerClass = TouchGestureState.None;
 
 						// Send a neutral cursor move to screen center so edge scrolling does not linger after lifting finger
 						inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.None, new int2(windowSize.Width / 2, windowSize.Height / 2), int2.Zero, Modifiers.None, 0));
@@ -329,11 +426,16 @@ namespace OpenRA.Platforms.Android
 
 						touchState = TouchGestureState.None;
 						ignoreTouchesUntilAllUp = false;
+						twoFingerClass = TouchGestureState.None;
 						inputHandler.OnMouseInput(new MouseInput(MouseInputEvent.Move, MouseButton.None, new int2(windowSize.Width / 2, windowSize.Height / 2), int2.Zero, Modifiers.None, 0));
 						break;
 				}
 			}
 		}
+
+		// Tracks the previous pinch radius so we emit incremental scroll deltas (mirrors the
+		// original four-finger pinch behaviour, which used p.X2 as the average spread).
+		float LastPinchDist;
 
 		void HandleMouse(IInputHandler inputHandler, in PendingInput p, int2 pos)
 		{
