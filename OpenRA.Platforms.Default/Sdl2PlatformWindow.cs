@@ -427,6 +427,22 @@ namespace OpenRA.Platforms.Default
 			SDL.SDL_SetWindowTitle(window, title);
 		}
 
+		// Enable SDL's IME/text-input events (SDL_TEXTINPUT) so Sdl2Input can
+		// forward composed text to the focused widget. Required by IPlatformWindow
+		// (added for the Android soft-keyboard backend); on Desktop it just turns on
+		// OS IME composition — physical-keyboard text already arrives via key events.
+		public void StartTextInput()
+		{
+			VerifyThreadAffinity();
+			SDL.SDL_StartTextInput();
+		}
+
+		public void StopTextInput()
+		{
+			VerifyThreadAffinity();
+			SDL.SDL_StopTextInput();
+		}
+
 		public void SetRelativeMouseMode(bool mode)
 		{
 			if (mode)

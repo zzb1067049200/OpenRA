@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using OpenRA.Primitives;
 
 namespace OpenRA
@@ -75,25 +74,19 @@ namespace OpenRA
 		}
 
 		static void LoadCompiledInAssembly(List<Assembly> assemblyList, string filename)
-
 		{
-
 			// Match the manifest entry (e.g. "OpenRA.Mods.Common.dll") to an already-loaded
 
 			// assembly in the default load context. Mod DLLs are project references of OpenRA.Android.
-
 			var assemblyName = Path.GetFileNameWithoutExtension(filename);
 
 			// Assemblies in .NET Android are loaded lazily; trigger a load by name first.
-
 			Assembly assembly = null;
 
 			try { assembly = Assembly.Load(new AssemblyName(assemblyName)); }
-
 			catch { }
 
 			// Fall back to scanning already-loaded assemblies.
-
 			assembly ??= AppDomain.CurrentDomain.GetAssemblies()
 
 				.FirstOrDefault(a => a.GetName().Name == assemblyName);
@@ -103,7 +96,6 @@ namespace OpenRA
 			if (assembly != null && !assemblyList.Contains(assembly))
 
 				assemblyList.Add(assembly);
-
 		}
 
 		Assembly ResolveAssembly(object sender, ResolveEventArgs e)
