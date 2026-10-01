@@ -464,7 +464,8 @@ namespace OpenRA.Android
 
 			DevConsole.Error("CRASH", msg);
 
-			// sdcard fallback
+			// Persist the crash log both to internal storage (always writable) and the sdcard fallback.
+			try { System.IO.File.WriteAllText(System.IO.Path.Combine(global::Android.App.Application.Context.FilesDir.AbsolutePath, "openra_crash.txt"), DevConsole.GetAllText()); } catch { }
 			try { System.IO.File.WriteAllText("/sdcard/openra_crash.txt", DevConsole.GetAllText()); } catch { }
 
 			// Show the panel on the UI thread automatically so crash is immediately visible

@@ -18,8 +18,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using OpenRA.Platforms.Android;
@@ -61,6 +63,23 @@ namespace OpenRA.Android
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+
+			// Global crash diagnostics: surface ANY unhandled exception (launch-time and runtime
+			// ones the game-thread try/catch misses) on screen and to a file, so the user can
+			// report it without adb. CI only validates compile/package, never a real device run.
+			AndroidEnvironment.UnhandledExceptionRaiser += (s, e) =>
+			{
+				ShowFatal(e.Exception);
+				e.Handled = true;
+			};
+			AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+			{
+				if (e.ExceptionObject is Exception ex)
+					ShowFatal(ex);
+			};
+
+			try
+			{
 
 			// Extract engine assets (glsl/, mods/, VERSION) from the APK to internal storage on first
 			// launch, then point the engine at that directory. Subsequent launches skip the extraction.
@@ -105,6 +124,54 @@ namespace OpenRA.Android
 			// Start the engine loop once the user picks a mod. The window's WaitForSurfaceAndInitializeGl
 			// handles the Android surface churn (create->destroy->create during layout) by retrying.
 			ShowModChooser();
+			}
+			catch (Exception ex)
+			{
+				ShowFatal(ex);
+			}
+		}
+
+		static bool crashDialogShown;
+
+		// Shows a fatal error on screen + writes it to openra_crash.txt (internal files dir and
+		// /sdcard fallback) so the user can copy it and report without adb.
+		void ShowFatal(Exception ex)
+		{
+			var msg = $"{ex.GetType().FullName}: {ex.Message}";
+			if (ex.InnerException != null)
+				msg += $"\nInner: {ex.InnerException.GetType().Name}: {ex.InnerException.Message}";
+			msg += $"\n\n{ex.StackTrace}";
+			global::Android.Util.Log.Error(Tag, "FATAL: " + msg);
+
+			try { System.IO.File.WriteAllText(System.IO.Path.Combine(FilesDir.AbsolutePath, "openra_crash.txt"), msg); } catch { }
+			try { System.IO.File.WriteAllText("/sdcard/openra_crash.txt", msg); } catch { }
+
+			if (crashDialogShown)
+				return;
+			crashDialogShown = true;
+
+			RunOnUiThread(() =>
+			{
+				try
+				{
+					var b = new AlertDialog.Builder(this);
+					b.SetTitle("OpenRA 启动失败 (Fatal)");
+					b.SetMessage(msg.Length > 3000 ? msg.Substring(0, 3000) : msg);
+					b.SetPositiveButton("复制并退出", (sender, args) =>
+					{
+						try
+						{
+							var cm = (ClipboardManager)GetSystemService(Context.ClipboardService);
+							cm.PrimaryClip = ClipData.NewPlainText("openra_crash", msg);
+						}
+						catch { }
+						Finish();
+					});
+					b.SetCancelable(false);
+					b.Show();
+				}
+				catch { }
+			});
 		}
 
 		void ShowModChooser()
