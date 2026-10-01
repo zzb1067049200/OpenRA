@@ -32,6 +32,13 @@ namespace OpenRA
 	{
 		const int CreateLogFileMaxRetryCount = 128;
 
+		// Android port hook: lets the app forward every log line to an in-app console
+		// (e.g. OpenRA.Android.DevConsole) or Android logcat. Null by default; the
+		// port assigns a handler in MainActivity.OnCreate and clears it on shutdown.
+		// Declared as a public delegate field (not an event) so the port can use
+		// simple `=` assignment from outside this class.
+		public static Action<string, string> OnLogMessage;
+
 		static readonly ConcurrentDictionary<string, ChannelInfo> Channels = [];
 		static readonly Channel<ChannelData> Channel;
 		static readonly ChannelWriter<ChannelData> ChannelWriter;
@@ -92,6 +99,10 @@ namespace OpenRA
 
 		static void WriteValue(ChannelData item)
 		{
+			// Forward to any registered listeners (e.g. the Android in-app console)
+			// before the disk write, so the callback receives every line.
+			OnLogMessage?.Invoke(item.Channel, item.Text);
+
 			var channel = GetChannel(item.Channel);
 			var writer = channel.Writer;
 			if (writer == null)
