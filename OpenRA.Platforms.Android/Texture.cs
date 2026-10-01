@@ -92,6 +92,28 @@ namespace OpenRA.Platforms.Android
 			}
 		}
 
+		void SetSubData(IntPtr data, int xoffset, int yoffset, int width, int height)
+		{
+			OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, texture);
+			OpenGL.CheckGLError();
+			OpenGL.glTexSubImage2D(OpenGL.GL_TEXTURE_2D, 0, xoffset, yoffset, width, height,
+				OpenGL.GL_BGRA, OpenGL.GL_UNSIGNED_BYTE, data);
+			OpenGL.CheckGLError();
+		}
+
+		public void SetSubData(byte[] colors, int xoffset, int yoffset, int width, int height)
+		{
+			VerifyThreadAffinity();
+			if (!Exts.IsPowerOf2(width) || !Exts.IsPowerOf2(height))
+				throw new InvalidDataException($"Non-power-of-two array {width}x{height}");
+
+			unsafe
+			{
+				fixed (byte* ptr = &colors[0])
+					SetSubData(new IntPtr(ptr), xoffset, yoffset, width, height);
+			}
+		}
+
 		public void SetFloatData(float[] data, int width, int height)
 		{
 			VerifyThreadAffinity();

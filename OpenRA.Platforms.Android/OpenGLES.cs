@@ -449,6 +449,9 @@ namespace OpenRA.Platforms.Android
 			int width, int height, int border, int format, int type, IntPtr pixels);
 		public static TexImage2D glTexImage2D { get; private set; }
 
+		public delegate void TexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height, int format, int type, IntPtr pixels);
+		public static TexSubImage2D glTexSubImage2D { get; private set; }
+
 		public delegate void CopyTexImage2D(int target, int level, int internalFormat,
 			int x, int y, int width, int height, int border);
 		public static CopyTexImage2D glCopyTexImage2D { get; private set; }
@@ -619,6 +622,7 @@ namespace OpenRA.Platforms.Android
 				glBindTexture = Bind<BindTexture>("glBindTexture");
 				glActiveTexture = Bind<ActiveTexture>("glActiveTexture");
 				glTexImage2D = Bind<TexImage2D>("glTexImage2D");
+				glTexSubImage2D = Bind<TexSubImage2D>("glTexSubImage2D");
 				glCopyTexImage2D = Bind<CopyTexImage2D>("glCopyTexImage2D");
 				glTexParameteri = Bind<TexParameteri>("glTexParameteri");
 				glTexParameterf = Bind<TexParameterf>("glTexParameterf");
