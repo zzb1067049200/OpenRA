@@ -1,0 +1,207 @@
+amcv:
+	icon: mcvicon
+
+aegis:
+	icon: agisicon
+
+bus:
+	icon: xxicon
+
+car:
+	icon: xxicon
+
+carrier:
+	icon: carricon
+
+cdest:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithCannonMuzzle
+	icon: xxicon
+
+cona:
+	icon: xxicon
+
+cop:
+	icon: xxicon
+
+cmin:
+	harvest: oregath
+		Length: 15
+		Facings: 8
+	warpin: warpin
+	warpout: warpout
+		Length: 20
+	icon: ahrvicon
+
+cruise:
+	icon: xxicon
+
+dest:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithCannonMuzzle
+	icon: desticon
+
+dred:
+	icon: dredicon
+
+dron:
+	stand:
+		Start: 48
+		ShadowStart: 136
+		Facings: -8
+	run:
+		Start: 0
+		ShadowStart: 88
+		Length: 6
+		Facings: -8
+		Tick: 80
+	jump:
+		Start: 56
+		ShadowStart: 144
+		Length: 4
+		Facings: -8
+	shoot: dronp
+		Length: 1
+		Facings: 32
+	icon: dronicon
+
+euroc:
+	icon: xxicon
+
+flata:
+	icon: xxicon
+
+fv:
+	icon: fvicon
+
+mgtk:
+	Inherits@MC: ^MindControllable
+	muzzle: vtmuzzle
+		Length: *
+	icon: rtnkicon
+
+gtgcan:
+	icon: gcanicon
+
+mtnk:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithCannonMuzzle
+	icon: gtnkicon
+
+harv:
+	Inherits@Muzzle: ^WithFlakMuzzle
+	harvest: oregath
+		Length: 15
+		Facings: 8
+	icon: harvicon
+
+htk:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithFlakMuzzle
+	icon: htkicon
+
+htnk:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithCannonMuzzle
+	icon: htnkicon
+
+howi:
+	icon: xxicon
+
+hyd:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithFlakMuzzle
+	icon: hovricon
+
+lcrf:
+	icon: landicon
+
+limo:
+	icon: xxicon
+
+ltnk:
+	icon: xxicon
+
+apoc:
+	Inherits@MC: ^MindControllable
+ 	Inherits@Muzzle: ^WithCannonMuzzle
+	muzzle: apmuzzle
+		Length: *
+	icon: mtnkicon
+
+pick:
+	icon: xxicon
+
+propa:
+	icon: xxicon
+
+ptruck:
+	icon: xxicon
+
+rtnk:
+	icon: rtnkicon
+
+smcv:
+	icon: smcvicon
+
+sref:
+	icon: sreficon
+
+stang:
+	icon: xxicon
+
+sub:
+	icon: subicon
+
+suvb:
+	icon: xxicon
+
+suvbw:
+	icon: xxicon
+
+taxi:
+	icon: xxicon
+
+tnkd:
+	Inherits@MC: ^MindControllable
+	Inherits@Muzzle: ^WithCannonMuzzle
+	icon: tnkdicon
+
+tractor:
+	icon: xxicon
+
+sapc:
+	icon: sapcicon
+
+dtruck:
+	icon: trkaicon
+
+trucka:
+	icon: xxicon
+
+truckb:
+	icon: xxicon
+
+ttnk:
+	icon: ttnkicon
+
+tug:
+	icon: xxicon
+
+v3:
+	icon: v3icon
+
+vlad:
+	icon: xxicon
+
+wini:
+	icon: xxicon
+    
+robo:
+	icon: roboicon
+	
+howi:
+	icon: hwtzicon
+	
+bfrt:
+	icon: bfrticon

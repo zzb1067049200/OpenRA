@@ -1,0 +1,42 @@
+Background@WDT_PANEL:
+	Logic: WDTLogic
+	X: (WINDOW_RIGHT - WIDTH) / 2
+	Y: (WINDOW_BOTTOM - HEIGHT) / 2
+	Width: 700
+	Height: 500
+	Children:
+		Label@WDTBROWSER_TITLE:
+			Y: 21
+			Width: PARENT_RIGHT
+			Height: 25
+			Font: Bold
+			Align: Center
+			Text: World Domination Tour
+		Background@SPRITE_BG:
+			X: 20
+			Y: 20
+			Width: 660
+			Height: 455
+			Background: 
+			Children:
+				Image@WDT_BACKGROUND:
+					Logic: AddWDTScenarioSuffixLogic
+					ImageCollection: wdt-america
+					ImageName: background
+		Button@START_BUTTON:
+			Key: enter
+			X: 20
+			Y: PARENT_BOTTOM - 45
+			Width: 160
+			Height: 25
+			Font: Bold
+			Text: Start
+		Button@CLOSE_BUTTON:
+			Key: escape
+			X: PARENT_RIGHT - 180
+			Y: PARENT_BOTTOM - 45
+			Width: 160
+			Height: 25
+			Font: Bold
+			Text: Close
+		TooltipContainer@TOOLTIP_CONTAINER:

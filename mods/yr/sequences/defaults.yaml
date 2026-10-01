@@ -1,0 +1,283 @@
+^Animal:
+	die4:
+		Start: 86
+		Length: 15
+	die5:
+		Start: 86
+		Length: 15
+	die6:
+		Start: 86
+		Length: 15
+	die7:
+		Start: 86
+		Length: 15
+	die8:
+		Start: 86
+		Length: 15
+	die9:
+		Start: 86
+		Length: 15
+        
+^Civilian:
+	die4: nukedie
+		Length: *
+		Tick: 50
+	die5: yuridie
+		Length: *
+		Tick: 80
+	die6: electro
+		Length: *
+		Tick: 80
+	die7: virusd
+		Length: *
+		Tick: 80
+	die8: brutdie
+		Length: *
+		Tick: 80
+	die9: gendeath
+		Length: *
+		Tick: 80
+        
+^BasicInfantry:
+	stand:
+		Facings: 8
+	run:
+		Start: 8
+		Length: 6
+		Facings: 8
+		Tick: 100
+	idle1:
+		Start: 56
+		Length: 15
+		Tick: 120
+	idle2:
+		Start: 71
+		Length: 15
+		Tick: 120
+	cheer:
+		Start: 245
+		Length: 8
+		Tick: 120
+	die1:
+		Start: 134
+		Length: 15
+	die2:
+		Start: 149
+		Length: 15
+	die4: nukedie
+		Length: *
+		Tick: 50
+	die5: yuridie
+		Length: *
+		Tick: 80
+	die6: electro
+		Length: *
+		Tick: 80
+	die7: virusd
+		Length: *
+		Tick: 80
+	die8: brutdie
+		Length: *
+		Tick: 80
+	die9: gendeath
+		Length: *
+		Tick: 80
+	paradrop:
+
+^ProneInfantry:
+	liedown:
+		Start: 212
+		Length: 2
+		Facings: 8
+	standup:
+		Start: 228
+		Length: 2
+		Facings: 8
+	prone-stand:
+		Frames: 86, 92, 98, 104, 110, 116, 122, 128
+		Facings: 8
+	prone-run:
+		Start: 86
+		Length: 6
+		Facings: 8
+		Tick: 100
+
+^Infantry:
+	Inherits@1: ^BasicInfantry
+	Inherits@2: ^ProneInfantry
+
+^CivInfantry:
+	Inherits: ^Infantry
+	Inherits@MC: ^MindControllable
+	-idle2:
+	die1:
+		Start: 71
+	die2:
+		Start: 71
+	-standup:
+	-liedown:
+	prone-stand:
+		Frames: 182, 188, 194, 200, 206, 212, 218, 224
+	prone-run:
+		Start: 182
+	shoot:
+		Start: 86
+		Length: 6
+		Facings: 8
+	cheer:
+		Start: 230
+		Length: 8
+	panic-stand:
+		Facings: 8
+	panic-run:
+		Start: 134
+		Length: 6
+		Facings: 8
+
+^ArmedInfantry:
+	Inherits: ^Infantry
+	shoot:
+		Start: 164
+		Length: 6
+		Facings: 8
+		Tick: 80
+	prone-shoot:
+		Start: 212
+		Length: 6
+		Facings: 8
+		Tick: 80
+	liedown:
+		Start: 260
+	standup:
+		Start: 276
+	cheer:
+		Start: 293
+
+^MindControllable:
+	mindcontrol: yuricntl
+		Length: *
+		Offset: 0, -24, 24
+		UseTilesetCode: false
+
+^Fence:
+	Defaults:
+		Offset: 0,-15
+	idle:
+		Length: 16
+		ShadowStart: 32
+	damaged-idle:
+		Start: 16
+		Length: 16
+		ShadowStart: 48
+	icon: wallicon
+		Offset: 0,0
+		UseTilesetCode: false
+
+^Flag:
+	Defaults:
+		Offset: 0,-15
+	idle: causfgl
+		ShadowStart: 4
+		UseTilesetCode: true
+	damaged-idle: causfgl
+		Start: 1
+		ShadowStart: 5
+		UseTilesetCode: true
+	flag:
+		Length: 16
+		ShadowStart: 16
+
+^GarrisonableBuilding:
+	garrisoned:
+		Start: 2
+		ShadowStart: 6
+        
+^WithMachineGunMuzzle:
+	muzzle0: mgun-n
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle1: mgun-nw
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle2: mgun-w
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle3: mgun-sw
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle4: mgun-s
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle5: mgun-se
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle6: mgun-e
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	muzzle7: mgun-ne
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+
+^WithCannonMuzzle:
+	muzzle: gunfire
+		Length: *
+	muzzle-2: vtmuzzle
+		Length: *
+
+^WithFlakMuzzle:
+	muzzle: gunfire
+		Length: *
+		Offset: 0,0
+		UseTilesetCode: false
+        
+^Structure:
+	Defaults:
+		UseTilesetCode: true
+		TilesetOverrides:
+			TEMPERATE: GENERIC
+			URBAN: GENERIC
+			NEWURBAN: GENERIC
+			DESERT: GENERIC
+			LUNAR: GENERIC
+		DepthSprite: isodepth.shp
+	idle:
+		ShadowStart: 3
+	make:
+		Length: 25
+		ShadowStart: 25
+		TilesetOverrides:
+			TEMPERATE: TEMPERATE
+			URBAN: URBAN
+			NEWURBAN: NEWURBAN
+			DESERT: DESERT
+			LUNAR: LUNAR
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	icon:
+		Offset: 0,0
+		UseTilesetCode: false
+        
+^TechStructure:
+	Defaults:
+		UseTilesetCode: true
+		DepthSprite: isodepth.shp
+	idle:
+		ShadowStart: 4
+	damaged-idle:
+		Start: 1
+		ShadowStart: 5
+	flag:
+		Length: 16
+	rubble:
+		Start: 3
+		ShadowStart: 7
+		ZOffset: -3c0

@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OpenRA.Mods.YR</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <!-- Porting to the current engine: do not fail the build on style warnings yet. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <OutputPath>../mods/yr</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <!-- Match the engine: when building for Android, switch to the android TFM so
+       OperatingSystem.IsAndroid() and the android BCL surface are available, and the
+       referenced engine projects (which also switch on this flag) line up. -->
+  <PropertyGroup Condition="'$(BuildForAndroid)' == 'true'">
+    <TargetFramework>net10.0-android</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Work around an issue where Rider does not detect files in the project root using the default glob -->
+    <Compile Include="**/*.cs" Exclude="$(DefaultItemExcludes)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../OpenRA.Game/OpenRA.Game.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="../OpenRA.Mods.Cnc/OpenRA.Mods.Cnc.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="../OpenRA.Mods.Common/OpenRA.Mods.Common.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

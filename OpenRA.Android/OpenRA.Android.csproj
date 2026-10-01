@@ -58,6 +58,8 @@
     <AndroidAsset Include="..\mods\d2k-content\**\*.*" Link="assets\mods\d2k-content\%(RecursiveDir)%(Filename)%(Extension)" />
     <AndroidAsset Include="..\mods\ts\**\*.*" Link="assets\mods\ts\%(RecursiveDir)%(Filename)%(Extension)" />
     <AndroidAsset Include="..\mods\ts-content\**\*.*" Link="assets\mods\ts-content\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- Yuri's Revenge mod assets (yaml + bits). RA2/YR game .mix files are user-supplied, not bundled. -->
+    <AndroidAsset Include="..\mods\yr\**\*.*" Link="assets\mods\yr\%(RecursiveDir)%(Filename)%(Extension)" />
     <AndroidAsset Include="..\mods\all\**\*.*" Link="assets\mods\all\%(RecursiveDir)%(Filename)%(Extension)" />
     <!-- Pre-baked free game content (OpenRA CDN, GPL-compatible). Populated by the CI "Bake free
          content packages" step (and optionally by a local script) so the APK ships with ra/cnc/d2k

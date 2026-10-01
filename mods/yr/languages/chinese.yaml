@@ -1,0 +1,771 @@
+chinese:
+	chinese: Chinese
+		Rules:
+			^CivBuilding: 民用建筑物
+			^Flag: 旗帜
+			^CivilianInfantry: 平民
+			^CivVehicle: 车辆
+			^Husk: 坠毁飞机
+			^Ship: 船
+			^OreDrill: 油井钻头
+			^Tree: 树
+			^StreetSign: 街道标识
+			^TrafficLight: 交通指示灯
+			^StreetLight: 路灯
+			^TelephonePole: 电线杆
+			^Rock: 岩石
+			^Crate: 箱子
+			^ShootableMissile: 弹体
+			^ShootableMissileVoxel: 弹体
+			engineer: 工程师
+			dog: 狗
+			e1: 美国大兵
+			ggi: 守卫大兵
+			snipe: 狙击手
+			ghost: 海豹突击队
+			ccomand: 超时空突击队
+			ptroop: 心灵突击队
+			tany: 谭雅
+			jumpjet: 火箭飞行兵
+			jumpjet.husk: 火箭飞行兵
+			cleg: 超时空军团兵
+			e2: 动员兵
+			flakt: 防空步兵
+			shk: 磁暴步兵
+			terror: 恐怖份子
+			deso: 辐射工兵
+			ivan: 疯狂伊万
+			boris: 鲍里斯
+			init: 尤里新兵
+			yengineer: 工程师
+			brute: 狂兽人
+			virus: 病毒狙击手
+			slav: 奴隶
+			yuri: 尤里复制人
+			yuripr: 尤里总理
+			civa: 德州平民
+			civb: 德州平民
+			civc: 德州平民
+			civbbp: 棒球运动员
+			civbfm: 平民
+			civbf: 平民
+			civbtm: 平民
+			civsfm: 平民
+			civsf: 平民
+			civstm: 平民
+			vladimir: 维拉迪莫
+			pentgen: 五角大楼将军
+			ssrv: 间谍
+			pres: 美国总统
+			mumy: 木乃伊
+			eins: 阿尔伯特 爱因斯坦
+			cabhut: 桥梁维修小屋
+			^LowBridgeRamp: 木桥
+			^ElevatedBridgePlaceholder: 混凝土桥梁
+			lobrdb_a: 混凝土桥梁
+			lobrdb_b: 混凝土桥梁
+			cow: 牛
+			all: 鳄鱼
+			polarb: 北极熊
+			josh: 猴子
+			gacnst: 盟军建造场
+			gapowr: 发电厂
+			gapile: 兵营
+			garefn: 矿石精炼场
+			gaairc: 空指部
+			amradr: 空指部
+			gaweap: 战争工厂
+			gayard: 造船厂
+			gadept: 维修厂
+			gatech: 作战实验室
+			gawall: 盟军围墙
+			gapill: 机枪碉堡
+			nasam: 爱国者导弹系统
+			gtgcan: 巨炮
+			gaorep: 矿石提纯器
+			garobo: 机器人控制中心
+			gaspysat: 间谍卫星
+			gagap: 裂缝产生器
+			gaweat: 天气控制仪
+			gacsph: 超时空传送仪
+			atesla: 光棱塔
+			power: 发电厂
+			refinery: 矿石精炼场
+			barracks: 兵营
+			radar: 雷达
+			repairpad: 维修厂
+			nacnst: 苏联建造场
+			napowr: 磁化反应器
+			nahand: 苏联兵营
+			narefn: 苏联矿石精炼厂
+			naradr: 雷达
+			naweap: 战争工厂
+			nayard: 造船厂
+			nadept: 维修厂
+			nanrct: 核子反应器
+			natech: 作战实验室
+			nairon: 铁幕装置
+			namisl: 核弹发射井
+			nawall: 苏联城墙
+			naflak: 防空炮
+			tesla: 磁暴线圈
+			nalasr: 哨戒炮
+			nabnkr: 战斗碉堡
+			naindp: 工业工厂
+			napsya: 心灵控制增幅器
+			napsyb: 心灵信标
+			yacnst: 尤里建造场
+			yapowr: 生化反应器
+			yabrck: 尤里兵营
+			yarefn: 奴隶矿场
+			yaweap: 尤里战争工厂
+			yayard: 尤里造船厂
+			yagrnd: 部队回收站
+			yatech: 尤里作战实验室
+			gafwll: 护城墙
+			natbnk: 坦克碉堡
+			yaggun: 加特林机炮
+			yapsyt: 心灵控制塔
+			yagntc: 基因突变器
+			yappet: 心灵控制器
+			naclon: 克隆缸
+			napsis: 心灵探测器
+			yarock: 未知建筑
+			yacomd: 尤里指挥中心
+			yapppt: 建设中的心灵控制器
+			cafncb: 围栏
+			cafncw: 围栏
+			cafnck: 围栏
+			cafncy: 围栏
+			cafncg: 围栏
+			cafncm: 围栏
+			gasand: 沙袋
+			cafncp: 监狱营地围栏
+			cawt01: 水塔
+			cats01: 双筒仓
+			cabarn02: 谷仓
+			cawash01: 白宫
+			cawsh12: 华盛顿纪念碑
+			cawash14: 杰斐逊纪念堂
+			cawash15: 林肯纪念堂
+			cawash16: 史密森尼城堡
+			cawash17: 史密森尼自然历史博物馆
+			cawash18: 白宫喷泉
+			cawash19: 硫磺岛纪念馆
+			canewy04: 自由女神像
+			canewy05: 世界贸易中心
+			canewy20: 仓库
+			canewy21: 仓库
+			caswst01: 西南大厦
+			caarmy01: 军队营帐
+			caarmy02: 军队营帐
+			caarmy03: 军队营帐
+			caarmy04: 军队营帐
+			cafarm01: 农场
+			cafarm02: 农场筒仓
+			cafarm06: 灯塔
+			causfgl: 美国国旗
+			carufgl: 苏联国旗
+			cairfgl: 伊拉克国旗
+			capofgl: 波兰国旗
+			caskfgl: 韩国国旗
+			calbfgl: 利比亚国旗
+			cafrfgl: 法国国旗
+			cagefgl: 德国国旗
+			cacufgl: 古巴国旗
+			caukfgl: 英国国旗
+			cavnfgl: 越南国旗
+			caicfgl: 冰岛国旗
+			canwfgl: 挪威国旗
+			caswfgl: 瑞典国旗
+			cafifgl: 芬兰国旗
+			caesfgl: 爱沙尼亚国旗
+			calafgl: 拉脱维亚国旗
+			califgl: 立陶宛国旗
+			canlfgl: 荷兰国旗
+			caeifgl: 爱尔兰国旗
+			caspfgl: 西班牙国旗
+			cajpfgl: 日本国旗
+			cangfgl: 尼日利亚国旗
+			cacolo01: 空军礼拜学堂
+			caind01: 工厂
+			calab: 爱因斯坦实验室
+			cagas01: 加油站
+			galite: 灯柱
+			city05: 巴特西发电站
+			catech01: 通信中心
+			catexs02: 阿拉莫
+			capars01: 埃菲尔铁塔
+			capars07: 电话亭
+			capars10: 小酒馆
+			capars11: 凯旋门
+			capars12: 巴黎圣母院
+			capars13: 小酒馆
+			capars14: 小酒馆
+			cafrma: 农舍
+			cafrmb: 小屋
+			caprs03: 卢浮宫
+			cagard01: 卫兵小屋
+			carus01: 圣巴索大教堂
+			carus02g: 克里姆林宫挂钟塔
+			carus03: 克里姆林宫
+			camiam04: 救生员小屋
+			camiam08: 亚利桑那纪念馆
+			camex01: 玛雅金字塔
+			camex02: 玛雅-卡斯蒂略
+			camex03: 玛雅小庙
+			camex04: 玛雅大寺
+			camex05: 玛雅光棱塔
+			caeur1: 平房
+			caeur2: 平房
+			cachig04: 会议中心
+			cachig05: 希尔斯大厦
+			cachig06: 水塔
+			castl05a: 布希体育场
+			castl05b: 布希体育场
+			castl05c: 布希体育场
+			castl05d: 布希体育场
+			castl05e: 布希体育场
+			castl05f: 布希体育场
+			castl05g: 布希体育场
+			castl05h: 布希体育场
+			camsc07: 茅屋
+			camsc08: 茅屋
+			camsc09: 茅屋
+			camsc10: 麦堡王
+			cabunk01: 混凝土碉堡
+			cabunk02: 混凝土碉堡
+			cabunk03: 混凝土碉堡
+			cabunk04: 混凝土碉堡
+			camorr01: 建筑物
+			camorr02: 建筑物
+			camorr03: 建筑物
+			camorr04: 建筑物
+			camorr05: 建筑物
+			camorr06: 建筑物
+			camorr07: 建筑物
+			camorr08: 建筑物
+			camorr09: 建筑物
+			camorr10: 建筑物
+			cala01: 建筑物
+			cala03: 好莱坞标志
+			cala04: 好莱坞露天剧场
+			cala05: 洛杉矶国际机场
+			cala06: 洛杉矶国际机场空中管制塔
+			cala07: 剧院
+			cala08: 汽车经销店
+			cala09: 便利店
+			cala10: 广告牌
+			cala11: 好莱坞露天剧场
+			cala12: 好莱坞露天剧场
+			cala13: 好莱坞标志
+			cala14: 迷你商城
+			cala15: 迷你商城
+			caegyp01: 金字塔
+			caegyp02: 金字塔
+			caegyp03: 狮身人面像
+			caegyp04: 金字塔
+			caegyp05: 金字塔
+			caegyp06: 金字塔
+			calond01: 建筑物
+			calond03: 建筑物
+			calond04: 英国国会
+			calond05: 大本钟
+			calond06: 伦敦塔
+			casanf01: 建筑物
+			casanf02: 建筑物
+			casanf03: 建筑物
+			casanf05: 恶魔岛
+			casanf06: 建筑物
+			casanf07: 建筑物
+			casanf08: 建筑物
+			casanf15: 恶魔岛水塔
+			casanf16: 灯塔
+			casanf17: 建筑物
+			casanf18: 建筑物
+			casydn02: 麦克罗汉堡
+			casydn03: 悉尼歌剧院
+			calunr01: 月球着陆器
+			calunr02: 美国国旗
+			caseat01: 西雅图太空针塔
+			caseat02: 巨软园区
+			catran01: 地穴
+			catran02: 地穴
+			catran03: 尤里要塞
+			catime01: 时间机器
+			catime02: 时间机器
+			caoild: 科技钻油井
+			caairp: 科技机场
+			cahosp: 医院
+			caoutp: 科技前哨站
+			camach: 机器商店
+			capowr: 科技发电厂
+			caslab: 秘密实验室
+			amcv: 盟军机动建设车
+			cmin: 超时空探矿车
+			mtnk: 灰熊坦克
+			tnkd: 坦克杀手
+			fv: 多功能步兵车
+			sref: 光棱坦克
+			mgtk: 幻影坦克
+			robo: 机器人坦克
+			bfrt: 战斗要塞
+			smcv: 苏联机动建设车
+			harv: 武装探矿车
+			dron: 恐怖无人机
+			htk: 防空履带车
+			htnk: 犀牛重型坦克
+			apoc: 天启坦克
+			ttnk: 磁能坦克
+			dtruck: 自爆卡车
+			v3: V3火箭发射车
+			pcv: 尤里机动建设车
+			smin: 奴隶矿场
+			ltnk: 狂风坦克
+			ytnk: 加特林坦克
+			tele: 磁电坦克
+			caos: 神经突击车
+			mind: 心灵之主
+			disk: 镭射幽浮
+			diskhusk: 镭射幽浮
+			bus: 校车
+			limo: 总统豪华轿车
+			pick: 货车
+			car: 汽车
+			wini: 休闲车
+			propa: 宣传车
+			cop: 警车
+			euroc: 欧洲车
+			cona: 挖掘机
+			trucka: 卡车
+			truckb: 卡车
+			suvb: 轿车
+			suvw: 轿车
+			stang: 野马轿车
+			ptruck: 货车
+			taxi: 出租车
+			lcrf: 运输艇
+			dest: 驱逐舰
+			aegis: 巡洋舰
+			dlph: 海豚
+			carrier: 航空母舰
+			sapc: 运输艇
+			sub: 台风攻击潜艇
+			hyd: 海蝎
+			sqd: 巨型乌贼
+			dred: 无畏导弹舰
+			yhvr: 运输艇
+			bsub: 雷鸣攻击潜艇
+			shad: 夜鹰直升机
+			shadhusk: 夜鹰直升机
+			zep: 基洛夫空艇
+			zephusk: 基洛夫空艇
+			orca: 入侵者战机
+			orcahusk: 入侵者战机
+			beag: 黑鹰战机
+			beaghusk: 黑鹰战机
+			pdplane: 运输机
+			pdplanehusk: 运输机
+			hornet: 舰载机
+			hornethusk: 舰载机
+			bpln: 米格战斗机
+			bplnhusk: 米格战斗机
+			schp: 武装直升机
+			schd: 武装直升机
+			schphusk: 武装直升机
+			spyp: 侦察机
+			v3rocket: V3火箭
+			dmisl: 巡航导弹
+			cmisl: 巡航导弹
+			camisc01: 油桶
+			camisc02: 油桶
+			camisc03: 垃圾箱
+			camisc04: 信箱
+			camisc05: 运输管
+			camisc06: V3火箭架
+			camsc11: 轮胎
+			camsc12: 练习目标
+			camsc13: 废弃坦克
+			ammocrat: 弹药箱
+			camsc01: 热狗摊
+			camsc02: 沙滩伞
+			camsc03: 沙滩伞
+			camsc04: 沙滩毛巾
+			camsc05: 沙滩毛巾
+			camsc06: 营地篝火
+			caeuro05: 雕像
+			capark01: 公园长椅
+			capark02: 秋千椅
+			capark03: 旋转木马
+			castrt01: 交通指示灯
+			castrt02: 交通指示灯
+			castrt03: 交通指示灯
+			castrt04: 交通指示灯
+			castrt05: 公交站
+			camov01: 电幕
+			camov02: 电幕
+			pole01: 电线杆
+			pole02: 电线杆
+			hdstn01: 阿灵顿石头
+			spkr01: 扬声器
+			cakrmw: 克里姆林宫墙
+			gagate_a: 警卫室
+			tug: 拖船
+			cruise: 游轮
+			cdest: 海岸警卫队船
+		Maps:
+			amazon: 
+				Title: 暴风天
+			arena: 
+				Title: 竞技场
+			bayopigs: 
+				Title: 猪猡湾
+			bermuda: 
+				Title: 百慕大三角洲
+			breakaway: 
+				Title: 脱逃
+			bridgegap:
+				Title: 桥缝
+			c1a01md: 
+				Title: 盟军合作任务第一关
+			c1a02md: 
+				Title: 盟军合作任务第二关
+			c1a03md: 
+				Title: 盟军合作任务第三关
+			c2s01md: 
+				Title: 苏联合作任务第一关
+			c2s02md: 
+				Title: 苏联合作任务第二关
+			c2s03md: 
+				Title: 苏联合作任务第三关
+			c3y01md: 
+				Title: 尤里合作任务第一关
+			c3y02md: 
+				Title: 尤里合作任务第二关
+			c4w01md: 
+				Title: 世界联盟合作任务
+			carville:
+				Title: 卡维利
+			tn01mw:
+				Title: 世界锦标赛地图01
+			tn01mw:
+				Title: 世界锦标赛地图01
+			tn02mw:
+				Title: 世界锦标赛地图02
+			tn03mw:
+				Title: 世界锦标赛地图03
+			tn04mw:
+				Title: 世界锦标赛地图04
+			soviet-06:
+				Title: 苏联任务06 - 军事行动: 飞向月球
+		World:
+			Faction@random: 
+				Name: 随机
+			Faction@allies: 
+				Name: 随机盟军
+			Faction@soviets: 
+				Name: 随机苏联
+			Faction@yuris: 
+				Name: 随机尤里
+			Faction@1:
+				Name: 美国
+				Description: 美国\n特殊能力: 空降部队
+			Faction@2:
+				Name: 德国
+				Description: 德国\n特殊载具: 坦克杀手
+			Faction@3:
+				Name: 英国
+				Description: 英国\n特色步兵: 狙击手
+			Faction@4:
+				Name: 法国
+				Description: 法国\n特色建筑: 巨炮
+			Faction@5:
+				Name: 韩国
+				Description: 韩国\n特殊飞行器: 黑鹰战机
+			Faction@6:
+				Name: 古巴
+				Description: 古巴\n特色步兵: 恐怖份子
+			Faction@7:
+				Name: 利比亚
+				Description: 利比亚\n特殊载具: 自爆卡车
+			Faction@8:
+				Name: 伊拉克
+				Description: 伊拉克\n特色步兵: 辐射工兵
+			Faction@9:
+				Name: 苏俄
+				Description: 苏俄\n特殊载具: 磁能坦克
+			Faction@10:
+				Name: 尤里
+				Description: 尤里\n特殊能力: 心灵控制技术
+		ChromeLayouts:
+			Container@MAINMENU:
+				Children:
+					Container@MENUS:
+ 						Children:
+							Background@MAIN_MENU:
+								Children:
+									Label@MAINMENU_LABEL_TITLE:
+										Text: OpenRA尤里的复仇模组
+									Button@SINGLEPLAYER_BUTTON:
+										Text: 单人游戏
+									Button@MULTIPLAYER_BUTTON:
+										Text: 多人游戏
+									Button@SETTINGS_BUTTON:
+										Text: 设置
+									Button@EXTRAS_BUTTON:
+										Text: 额外内容
+									Button@CONTENT_BUTTON:
+										Text: 管理资源
+									Button@QUIT_BUTTON:
+										Text: 退出
+							Background@SINGLEPLAYER_MENU:
+								Children:
+									Label@SINGLEPLAYER_MENU_TITLE:
+										Text: 单人游戏
+									Button@SKIRMISH_BUTTON:
+										Text: 遭遇战
+									Button@MISSIONS_BUTTON:
+										Text: 单人任务
+									Button@WD_BUTTON:
+										Text: 征服世界之旅
+									Button@BACK_BUTTON:
+										Text: 返回
+							Background@EXTRAS_MENU:
+								Children:
+									Label@EXTRAS_MENU_TITLE:
+										Text: 额外内容
+									Button@REPLAYS_BUTTON:
+										Text: 游戏录像
+									Button@MUSIC_BUTTON:
+										Text: 游戏音乐
+									Button@MAP_EDITOR_BUTTON:
+										Text: 地图编辑器
+									Button@ASSETBROWSER_BUTTON:
+										Text: 资源查看器
+									Button@OTHER_TOOLS_BUTTON:
+										Text: 其他工具
+									Button@BACK_BUTTON:
+										Text: 返回
+							Background@OTHER_TOOLS_MENU:
+								Children:
+									Label@OTHER_TOOLS_MENU_TITLE:
+										Text: 其他工具
+									Button@VOXELBROWSER_BUTTON:
+										Text: 体素查看器
+									Button@SOUNDPLAYER_BUTTON:
+										Text: 声效播放器
+									Button@BACK_BUTTON:
+										Text: 返回
+							Background@MAP_EDITOR_MENU:
+								Children:
+									Label@MAP_EDITOR_MENU_TITLE:
+										Text: 地图编辑器
+									Button@NEW_MAP_BUTTON:
+										Text: 新建地图
+									Button@LOAD_MAP_BUTTON:
+										Text: 载入地图
+									Button@BACK_BUTTON:
+										Text: 返回
+					Background@SYSTEM_INFO_PROMPT:
+ 						Children:
+							Label@PROMPT_TITLE:
+								Text: 系统信息
+							Label@PROMPT_TEXT_A:
+								Text: 我们想要搜集一些系统的信息以优化OpenRA
+							Label@PROMPT_TEXT_B:
+								Text: 在你的许可下, 以下这些信息将会被发送:
+							Checkbox@SYSINFO_CHECKBOX:
+								Text: 发送系统信息
+							Button@BACK_BUTTON:
+								Text: 继续
+					Background@NEWS_BG:
+ 						Children:
+							DropDownButton@NEWS_BUTTON:
+								Text: 战地新闻
+					Container@UPDATE_NOTICE:
+ 						Children:
+							Label@A:
+								Text: 你正在运行一个旧版本的OpenRA
+							Label@B:
+								Text: 访问www.openra.net以获取新版本
+			Container@INGAME_MENU:
+				Children:
+					Background@MENU_BUTTONS:
+ 						Children:
+ 							Label@LABEL_TITLE:
+ 								Text: 选项
+			Background@ASSETBROWSER_PANEL:
+				Children:
+					Label@ASSETBROWSER_TITLE:
+ 						Text: 资源查看器
+					Label@SOURCE_SELECTOR_DESC:
+ 						Text: 选择资源文件
+					DropDownButton@SOURCE_SELECTOR:
+ 						Text: 文件夹
+					Label@FILENAME_DESC:
+ 						Text: 筛选器:
+					Label@PALETTE_DESC:
+ 						Text: 调色板:
+					Background@SPRITE_BG:
+ 						Children:
+ 							Label@ERROR:
+  								Text: 资源文件错误. 详情查看assetbrowser.log
+					Button@CLOSE_BUTTON:
+ 						Text: 关闭
+			Background@THREEBUTTON_PROMPT:
+				Children:
+					Button@CONFIRM_BUTTON:
+						Text: 确定
+					Button@OTHER_BUTTON:
+						Text: 重启
+					Button@CANCEL_BUTTON:
+						Text: 取消
+			Background@TWOBUTTON_PROMPT:
+				Children:
+					Button@CONFIRM_BUTTON:
+						Text: 确定
+					Button@CANCEL_BUTTON:
+						Text: 取消
+			Background@TEXT_INPUT_PROMPT:
+				Children:
+					Button@ACCEPT_BUTTON:
+						Text: 确定
+					Button@CANCEL_BUTTON:
+						Text: 取消
+			Container@LOBBY_PLAYER_BIN:
+				Children:
+					Container@LABEL_CONTAINER:
+						Children:
+							Label@LABEL_LOBBY_NAME:
+								Text: 名称
+							Label@LABEL_LOBBY_COLOR:
+								Text: 颜色
+							Label@LABEL_LOBBY_FACTION:
+								Text: 阵营
+							Label@LABEL_LOBBY_TEAM:
+								Text: 队伍
+							Label@LABEL_LOBBY_SPAWN:
+								Text: 出生点
+							Label@LABEL_LOBBY_STATUS:
+  								Text: 准备
+					ScrollPanel@LOBBY_PLAYERS:
+						Children:
+							Container@TEMPLATE_EDITABLE_PLAYER:
+  								Children:
+  									TextField@NAME:
+  										Text: 名称
+  									DropDownButton@SLOT_OPTIONS:
+  										Text: 名称
+  									DropDownButton@FACTION:
+  										Children:
+  											Label@FACTIONNAME:
+  												Text: 阵营
+  									DropDownButton@TEAM_DROPDOWN:
+  										Text: 队伍
+  									DropDownButton@SPAWN_DROPDOWN:
+  										Text: 出生点
+							Container@TEMPLATE_NONEDITABLE_PLAYER:
+  								Children:
+									Label@NAME:
+										Text: 名称
+									Container@FACTION:
+										Children:
+											Label@FACTIONNAME:
+												Text: 阵营
+									Label@TEAM:
+										Text: 队伍
+							Container@TEMPLATE_EMPTY:
+  								Children:
+									Label@NAME:
+										Text: 名称
+									DropDownButton@SLOT_OPTIONS:
+										Text: 名称
+									Button@JOIN:
+										Text: 切换到这个位置
+							Container@TEMPLATE_EDITABLE_SPECTATOR:
+  								Children:
+									TextField@NAME:
+										Text: 名称
+									Label@SPECTATOR:
+										Text: 旁观者
+							Container@TEMPLATE_NONEDITABLE_SPECTATOR:
+  								Children:
+									Label@NAME:
+										Text: 名称
+									Label@SPECTATOR:
+										Text: 旁观者
+							Container@TEMPLATE_NEW_SPECTATOR:
+  								Children:
+									Checkbox@TOGGLE_SPECTATORS:
+										Text: 是否允许旁观者?
+									Button@SPECTATE:
+										Text: 旁观
+			Background@SERVER_LOBBY:
+				Children:
+ 					DropDownButton@SLOTS_DROPDOWNBUTTON:
+						Text: 设为管理员
+ 					Container@SKIRMISH_TABS:
+						Children:
+						    Button@PLAYERS_TAB:
+						    	Text: 玩家
+						    Button@OPTIONS_TAB:
+						    	Text: 选项
+						    Button@MUSIC_TAB:
+						    	Text: 音乐
+					Container@MULTIPLAYER_TABS:
+						Children:
+						    Button@PLAYERS_TAB:
+						    	Text: 玩家
+						    Button@OPTIONS_TAB:
+						    	Text: 选项
+						    Button@MUSIC_TAB:
+						    	Text: 音乐
+						    Button@SERVERS_TAB:
+						    	Text: 服务器
+					Button@CHANGEMAP_BUTTON:
+						Text: 变更地图
+					Container@LOBBYCHAT:
+						Children:
+						    Button@CHAT_MODE:
+						    	Text: 队伍
+					Button@START_GAME_BUTTON:
+						Text: 开始游戏
+					Button@DISCONNECT_BUTTON:
+						Text: 离开游戏
+			Background@VXLBROWSER_PANEL:
+				Children:
+					Label@ASSETBROWSER_TITLE:
+						Text: 体素查看器
+					Label@FILENAME_DESC:
+						Text: 筛选器
+					Label@PALETTE_DESC:
+						Text: 调色板:
+					Label@PLAYER_PALETTE_DESC:
+						Text: Player调色板:
+					Label@NORMALS_PALETTE_DESC:
+						Text: 法线调色板:
+					Label@SHADOW_PALETTE_DESC:
+						Text: 阴影调色板:
+					Label@SCALE_DESC:
+						Text: 缩放:
+					Label@LIGHTPITCH_DESC:
+						Text: 光照方向俯仰角:
+					Label@LIGHTYAW_DESC:
+						Text: 光照方向偏航角:
+					Label@LIGHTAMBIENTCOLOR_DESC:
+						Text: 环境光颜色:
+					Label@LIGHTDIFFUSECOLOR_DESC:
+						Text: 漫反射光照颜色:
+					Button@CLOSE_BUTTON:
+						Text: 关闭
+		FontSettings:
+			Normal: yr|sarasa-fixed-sc-regular.ttf
+			Bold: yr|sarasa-fixed-sc-bold.ttf
+		#ModContent:
+		#	InstallPromptMessage: OpenRA尤里的复仇模组需要来自原版游戏的资源文件和声音文件
+		#	HeaderMessage: 原版游戏的资源文件和声音文件可以从原版光盘中复制
+		#	Packages: 
+		#		base: 红色警戒2游戏文件
+ 		#		base-md: 红色警戒2尤里的复仇游戏文件
+		#		music-md: 红色警戒2尤里的复仇音乐
+		#		movie-md: 红色警戒2尤里的复仇过场动画
