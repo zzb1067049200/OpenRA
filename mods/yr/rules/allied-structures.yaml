@@ -11,7 +11,7 @@ gacnst:
 		Footprint: xxxx xxxx xxxx xxxx
 		Dimensions: 4,4
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -91,7 +91,7 @@ gapowr:
 		Prerequisites: ~structures.allies
 		Description: Provides power for other structures.
 	Selectable:
-		Bounds: 96, 98, -2, -24
+		Bounds: 2317, 4730, -48, -1158
 	Valued:
 		Cost: 800
 	Tooltip:
@@ -133,7 +133,7 @@ gapile:
 		Prerequisites: power, ~structures.allies
 		Description: Trains infantry.
 	Selectable:
-		Bounds: 134, 132, 0, -28
+		Bounds: 3234, 6371, 0, -1351
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -204,7 +204,7 @@ garefn:
 		Prerequisites: power, ~structures.allies
 		Description: Processes ore into credits.
 	Selectable:
-		Bounds: 176, 150, 0, -20
+		Bounds: 4247, 7240, 0, -965
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -281,7 +281,7 @@ gaairc:
 		Footprint: xxx xxx
 		Dimensions: 3,2
 	Selectable:
-		Bounds: 142, 150, -3, -42
+		Bounds: 3427, 7240, -72, -2027
 	Health:
 		HP: 600
 	Armor:
@@ -375,7 +375,7 @@ gaweap:
 		Prerequisites: garefn, gapile, ~structures.allies
 		Description: Produces vehicles.
 	Selectable:
-		Bounds: 212, 158, -7, -28
+		Bounds: 5116, 7626, -169, -1351
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -463,7 +463,7 @@ gayard:
 		Prerequisites: power, refinery, ~structures.allies
 		Description: Produces and repairs ships,\nsubmarines, transports, and other naval units.
 	Selectable:
-		Bounds: 158, 192, 0, -40
+		Bounds: 3813, 9267, 0, -1931
 	Targetable:
 		TargetTypes: Ground, Water, C4
 	ProvidesPrerequisite@default:
@@ -592,7 +592,7 @@ gadept:
 		Prerequisites: gaweap, ~structures.allies
 		Description: Repairs vehicles and removes Terror Drones (for a price).
 	Selectable:
-		Bounds: 144, 88, -12, -16
+		Bounds: 3475, 4247, -290, -772
 	Valued:
 		Cost: 800
 	Tooltip:
@@ -636,7 +636,7 @@ gatech:
 		Prerequisites: radar, gaweap, ~structures.allies
 		Description: Allows deployment of advanced units.
 	Selectable:
-		Bounds: 122, 216, 0, -81
+		Bounds: 2944, 10426, 0, -3910
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -708,7 +708,7 @@ gapill:
 	RevealsShroud:
 		Range: 7c0
 	Selectable:
-		Bounds: 50, 30, 0, -4
+		Bounds: 1207, 1448, 0, -193
 	Armament:
 		Weapon: vulcan2
 		LocalOffset: 416,0,416
@@ -750,7 +750,7 @@ nasam:
 	RevealsShroud:
 		Range: 7c0
 	Selectable:
-		Bounds: 46, 62, 0, -20
+		Bounds: 1110, 2993, 0, -965
 	Turreted:
 		TurnSpeed: 10
 		InitialFacing: 224
@@ -802,7 +802,7 @@ gtgcan:
 	RevealsShroud:
 		Range: 10c0
 	Selectable:
-		Bounds: 46, 62, 0, -20
+		Bounds: 1110, 2993, 0, -965
 	Turreted:
 		TurnSpeed: 10
 		InitialFacing: 224
@@ -844,7 +844,7 @@ gaorep:
 		BuildLimit: 1
 		Description: Refines all forms of income by 25%.
 	Selectable:
-		Bounds: 134, 102, -10, -21
+		Bounds: 3234, 4923, -241, -1014
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -874,7 +874,7 @@ garobo:
 		Prerequisites: gaweap, ~structures.allies
 		Description: Produce robot tank which will not be effected by mind control
 	Selectable:
-		Bounds: 96, 98, -2, -24
+		Bounds: 2317, 4730, -48, -1158
 	Valued:
 		Cost: 600
 	Tooltip:
@@ -905,7 +905,7 @@ gaspysat:
 		Prerequisites: gatech, ~structures.allies
 		Description: Reveals the entire battlefield.
 	Selectable:
-		Bounds: 96, 98, -4, -30
+		Bounds: 2317, 4730, -97, -1448
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -943,7 +943,7 @@ gagap:
 		Prerequisites: gatech, ~structures.allies
 		Description: Obscures the enemy's view with shroud.\nRequires power to operate.
 	Selectable:
-		Bounds: 50, 114, -16, -38
+		Bounds: 1207, 5502, -386, -1834
 	Building:
 		Footprint: _ x
 		Dimensions: 1,2
@@ -974,7 +974,7 @@ gaweat:
 		BuildLimit: 1
 		Description: Play God with deadly weather!
 	Selectable:
-		Bounds: 116, 106, -2, -26
+		Bounds: 2799, 5116, -48, -1255
 	Valued:
 		Cost: 5000
 	Tooltip:
@@ -1038,7 +1038,7 @@ gacsph:
 		Description: Allows teleporting units in a 3x3 array.
 		BuildLimit: 1
 	Selectable:
-		Bounds: 176, 110, -5, -14
+		Bounds: 4247, 5309, -121, -676
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -1099,7 +1099,7 @@ atesla:
 		Footprint: x
 		Dimensions: 1, 1
 	Selectable:
-		Bounds: 44, 102, 0, -40
+		Bounds: 1062, 4923, 0, -1931
 	Health:
 		HP: 600
 	Armor:

@@ -34,7 +34,7 @@ namespace OpenRA.Mods.YR.Traits.SupportPowers
         [Desc("Effect Range")]
         public readonly int Range = 10;
         public readonly string EffectImage = null;
-        [SequenceReference("EffectImage")]
+        [SequenceReference(nameof(EffectImage), allowNullImage: true)]
         public readonly string EffectSequence = "idle";
         [PaletteReference]
         public readonly string EffectPalette = "player";

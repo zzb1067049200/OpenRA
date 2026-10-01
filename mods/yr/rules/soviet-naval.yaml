@@ -12,7 +12,7 @@ sapc:
 	Tooltip:
 		Name: Amphibious Transport
 	Selectable:
-		Bounds: 60, 80, 0, -6
+		Bounds: 1448, 3861, 0, -290
 	Health:
 		HP: 300
 	Armor:
@@ -58,7 +58,7 @@ sub:
 	Health:
 		HP: 600
 	Selectable:
-		Bounds: 79, 60, 0, -6
+		Bounds: 1907, 2896, 0, -290
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -130,7 +130,7 @@ hyd:
 	Tooltip:
 		Name: Sea Scorpion
 	Selectable:
-		Bounds: 50, 30, 0, -6
+		Bounds: 1207, 1448, 0, -290
 	Health:
 		HP: 300
 	Armor:
@@ -185,7 +185,7 @@ sqd:
 	SelectionDecorations:
 		Palette: pips
 	Selectable:
-		Bounds: 101, 64, 0, -10
+		Bounds: 2437, 3089, 0, -483
 	Voiced:
 		VoiceSet: GiantSquidVoice
 	Armament:
@@ -252,7 +252,7 @@ dred:
 		Range: 7c0
 		Type: CenterPosition
 	Selectable:
-		Bounds: 112,76,0,-6
+		Bounds: 2703, 3668, 0, -290
 	Mobile:
 		TurnSpeed: 1
 		Speed: 60

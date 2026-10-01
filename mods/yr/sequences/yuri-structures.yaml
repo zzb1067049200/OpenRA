@@ -9,7 +9,7 @@ yacnst:
 			DESERT: GENERIC
 			LUNAR: GENERIC
 	idle: yacnst
-		length: 1
+		Length: 1
 		ShadowStart: 3
 	damaged-idle: yacnst
 		Start: 1
@@ -321,11 +321,11 @@ yagrnd:
 		Length: 1
 		ShadowStart: 3
 	idle-normal: yagrnd_a
-		length: 10
+		Length: 10
 		ShadowStart: 11
 		Tick: 180
 	damaged-idle-normal: yagrnd_a
-		length: 10
+		Length: 10
 		ShadowStart: 11
 		Tick: 180
 	make: yagrndmk

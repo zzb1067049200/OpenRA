@@ -11,7 +11,7 @@ nacnst:
 		Footprint: xxxx xxxx xxxx xxxx
 		Dimensions: 4,4
 	Selectable:
-		Bounds: 220, 180, 0, -35
+		Bounds: 5309, 8688, 0, -1689
 	ProvidesPrerequisite@soviets:
 		Prerequisite: structures.soviets
 	Health:
@@ -91,7 +91,7 @@ napowr:
 		Footprint: xxx xxx
 		Dimensions: 3,2
 	Selectable:
-		Bounds: 126, 94, 2, -16
+		Bounds: 3041, 4537, 48, -772
 	Health:
 		HP: 750
 	Armor:
@@ -140,7 +140,7 @@ nahand:
 		Footprint: xx xx
 		Dimensions: 2,2
 	Selectable:
-		Bounds: 94, 168, 0, -58
+		Bounds: 2269, 8109, 0, -2799
 	Health:
 		HP: 500
 	Armor:
@@ -219,7 +219,7 @@ narefn:
 		Prerequisites: power, ~structures.soviets
 		Description: Processes ore into credits.
 	Selectable:
-		Bounds: 170, 150, -6, -33
+		Bounds: 4103, 7240, -145, -1593
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -288,7 +288,7 @@ naradr:
 		Footprint: xx xx
 		Dimensions: 2,2
 	Selectable:
-		Bounds: 95, 130, 0, -40
+		Bounds: 2293, 6275, 0, -1931
 	Health:
 		HP: 1000
 	Armor:
@@ -331,7 +331,7 @@ naweap:
 		Prerequisites: refinery, nahand, ~structures.soviets
 		Description: Produces vehicles.
 	Selectable:
-		Bounds: 196, 178, -6, -48
+		Bounds: 4730, 8591, -145, -2317
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -415,7 +415,7 @@ nayard:
 		Prerequisites: power, refinery, ~structures.soviets
 		Description: Produces and repairs ships,\nsubmarines, transports, and other naval units.
 	Selectable:
-		Bounds: 158, 192, 0, -50
+		Bounds: 3813, 9267, 0, -2413
 	Targetable:
 		TargetTypes: Ground, Water, C4
 	ProvidesPrerequisite@default:
@@ -547,7 +547,7 @@ nadept:
 		Prerequisites: naweap, ~structures.soviets
 		Description: Repairs vehicles and removes Terror Drones (for a price).
 	Selectable:
-		Bounds: 156, 150, 0, -38
+		Bounds: 3765, 7240, 0, -1834
 	Valued:
 		Cost: 800
 	Tooltip:
@@ -601,7 +601,7 @@ nanrct:
 		Footprint: xxxx xxxx xxxx xxxx
 		Dimensions: 4,4
 	Selectable:
-		Bounds: 167, 130, 9, -31
+		Bounds: 4030, 6275, 217, -1496
 	Health:
 		HP: 1000
 	Armor:
@@ -646,7 +646,7 @@ natech:
 		Footprint: xxx xxx xxx
 		Dimensions: 3,3
 	Selectable:
-		Bounds: 152, 164, 0, -50
+		Bounds: 3668, 7916, 0, -2413
 	Health:
 		HP: 500
 	Armor:
@@ -692,7 +692,7 @@ nairon:
 		Footprint: xxx xxx xxx
 		Dimensions: 3, 3
 	Selectable:
-		Bounds: 136, 100, 0, -20
+		Bounds: 3282, 4827, 0, -965
 	Health:
 		HP: 750
 	Armor:
@@ -740,7 +740,7 @@ namisl:
 		Footprint: xxx xxx xxx
 		Dimensions: 3, 3
 	Selectable:
-		Bounds: 152, 104, 0, -50
+		Bounds: 3668, 5020, 0, -2413
 	Health:
 		HP: 1000
 	Armor:
@@ -764,6 +764,7 @@ namisl:
 		EndChargeSound: snukread.wav
 		LaunchSound: snuklaun.wav
 		MissileWeapon: atomic
+		MissileImage: atomic
 		MissilePalette: player
 		MissileDelay: 35
 		SpawnOffset: 0,0,-1c0
@@ -809,7 +810,7 @@ naflak:
 	RevealsShroud:
 		Range: 5c0
 	Selectable:
-		Bounds: 46, 62, 0, -20
+		Bounds: 1110, 2993, 0, -965
 	Turreted:
 		TurnSpeed: 10
 		InitialFacing: 224
@@ -859,7 +860,7 @@ tesla:
 	RevealsShroud:
 		Range: 8c0
 	Selectable:
-		Bounds: 44, 88, -2, -33
+		Bounds: 1062, 4247, -48, -1593
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, TeslaBoost
 	WithTeslaChargeOverlay:
@@ -915,7 +916,7 @@ nalasr:
 	RevealsShroud:
 		Range: 7c0
 	Selectable:
-		Bounds: 50, 30, 0, -12
+		Bounds: 1207, 1448, 0, -579
 	Turreted:
 		TurnSpeed: 10
 		InitialFacing: 224
@@ -949,7 +950,7 @@ nabnkr:
 		Prerequisites: nahand, ~structures.soviets
 		Description: Make Soviet soldier more powerful when against the enemies
 	Selectable:
-		Bounds: 83, 72, 0, -10
+		Bounds: 2003, 3475, 0, -483
 	Tooltip:
 		Name: Soviet Battle Bunker
 	Health:
@@ -987,7 +988,7 @@ naindp:
 		Description: Provides credits for Soviet War machine.
 		BuildLimit: 1
 	Selectable:
-		Bounds: 178, 173, 0, -20
+		Bounds: 4296, 8350, 0, -965
 	Building:
 		Footprint: xxx xxx xxx
 		Dimensions: 3,3
@@ -1014,7 +1015,7 @@ naindp:
 napsya:
 	Inherits: ^Building
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -1030,7 +1031,7 @@ napsya:
 napsyb:
 	Inherits: ^Building
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 750
 	Armor:

@@ -13,7 +13,7 @@ pcv:
 		Name: Mobile Construction Vehicle
 	Selectable:
 		Priority: 4
-		Bounds: 68, 56, 0, -7
+		Bounds: 1641, 2703, 0, -338
 	Health:
 		HP: 1000
 	Armor:
@@ -54,7 +54,7 @@ smin:
 	Tooltip:
 		Name: Slave Miner
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1545, 2510, 0, -290
 	Transforms:
 		Voice: Move
 		IntoActor: yarefn
@@ -157,7 +157,7 @@ ltnk:
 	AutoTarget:
 	RenderSprites:
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1545, 2510, 0, -290
 	RenderVoxels:
 	WithVoxelBody:
 	WithVoxelTurret:
@@ -265,7 +265,7 @@ ytnk:
 	AutoTarget:
 	RenderSprites:
 	Selectable:
-		Bounds: 52, 40, 0, -6
+		Bounds: 1255, 1931, 0, -290
 	RenderVoxels:
 		LightAmbientColor: -0.6,-0.6,-0.6
 		LightDiffuseColor: 1.6,1.6,1.6
@@ -334,7 +334,7 @@ tele:
 	AutoTarget:
 	RenderSprites:
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1545, 2510, 0, -290
 	RenderVoxels:
 	WithVoxelBody:
 	WithVoxelTurret:
@@ -386,7 +386,7 @@ caos:
 	AutoTarget:
 	RenderSprites:
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1545, 2510, 0, -290
 	RenderVoxels:
 	WithVoxelBody:
 	Voiced:
@@ -447,7 +447,7 @@ mind:
 	AutoTarget:
 	RenderSprites:
 	Selectable:
-		Bounds: 64, 52, 0, -6
+		Bounds: 1545, 2510, 0, -290
 	RenderVoxels:
 		LightAmbientColor: -0.6,-0.6,-0.6
 		LightDiffuseColor: 1.6,1.6,1.6
@@ -483,7 +483,7 @@ disk:
 		VTOL: true
 		CanSlide: True
 	Selectable:
-		Bounds: 78, 43, 0, -15
+		Bounds: 1882, 2075, 0, -724
 	Health:
 		HP: 600
 	Armor:

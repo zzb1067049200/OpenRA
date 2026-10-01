@@ -18,7 +18,7 @@ init:
 		PlayerExperience: 5
 		Voice: Move
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 100
 	Mobile:
@@ -60,7 +60,7 @@ yengineer:
 	Tooltip:
 		Name: Engineer
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 75
 	Mobile:
@@ -110,7 +110,7 @@ brute:
 		PlayerExperience: 10
 		Voice: Move
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 200
 	Mobile:
@@ -159,7 +159,7 @@ virus:
 		PlayerExperience: 20
 		Voice: Move
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 100
 	Mobile:
@@ -197,7 +197,7 @@ slav:
 		BuildPaletteOrder: 20
 		Description: Slave Worker
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Harvester:
 		Resources: Ore,Gems
 		BaleUnloadDelay: 1
@@ -256,7 +256,7 @@ yuri:
 	Tooltip:
 		Name: Yuri Clone
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Voiced:
 		VoiceSet: YuriVoice
 	Health:
@@ -338,7 +338,7 @@ yuripr:
 	Tooltip:
 		Name: Yuri Prime
 	Selectable:
-		Bounds: 26, 52, 0, -30
+		Bounds: 627, 2510, 0, -1448
 	Voiced:
 		VoiceSet: YuriPrimeVoice
 	Health:
@@ -418,7 +418,7 @@ lunr:
 		BuildPaletteOrder: 160
 		Prerequisites: ~missiononly
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	-TimedConditionBar@ChronoDisable:

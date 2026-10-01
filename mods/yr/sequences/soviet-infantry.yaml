@@ -130,15 +130,16 @@ boris:
 		Tick: 120
 	prone:
 		Start: 86
-		length: 1
-		Facings: 6
+		Length: 1
+		Stride: 6
+		Facings: 8
 	shoot:
 		Start: 169
 	prone-shoot:
 		Start: 217
 	idle1:
 		Start: 56
-		length: 15
+		Length: 15
 	idle2:
 		Start: 71
 		Length: 20

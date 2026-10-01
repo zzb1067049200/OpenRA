@@ -17,7 +17,7 @@ engineer:
 	Tooltip:
 		Name: Engineer
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 75
 	Mobile:
@@ -59,7 +59,7 @@ dog:
 	Tooltip:
 		Name: Attack Dog
 	Selectable:
-		Bounds: 30, 24, 0, -5
+		Bounds: 724, 1158, 0, -241
 	Health:
 		HP: 100
 	Mobile:
@@ -137,7 +137,7 @@ e1:
 	Tooltip:
 		Name: G.I.
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	Mobile:
@@ -240,7 +240,7 @@ ggi:
 	Tooltip:
 		Name: Guardian GI
 	Selectable:
-		Bounds: 39, 37, 0, -11
+		Bounds: 941, 1786, 0, -531
 	Health:
 		HP: 125
 	Mobile:
@@ -346,7 +346,7 @@ snipe:
 		Prerequisites: radar, ~infantry.england
 		Description: Special anti-infantry unit.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Mobile:
 		Speed: 35
 	Health:
@@ -394,7 +394,7 @@ spy:
 		Name: Spy
 		GenericName: Soldier
 	Selectable:
-		Bounds: 24, 28, -1, -8
+		Bounds: 579, 1351, -24, -386
 	Health:
 		HP: 25
 	Mobile:
@@ -450,7 +450,7 @@ ghost:
 	Tooltip:
 		Name: Navy SEAL
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	GrantConditionOnTerrain:
@@ -599,7 +599,7 @@ tany:
 	Tooltip:
 		Name: Tanya
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	GrantConditionOnTerrain:
@@ -654,7 +654,7 @@ jumpjet:
 	Tooltip:
 		Name: Rocketeer
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	-TimedConditionBar@ChronoDisable:
@@ -745,7 +745,7 @@ cleg:
 	Inherits@MC: ^MindControllable
 	Inherits@SMC: ^SuperMindControllable
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Tooltip:
 		Name: Chrono Legionnaire
 	Buildable:

@@ -25,10 +25,10 @@ namespace OpenRA.Mods.RA2.Traits
 		[Desc("Image used for the teleport effects. Defaults to the actor's type.")]
 		public readonly string Image = null;
 		[Desc("Sequence used for the effect played where the unit jumped from.")]
-		[SequenceReference("Image")]
+		[SequenceReference(nameof(Image), allowNullImage: true)]
 		public readonly string WarpInSequence = null;
 		[Desc("Sequence used for the effect played where the unit jumped to.")]
-		[SequenceReference("Image")]
+		[SequenceReference(nameof(Image), allowNullImage: true)]
 		public readonly string WarpOutSequence = null;
 		[Desc("Palette to render the warp in/out sprites in.")]
 		[PaletteReference]

@@ -72,10 +72,15 @@ namespace OpenRA.Mods.RA2.Graphics
 		public ExtendedTilesetSpecificSpriteSequence(SpriteCache cache, ISpriteSequenceLoader loader, string image, string sequence, MiniYaml data, MiniYaml defaults)
 			: base(cache, loader, image, sequence, data, defaults) { }
 
-		static string ResolveTilesetId(string tileset, MiniYaml data)
+		static MiniYamlNode NodeFor(string key, MiniYaml data, MiniYaml defaults)
+		{
+			return data.NodeWithKeyOrDefault(key) ?? defaults?.NodeWithKeyOrDefault(key);
+		}
+
+		static string ResolveTilesetId(string tileset, MiniYaml data, MiniYaml defaults)
 		{
 			var tsId = tileset;
-			var overrides = data.NodeWithKeyOrDefault("TilesetOverrides");
+			var overrides = NodeFor("TilesetOverrides", data, defaults);
 			if (overrides != null)
 			{
 				var tsNode = overrides.Value.Nodes.FirstOrDefault(n => n.Key == tsId);
@@ -88,25 +93,41 @@ namespace OpenRA.Mods.RA2.Graphics
 		protected override IEnumerable<ReservationInfo> ParseFilenames(ModData modData, string tileset, ImmutableArray<int> frames, MiniYaml data, MiniYaml defaults)
 		{
 			var loader = (ExtendedTilesetSpecificSpriteSequenceLoader)Loader;
-			var resolvedTileset = ResolveTilesetId(tileset, data);
+			var resolvedTileset = ResolveTilesetId(tileset, data, defaults);
 			foreach (var r in base.ParseFilenames(modData, tileset, frames, data, defaults))
 			{
+				// These sequences predate the engine's explicit `Filename:` field. That field was
+				// introduced by the ExplicitSequenceFilenames update rule, which cannot run for this
+				// mod: it reads the raw mod.yaml through a reflection lookup of a Manifest field that
+				// the 2026 engine no longer has, so it disables itself and leaves every shorthand
+				// sequence unconverted (5888 nodes). Reproduce the old resolution order here instead:
+				// the sequence node's own value, then the image-level `Defaults:` node's value
+				// (the rule reproduces this as `sequence.Value ??= defaults.Value`), then the image
+				// name. Example: image `e1` has `Defaults: gi`, so its idle sequence is `gi.shp`.
 				var spriteName = r.Filename;
-				if (LoadField("UseTilesetCode", false, data))
+				if (string.IsNullOrEmpty(spriteName))
+					spriteName = data.Value;
+				if (string.IsNullOrEmpty(spriteName))
+					spriteName = defaults?.Value;
+				if (string.IsNullOrEmpty(spriteName))
+					spriteName = image;
+
+				// All of these may be defined on the sequence node itself or in the image's Defaults node.
+				if (LoadField("UseTilesetCode", false, data, defaults))
 				{
 					if (loader.TilesetCodes.TryGetValue(resolvedTileset, out var code) && spriteName.Length >= 2)
-						spriteName = spriteName.Substring(0, 1) + code + spriteName.Substring(2, spriteName.Length - 2);
+						spriteName = spriteName[..1] + code + spriteName[2..];
 				}
 
-				if (LoadField("UseTilesetSuffix", false, data))
+				if (LoadField("UseTilesetSuffix", false, data, defaults))
 				{
 					if (loader.TilesetSuffixes.TryGetValue(resolvedTileset, out var tilesetSuffix))
 						spriteName += tilesetSuffix;
 				}
 
-				if (LoadField("AddExtension", true, data))
+				if (LoadField("AddExtension", true, data, defaults))
 				{
-					if (LoadField("UseTilesetExtension", false, data)
+					if (LoadField("UseTilesetExtension", false, data, defaults)
 						&& loader.TilesetExtensions.TryGetValue(resolvedTileset, out var tilesetExtension))
 						spriteName += tilesetExtension;
 					else

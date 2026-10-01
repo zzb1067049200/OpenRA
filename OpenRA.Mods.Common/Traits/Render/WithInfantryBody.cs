@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Graphics;
+using OpenRA.Primitives;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Traits.Render
@@ -67,7 +68,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithInfantryBody : ConditionalTrait<WithInfantryBodyInfo>, ITick, INotifyAttack, INotifyIdle
+	public class WithInfantryBody : ConditionalTrait<WithInfantryBodyInfo>, ITick, INotifyAttack, INotifyIdle, IAutoMouseBounds
 	{
 		readonly IMove move;
 		protected readonly Animation DefaultAnimation;
@@ -212,6 +213,11 @@ namespace OpenRA.Mods.Common.Traits.Render
 				state = AnimationState.IdleAnimating;
 				DefaultAnimation.PlayThen(idleSequence, () => PlayStandAnimation(self));
 			}
+		}
+
+		Rectangle IAutoMouseBounds.AutoMouseoverBounds(Actor self, WorldRenderer wr)
+		{
+			return DefaultAnimation.ScreenBounds(wr, self.CenterPosition, WVec.Zero);
 		}
 
 		protected enum AnimationState

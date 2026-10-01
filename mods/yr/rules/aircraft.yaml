@@ -62,7 +62,7 @@ shad:
 		Prerequisites: ~gaweap
 		Description: Infantry Transport Helicopter\nUndetectable by radar.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Selectable:
-		Bounds: 119, 58, 0, -20
+		Bounds: 2872, 2799, 0, -965
 	Valued:
 		Cost: 1000
 	RevealsShroud:
@@ -125,7 +125,7 @@ zep:
 		Prerequisites: ~naweap, natech
 		Description: Soviet heavy bomber\n  Strong vs Infantry, Vehicle, Ship and Structure\n Weak vs Aircraft
 	Selectable:
-		Bounds: 149, 86, 0, -11
+		Bounds: 3596, 4151, 0, -531
 	Aircraft:
 		CruiseAltitude: 5600
 		TurnSpeed: 5
@@ -201,7 +201,7 @@ orca:
 		TurnSpeed: 3
 		Speed: 210
 	Selectable:
-		Bounds: 30,24
+		Bounds: 724, 1158
 	Health:
 		HP: 150
 	Armor:
@@ -426,7 +426,7 @@ bpln:
 		CanHover: true
 		CanSlide: True
 	Selectable:
-		Bounds: 30,24
+		Bounds: 724, 1158
 	Health:
 		HP: 100
 	Armor:
@@ -508,7 +508,7 @@ schp:
 		Prerequisites: ~naweap
 		Description: Soviet Siege Chopper\n  Strong vs Infantry, Structures\n  Weak vs Vehicles, Aircraft
 	Selectable:
-		Bounds: 119, 58, 0, -20
+		Bounds: 2872, 2799, 0, -965
 	Valued:
 		Cost: 1000
 	RevealsShroud:
@@ -562,7 +562,7 @@ schd:
 	Voiced:
 		VoiceSet: SiegeChopperVoice
 	Selectable:
-		Bounds: 119, 58, 0, -20
+		Bounds: 2872, 2799, 0, -965
 	Valued:
 		Cost: 1000
 	RevealsShroud:
@@ -643,7 +643,7 @@ v3rocket:
 		LaunchAngle: 128
 		Speed: 170
 	Selectable:
-		Bounds: 30, 24, -10, -11
+		Bounds: 724, 1158, -241, -531
 	LeavesTrails:
 		Image: smokey2
 		MovingInterval: 2
@@ -673,7 +673,7 @@ dmisl:
 		LaunchAngle: 128
 		Speed: 170
 	Selectable:
-		Bounds: 30, 24, -10, -11
+		Bounds: 724, 1158, -241, -531
 	Contrail:
 		Offset: -598,0,0
 	AttackFrontal:
@@ -702,7 +702,7 @@ cmisl:
 		LaunchAngle: 128
 		Speed: 170
 	Selectable:
-		Bounds: 30, 24, -10, -11
+		Bounds: 724, 1158, -241, -531
 	Contrail:
 		Offset: -598,0,0
 	AttackFrontal:

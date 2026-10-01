@@ -241,7 +241,6 @@ World:
 		Type: LargeCrater
 		SmokeType: largesmoke
 		Sequence: largecraters
-	ResourceLayer:
 	ResourceClaimLayer:
 	BridgeLayer:
 	WarheadDebugOverlay:

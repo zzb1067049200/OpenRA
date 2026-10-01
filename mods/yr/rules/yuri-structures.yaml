@@ -6,7 +6,7 @@ yacnst:
 		Footprint: xxxx xxxx xxxx xxxx
 		Dimensions: 4,4
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -78,7 +78,7 @@ yapowr:
 	ProvidesPrerequisite:
 		Prerequisite: power
 	Selectable:
-		Bounds: 96, 98, -2, -24
+		Bounds: 2317, 4730, -48, -1158
 	Health:
 		HP: 700
 	Armor:
@@ -129,7 +129,7 @@ yabrck:
 		Prerequisites: power, ~structures.yuris
 		Description: Train Yuri's soldiers
 	Selectable:
-		Bounds: 132, 134, -28, -28
+		Bounds: 3186, 6468, -676, -1351
 	Health:
 		HP: 500
 	Valued:
@@ -196,7 +196,7 @@ yarefn:
 		Prerequisites: power, ~structures.yuris
 		Description: Provides credits for Yuri
 	Selectable:
-		Bounds: 90, 60, 0, -20
+		Bounds: 2172, 2896, 0, -965
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -259,7 +259,7 @@ yaweap:
 		Prerequisites: power, yarefn, ~structures.yuris
 		Description: Produces Yuri Vehicles
 	Selectable:
-		Bounds: 196, 178, -6, -48
+		Bounds: 4730, 8591, -145, -2317
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -335,7 +335,7 @@ yayard:
 		Prerequisites: power, yarefn, ~structures.yuris
 		Description: Build Yuri's Navy Force
 	Selectable:
-		Bounds: 162, 173, 0, -20
+		Bounds: 3910, 8350, 0, -965
 	Health:
 		HP: 1500
 	Armor:
@@ -480,7 +480,7 @@ yagrnd:
 		Prerequisites: yaweap, ~structures.yuris
 		Description: Convert Soldiers and Vehicle to credits which provides for Yuri
 	Selectable:
-		Bounds: 154, 127, 0, -20
+		Bounds: 3717, 6130, 0, -965
 	Health:
 		HP: 900
 	Armor:
@@ -513,7 +513,7 @@ yatech:
 		Prerequisites: yaweap, ~structures.yuris
 		Description: Provides newest technology for Yuri
 	Selectable:
-		Bounds: 128, 215, 0, -80
+		Bounds: 3089, 10377, 0, -3861
 	Health:
 		HP: 500
 	Armor:
@@ -580,7 +580,7 @@ natbnk:
 		Footprint: xx xx
 		Dimensions: 2,2
 	Selectable:
-		Bounds: 120, 53, 0, -5
+		Bounds: 2896, 2558, 0, -241
 	Health:
 		HP: 1000
 	Armor:
@@ -619,7 +619,7 @@ yaggun:
 	RevealsShroud:
 		Range: 8c0
 	Selectable:
-		Bounds: 53, 56, 0, -30
+		Bounds: 1279, 2703, 0, -1448
 	Building:
 		Footprint: x
 		Dimensions: 1, 1
@@ -732,7 +732,7 @@ yapsyt:
 		Prerequisites: napsis, ~structures.yuris, ~techlevel.unrestricted
 		Description: Mind Control Tower
 	Selectable:
-		Bounds: 69, 150, 0, -70
+		Bounds: 1665, 7240, 0, -3379
 	Health:
 		HP: 455
 	Armor:
@@ -784,7 +784,7 @@ yagntc:
 		BuildLimit: 1
 		Description: Convert soldiers to powerful brute
 	Selectable:
-		Bounds: 160, 142, 0, -20
+		Bounds: 3861, 6854, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -842,7 +842,7 @@ yappet:
 		BuildLimit: 1
 		Description: Release powerful energy to destroy enemy structures and control their soldiers
 	Selectable:
-		Bounds: 131, 152, 0, -20
+		Bounds: 3161, 7337, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -908,7 +908,7 @@ naclon:
 		Footprint: xx xx
 		Dimensions: 2, 2
 	Selectable:
-		Bounds: 108, 134, 0, -48
+		Bounds: 2606, 6468, 0, -2317
 	Health:
 		HP: 1000
 	Armor:
@@ -986,7 +986,7 @@ napsis:
 		Prerequisite: radar
 	ProvidesPrerequisite@default:
 	Selectable:
-		Bounds: 82, 150, -1, -55
+		Bounds: 1979, 7240, -24, -2655
 	Health:
 		HP: 750
 	Armor:
@@ -1022,7 +1022,7 @@ napsis:
 yarock:
 	Inherits: ^Building
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 700
 	Armor:
@@ -1038,7 +1038,7 @@ yarock:
 yacomd:
 	Inherits: ^Building
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 1000
 	Armor:
@@ -1064,7 +1064,7 @@ yacomd.rubble:
 yapppt:
 	Inherits: ^Building
 	Selectable:
-		Bounds: 220, 155, 0, -20
+		Bounds: 5309, 7481, 0, -965
 	Health:
 		HP: 1000
 	Armor:

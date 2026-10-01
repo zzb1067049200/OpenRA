@@ -19,7 +19,7 @@ e2:
 	Tooltip:
 		Name: Conscript
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 125
 	Mobile:
@@ -71,7 +71,7 @@ flakt:
 	Tooltip:
 		Name: Flak Trooper
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 100
 	Mobile:
@@ -138,7 +138,7 @@ shk:
 	Tooltip:
 		Name: Tesla Trooper
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 130
 	Mobile:
@@ -203,7 +203,7 @@ terror:
 	Tooltip:
 		Name: Terrorist
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 75
 	Mobile:
@@ -251,7 +251,7 @@ deso:
 	Tooltip:
 		Name: Desolator
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 150
 	Mobile:
@@ -306,7 +306,7 @@ ivan:
 	Tooltip:
 		Name: Crazy Ivan
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Voiced:
 		VoiceSet: CrazyIvanVoice
 	Health:
@@ -358,7 +358,7 @@ boris:
 	Tooltip:
 		Name: Boris
 	Selectable:
-		Bounds: 20, 30, 0, -11
+		Bounds: 483, 1448, 0, -531
 	Health:
 		HP: 200
 	Mobile:
