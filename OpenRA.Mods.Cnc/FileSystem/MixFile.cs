@@ -57,7 +57,7 @@ namespace OpenRA.Mods.Cnc.FileSystem
 						$"{filename} ({(isCncMix ? "C&C" : "RA/TS/RA2")} format, Encrypted: {isEncrypted}, DataStart: {dataStart})",
 						null, x => $"(offs={x.Offset}, len={x.Length})"), globalFilenames);
 
-					Log.Write("debug", $"[mixstat] {filename}: entries={entries.Count} resolved={index.Count} db={(globalFilenames?.Length ?? 0)}");
+					Log.Write("debug", $"[mixstat] {filename}: entries={entries.Count} resolved={index.Count} db={globalFilenames?.Length ?? 0}");
 				}
 				catch (Exception)
 				{
