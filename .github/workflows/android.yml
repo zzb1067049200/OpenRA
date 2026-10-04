@@ -119,8 +119,36 @@ jobs:
 
       # BuildForAndroid=true switches OpenRA.Game (+ the rest) to the net10.0-android TFM so
       # OperatingSystem.IsAndroid() is fully supported, and the EGL backend is selected at runtime.
+      #
+      # This publishes Debug with portable PDBs on purpose. A Release build strips the line
+      # tables, so a crash on device reports "at OpenRA.Graphics.SpriteCache.LoadReservations"
+      # with no line number -- which is useless when the engine is throwing from a 2000-line
+      # method and you are bisecting data files by hand. The Debug cost is build time and APK
+      # size, both of which we are already paying for in iteration time.
       - name: Build & package APK
-        run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk -p:RunAotCompilation=false
+        run: |
+          dotnet publish OpenRA.Android/OpenRA.Android.csproj \
+            -c Debug -f net10.0-android \
+            -p:BuildForAndroid=true \
+            -p:AndroidPackageFormats=apk \
+            -p:RunAotCompilation=false \
+            -p:DebugType=portable \
+            -p:DebugSymbols=true
+
+      # Fail loudly if the symbols did not make it into the package: a Debug APK without
+      # PDBs is the same useless stack trace as a Release one, and we would not notice
+      # until the next device crash.
+      - name: Verify debug symbols are present
+        run: |
+          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          if [ -z "$APK" ]; then echo "No APK to inspect"; exit 1; fi
+          echo "=== .pdb / .dll entries in the APK ==="
+          unzip -l "$APK" | grep -iE '\.pdb$' | head -10 || true
+          PDB_COUNT=$(unzip -l "$APK" | grep -icE '\.pdb$' || true)
+          echo "pdb count: $PDB_COUNT"
+          if [ "$PDB_COUNT" -eq 0 ]; then
+            echo "::warning::No PDBs in the APK; device stack traces will have no line numbers."
+          fi
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
       # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here so the
