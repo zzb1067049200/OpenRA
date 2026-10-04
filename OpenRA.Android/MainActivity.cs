@@ -238,29 +238,87 @@ namespace OpenRA.Android
 		{
 			try
 			{
+				// Without this, every Directory.Exists below reports false and the whole
+				// method silently does nothing -- which looks identical to "no staged
+				// content" from the outside.
+				if (Build.VERSION.SdkInt >= BuildVersionCodes.R && !global::Android.OS.Environment.IsExternalStorageManager)
+				{
+					DevConsole.Info("Content",
+						"Skipping content sync: all-files access not granted. Grant it, then reopen the app.");
+					return;
+				}
+
 				var downloadPath = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryDownloads)?.AbsolutePath
 					?? "/storage/emulated/0/Download";
 
-				var candidateDirs = new[]
-				{
-					Path.Combine(downloadPath, "d2k"),
-					Path.Combine(downloadPath, "D2K"),
-					"/storage/emulated/0/Download/d2k",
-					"/sdcard/Download/d2k"
-				};
+// YR content packages, restored from a staging folder in Downloads.
+			//
+			// The game keeps its content under getExternalFilesDir(), i.e.
+			// /sdcard/Android/data/<pkg>/ -- a directory Android deletes wholesale on
+			// uninstall, and which sideloading the app tends to treat as a reinstall
+			// rather than an update. RA and C&C recover on their own: they are baked into
+			// the APK and re-extracted by SyncBakedContentFromAssets, whose marker file
+			// disappears along with the directory. Yuri's Revenge is commercial and cannot
+			// ship in the APK, so it has no such fallback -- losing it means re-pushing
+			// ~300MB over adb before the next launch.
+			//
+			// Staging it once under Downloads makes an uninstall survivable. This runs
+			// before the D2K lookup below returns early, because D2K content is usually
+			// absent on a YR install and would otherwise skip this entirely.
+			var yrStagingDirs = new[]
+			{
+				Path.Combine(downloadPath, "yr-content"),
+				"/storage/emulated/0/Download/yr-content",
+				"/sdcard/Download/yr-content",
+			};
 
-				string d2kDir = null;
-				foreach (var dir in candidateDirs)
+			foreach (var staging in yrStagingDirs)
+			{
+				if (!Directory.Exists(staging))
+					continue;
+
+				// Mirror the staging layout: yr-content/Content/yr/x.mix maps onto
+				// Support/Content/yr/x.mix, so a plain relative path does the right thing.
+				var mixes = Directory.GetFiles(staging, "*.mix", SearchOption.AllDirectories);
+				if (mixes.Length == 0)
+					continue;
+
+				var copied = 0;
+				foreach (var mix in mixes)
 				{
-					if (Directory.Exists(dir))
-					{
-						d2kDir = dir;
-						break;
-					}
+					var target = Path.Combine(targetSupportDir, Path.GetRelativePath(staging, mix));
+					if (File.Exists(target) && new FileInfo(mix).Length == new FileInfo(target).Length)
+						continue;
+
+					Directory.CreateDirectory(Path.GetDirectoryName(target));
+					File.Copy(mix, target, true);
+					copied++;
 				}
 
-				if (d2kDir == null)
-					return;
+				DevConsole.Info("Content",
+					$"YR content: {copied} restored, {mixes.Length - copied} already present, from {staging}");
+			}
+
+			var candidateDirs = new[]
+			{
+				Path.Combine(downloadPath, "d2k"),
+				Path.Combine(downloadPath, "D2K"),
+				"/storage/emulated/0/Download/d2k",
+				"/sdcard/Download/d2k"
+			};
+
+			string d2kDir = null;
+			foreach (var dir in candidateDirs)
+			{
+				if (Directory.Exists(dir))
+				{
+					d2kDir = dir;
+					break;
+				}
+			}
+
+			if (d2kDir == null)
+				return;
 
 				var destMusic = Path.Combine(targetSupportDir, "Content", "d2k", "v3", "Music");
 				var destMovies = Path.Combine(targetSupportDir, "Content", "d2k", "v3", "Movies");
@@ -325,49 +383,6 @@ namespace OpenRA.Android
 				// 4. Check Maps subfolder
 				ImportFilesFrom(Path.Combine(d2kDir, "Maps"));
 				ImportFilesFrom(Path.Combine(d2kDir, "maps"));
-
-				// YR content packages, restored from a staging folder in Downloads.
-				//
-				// The game keeps its content under getExternalFilesDir(), which is
-				// /sdcard/Android/data/<pkg>/ -- a directory Android deletes wholesale on
-				// uninstall, and which sideloading the app tends to treat as a reinstall
-				// rather than an update. The RA and C&C content is baked into the APK and
-				// re-extracts automatically (see SyncBakedContentFromAssets), but Yuri's
-				// Revenge is commercial and cannot ship here, so it lives only on the device.
-				//
-				// Losing it means re-pushing hundreds of megabytes over adb before the next
-				// launch. Copying it out to Downloads/<name> once means an uninstall is
-				// recoverable on the next launch instead.
-				var yrStagingDirs = new[]
-				{
-					Path.Combine(downloadPath, "yr-content"),
-					"/storage/emulated/0/Download/yr-content",
-					"/sdcard/Download/yr-content",
-				};
-
-				foreach (var staging in yrStagingDirs)
-				{
-					if (!Directory.Exists(staging))
-						continue;
-
-					var copied = 0;
-					foreach (var mix in Directory.GetFiles(staging, "*.mix", SearchOption.AllDirectories))
-					{
-						// Mirror the staging layout: yr-content/Content/yr/x.mix mirrors
-						// Support/Content/yr/x.mix, so a plain relative path works.
-						var rel = Path.GetRelativePath(staging, mix);
-						var target = Path.Combine(targetSupportDir, rel);
-						if (File.Exists(target) && new FileInfo(mix).Length == new FileInfo(target).Length)
-							continue;
-
-						Directory.CreateDirectory(Path.GetDirectoryName(target));
-						File.Copy(mix, target, true);
-						copied++;
-					}
-
-					if (copied > 0)
-						DevConsole.Info("Content", $"Restored {copied} YR content package(s) from {staging}");
-				}
 
 				if (importedCount > 0)
 				{
