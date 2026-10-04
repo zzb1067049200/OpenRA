@@ -326,6 +326,49 @@ namespace OpenRA.Android
 				ImportFilesFrom(Path.Combine(d2kDir, "Maps"));
 				ImportFilesFrom(Path.Combine(d2kDir, "maps"));
 
+				// YR content packages, restored from a staging folder in Downloads.
+				//
+				// The game keeps its content under getExternalFilesDir(), which is
+				// /sdcard/Android/data/<pkg>/ -- a directory Android deletes wholesale on
+				// uninstall, and which sideloading the app tends to treat as a reinstall
+				// rather than an update. The RA and C&C content is baked into the APK and
+				// re-extracts automatically (see SyncBakedContentFromAssets), but Yuri's
+				// Revenge is commercial and cannot ship here, so it lives only on the device.
+				//
+				// Losing it means re-pushing hundreds of megabytes over adb before the next
+				// launch. Copying it out to Downloads/<name> once means an uninstall is
+				// recoverable on the next launch instead.
+				var yrStagingDirs = new[]
+				{
+					Path.Combine(downloadPath, "yr-content"),
+					"/storage/emulated/0/Download/yr-content",
+					"/sdcard/Download/yr-content",
+				};
+
+				foreach (var staging in yrStagingDirs)
+				{
+					if (!Directory.Exists(staging))
+						continue;
+
+					var copied = 0;
+					foreach (var mix in Directory.GetFiles(staging, "*.mix", SearchOption.AllDirectories))
+					{
+						// Mirror the staging layout: yr-content/Content/yr/x.mix mirrors
+						// Support/Content/yr/x.mix, so a plain relative path works.
+						var rel = Path.GetRelativePath(staging, mix);
+						var target = Path.Combine(targetSupportDir, rel);
+						if (File.Exists(target) && new FileInfo(mix).Length == new FileInfo(target).Length)
+							continue;
+
+						Directory.CreateDirectory(Path.GetDirectoryName(target));
+						File.Copy(mix, target, true);
+						copied++;
+					}
+
+					if (copied > 0)
+						DevConsole.Info("Content", $"Restored {copied} YR content package(s) from {staging}");
+				}
+
 				if (importedCount > 0)
 				{
 					DevConsole.Info("Content", $"Successfully imported {importedCount} files from {d2kDir}");
