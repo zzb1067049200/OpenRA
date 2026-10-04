@@ -541,6 +541,35 @@ namespace OpenRA.Mods.Common.Graphics
 
 			sprites = index.Select(f => allSprites[f]).ToArray();
 			if (shadowStart >= 0)
+			{
+				// ShadowStart addresses the shadow frames of the same sheet at a fixed offset
+				// from Start. The range check above only covers the animation window, so the
+				// shadow window can still leave the loaded range -- in particular when Length
+				// is absent or "*", which makes the animation window run to the end of
+				// whatever sheet the sequence is bound to.
+				//
+				// A negative shadow index means ShadowStart was resolved against a different
+				// sheet than Start (an inherited default leaking through a sequence that
+				// rebinds the image). Those are mod data bugs rather than merely short
+				// sheets, and there should be only a handful, so they get their own log tag.
+				var minShadowIndex = index.Min(f => f - start + shadowStart);
+				var maxShadowIndex = index.Max(f => f - start + shadowStart);
+				if (minShadowIndex < 0 || maxShadowIndex >= allSprites.Length)
+				{
+					if (minShadowIndex < 0)
+						Log.Write("debug",
+							$"[shadowmismatch] {image}.{Name}: ShadowStart {shadowStart} resolves before frame 0 " +
+							$"(Start: {start}, Length: {length?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "*"}, " +
+							$"sheet has {allSprites.Length} frames). ShadowStart most likely refers to a " +
+							"different sprite sheet than Start.");
+
+					// Render the animation without its shadow rather than aborting the whole
+					// map load over a cosmetic frame.
+					shadowStart = -1;
+				}
+			}
+
+			if (shadowStart >= 0)
 				shadowSprites = index.Select(f => allSprites[f - start + shadowStart]).ToArray();
 
 			bounds = sprites.Concat(shadowSprites ?? Enumerable.Empty<Sprite>()).Select(OffsetSpriteBounds).Union();
