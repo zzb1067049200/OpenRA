@@ -133,7 +133,18 @@ namespace OpenRA.Graphics
 		}
 
 		public void LoadReservations(ModData modData)
-		{			var pendingResolve = new List<(
+		{
+			// Stage marker. A NullReferenceException here has no line number even in a Debug
+			// build, because the .NET Android runtime resolves symbols against the assemblies
+			// inside libassembly-store.so and never sees a standalone OpenRA.Game.dll to match
+			// assemblies/OpenRA.Game.pdb to (see tools/yr-port/inject_pdb_into_apk.py). Rather
+			// than keep guessing which of the dozen dereferences in this method is at fault,
+			// name the stage before it runs and report the last one reached on the way out.
+			var 			stage = "enter";
+			try
+			{
+			Log.Write("debug", $"[nre] LoadReservations: {spriteReservations.Count} reservation(s) across {reservationsByFilename.Count} file(s).");
+			var pendingResolve = new List<(
 				string Filename,
 				int FrameIndex,
 				bool Premultiplied,
@@ -143,7 +154,9 @@ namespace OpenRA.Graphics
 			foreach (var (filename, tokens) in reservationsByFilename)
 			{
 				modData.LoadScreen?.Display();
+				stage = $"GetFrames({filename})";
 				var loadedFrames = GetFrames(fileSystem, filename, loaders);
+				stage = $"tokens({filename}={loadedFrames?.Length.ToString() ?? "null"})";
 				foreach (var token in tokens)
 				{
 					if (!spriteReservations.TryGetValue(token, out var rs))
@@ -193,10 +206,13 @@ namespace OpenRA.Graphics
 					: Enumerable.Range(0, loadedFrames.Length);
 				foreach (var i in frames)
 					{
+						stage = $"readFrame({filename}#{i})";
 						var frame = loadedFrames[i];
+						stage = $"adjustFrame({filename}#{i})";
 						if (rs.AdjustFrame != null)
 							frame = rs.AdjustFrame(frame, j++, total);
 
+						stage = $"nullCheck({filename}#{i})";
 						if (frame == null)
 						{
 							Log.Write("debug",
@@ -229,10 +245,12 @@ namespace OpenRA.Graphics
 
 			// When the sheet builder is adding sprites, it reserves height for the tallest sprite seen along the row.
 			// We can achieve better sheet packing by keeping sprites with similar heights together.
+			stage = "orderByHeight";
 			var orderedPendingResolve = pendingResolve
 				.Where(x => x.Frame != null)
 				.OrderBy(x => x.Frame.Size.Height);
 
+			stage = "buildCache";
 			var spriteCache = new Dictionary<(
 				string Filename,
 				int FrameIndex,
@@ -241,6 +259,7 @@ namespace OpenRA.Graphics
 				Sprite>(pendingResolve.Count);
 			foreach (var (filename, frameIndex, premultiplied, adjustFrame, frame, spritesForToken) in orderedPendingResolve)
 			{
+				stage = $"isUsable({filename}#{frameIndex})";
 				// The sheet builder assumes a frame it can measure, type and blit. A partially
 				// ported mod can still produce frames that satisfy the earlier checks but blow
 				// up inside here, and at that point the stack trace no longer says which
@@ -264,6 +283,7 @@ namespace OpenRA.Graphics
 
 				// Premultiplied and non-premultiplied sprites must be cached separately
 				// to cover the case where the same image is requested in both versions.
+				stage = $"sheetAdd({filename}#{frameIndex})";
 				spritesForToken[frameIndex] = spriteCache.GetOrAdd(
 					(filename, frameIndex, premultiplied, adjustFrame),
 					_ =>
@@ -275,8 +295,15 @@ namespace OpenRA.Graphics
 				modData.LoadScreen?.Display();
 			}
 
+			stage = "releaseBuffers";
 			foreach (var sb in SheetBuilders.Values)
 				sb.Current?.ReleaseBuffer();
+			}
+			catch (Exception e)
+			{
+				Log.Write("error", $"[nre] LoadReservations failed during stage: {stage}. {e}");
+				throw;
+			}
 		}
 
 		public Sprite[] ResolveSprites(int token)
