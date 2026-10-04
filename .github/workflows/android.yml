@@ -208,8 +208,15 @@ jobs:
         env:
           KEYSTORE_B64: ${{ secrets.OPENRA_KEYSTORE_B64 }}
         run: |
-          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
-          if [ -z "$APK" ]; then echo "No APK to sign"; exit 1; fi
+          # Must be the same file the inject step modified and the collect step uploads.
+          # This one used `find -print -quit` and signed
+          # OpenRA.Android/obj/Debug/android/bin/com.openra.android.apk while the artifact
+          # came from bin/publish/...-Signed.apk, so the shipped APK had never been
+          # symbol-injected (0 PDBs) and the signature check passed anyway because both
+          # copies came from the same build. Route it through pick_apk.sh like the others.
+          APK=$(bash tools/yr-port/pick_apk.sh) || APK=""
+          if [ -z "$APK" ]; then echo "::error::No APK to sign"; exit 1; fi
+          echo "=== signing $APK ==="
           KEYSTORE="$RUNNER_TEMP/openra-debug.keystore"
           if [ -n "$KEYSTORE_B64" ]; then
             echo "Using the repository signing key (stable across runs)."
@@ -248,6 +255,16 @@ jobs:
             cp "$APK" "$GITHUB_WORKSPACE/apkout/openra-android.apk"
             echo "COPIED $APK -> apkout/openra-android.apk"
             ls -la "$GITHUB_WORKSPACE/apkout"
+
+            # The shipped artifact must be the one that was symbol-injected. A step that
+            # signs or copies a different file still produces a valid, installable APK with
+            # the right signature, so only this assertion catches it.
+            PDB_COUNT=$(unzip -l "$GITHUB_WORKSPACE/apkout/openra-android.apk" | grep -cE '\.pdb$' || true)
+            echo "PDB entries in the artifact: $PDB_COUNT"
+            if [ "$PDB_COUNT" -eq 0 ]; then
+              echo "::error::The artifact has no PDBs, so a device crash would report no line numbers. Check that Sign/Collect pick the same APK that Inject modified."
+              exit 1
+            fi
           else
             echo "NO APK FOUND"
           fi
