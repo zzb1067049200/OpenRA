@@ -94,33 +94,56 @@ namespace OpenRA.Graphics
 				var loadedFrames = GetFrames(fileSystem, filename, loaders);
 				foreach (var token in tokens)
 				{
-					if (spriteReservations.TryGetValue(token, out var rs))
+					if (!spriteReservations.TryGetValue(token, out var rs))
+						continue;
+
+					if (loadedFrames == null)
 					{
-						if (loadedFrames != null)
-						{
-							var resolved = new Sprite[loadedFrames.Length];
-							resolvedSprites[token] = resolved;
-							if (rs.Frames != null && rs.Frames.Any(i => i >= loadedFrames.Length))
-								throw new InvalidOperationException($"{rs.Location}: {filename} does not contain frames: " +
-									string.Join(',', rs.Frames.Where(f => f >= loadedFrames.Length)));
+						resolvedSprites[token] = null;
+						missingFiles[token] = (filename, rs.Location);
+						continue;
+					}
 
-							var frames = rs.Frames != null ? rs.Frames : Enumerable.Range(0, loadedFrames.Length);
-							var total = rs.Frames != null ? rs.Frames.Length : loadedFrames.Length;
+					// A reservation may ask for frames the sheet does not have: mod data
+					// ported from the original games carries frame numbers for sprites
+					// that were re-cut, and a mod that is only partially ported will
+					// request far more frames than exist. That is a data bug, but aborting
+					// the whole map load over one cosmetic sprite is worse than drawing
+					// what is there. Clamp instead of throwing, and say so.
+					//
+					// Frames is an ImmutableArray, so "no explicit list" is the default
+					// value: Length == 0 rather than a null reference.
+					var requested = rs.Frames;
+					if (requested.Length > 0 && requested.Any(i => i < 0 || i >= loadedFrames.Length))
+					{
+						Log.Write("debug",
+							$"[frameclamp] {rs.Location}: {filename} has {loadedFrames.Length} frame(s) but the sequence requests {requested.Length} " +
+							$"(out of range: {string.Join(',', requested.Where(i => i < 0 || i >= loadedFrames.Length))}). Clamping to what exists.");
 
-							var j = 0;
-							foreach (var i in frames)
-							{
-								var frame = loadedFrames[i];
-								if (rs.AdjustFrame != null)
-									frame = rs.AdjustFrame(frame, j++, total);
-								pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
-							}
-						}
-						else
+						requested = requested.Where(i => i >= 0 && i < loadedFrames.Length).ToImmutableArray();
+						if (requested.Length == 0)
 						{
 							resolvedSprites[token] = null;
 							missingFiles[token] = (filename, rs.Location);
+							continue;
 						}
+					}
+
+					var resolved = new Sprite[loadedFrames.Length];
+					resolvedSprites[token] = resolved;
+
+					var frames = requested.Length > 0
+						? (IEnumerable<int>)requested
+						: Enumerable.Range(0, loadedFrames.Length);
+					var total = requested.Length > 0 ? requested.Length : loadedFrames.Length;
+
+					var j = 0;
+					foreach (var i in frames)
+					{
+						var frame = loadedFrames[i];
+						if (rs.AdjustFrame != null)
+							frame = rs.AdjustFrame(frame, j++, total);
+						pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
 					}
 				}
 			}
