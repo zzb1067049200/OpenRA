@@ -32,6 +32,26 @@
          managed stack traces useful without swapping in the debug runtime. -->
     <AndroidIncludeDebugSymbols>false</AndroidIncludeDebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
+
+    <!-- MUST be true in every configuration, not just Release.
+         The SDK only defaults this on for Release:
+           Microsoft.Android.Sdk.DefaultProperties.targets:85
+           <EmbedAssembliesIntoApk Condition="...">true</EmbedAssembliesIntoApk>
+           inside <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+
+         When it is off, the managed assemblies are not compiled into
+         lib/<abi>/libassembly-store.so, and the runtime aborts before MainActivity runs:
+
+           F monodroid: No assemblies (or assembly blobs) were found in the application
+                        APK file(s) or on the filesystem
+           F monodroid: Abort at monodroid-glue.cc:757 (create_domain)
+
+         This cost two device round trips, because the CI build is -c Debug (for portable
+         PDBs) and therefore silently lost the assembly store. Portable PDBs come from
+         DebugType/DebugSymbols, not from the configuration, so pinning this property lets
+         us keep the line numbers and the assembly store at the same time. The APK is
+         ~50 MB smaller without it, which is how the omission was noticed. -->
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
 
   <!-- Local Windows build override. The git-bash shell rewrites D:\... into D://... when
