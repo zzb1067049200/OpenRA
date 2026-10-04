@@ -151,12 +151,18 @@ namespace OpenRA.Graphics
 				AdjustFrame AdjustFrame,
 				ISpriteFrame Frame,
 				Sprite[] SpritesForToken)>();
+			var fileIndex = 0;
 			foreach (var (filename, tokens) in reservationsByFilename)
 			{
 				modData.LoadScreen?.Display();
 				stage = $"GetFrames({filename})";
 				var loadedFrames = GetFrames(fileSystem, filename, loaders);
 				stage = $"tokens({filename}={loadedFrames?.Length.ToString() ?? "null"})";
+
+				// One line per file: 497 of them, which is fine, and it names the exact file the
+				// throw came from. The stage string alone only narrows it to a phase.
+				Log.Write("debug", $"[nre] file #{fileIndex++}: {filename} -> {loadedFrames?.Length.ToString() ?? "null"} frame(s), {tokens.Count} token(s)");
+
 				foreach (var token in tokens)
 				{
 					if (!spriteReservations.TryGetValue(token, out var rs))
@@ -246,6 +252,7 @@ namespace OpenRA.Graphics
 			// When the sheet builder is adding sprites, it reserves height for the tallest sprite seen along the row.
 			// We can achieve better sheet packing by keeping sprites with similar heights together.
 			stage = "orderByHeight";
+			Log.Write("debug", $"[nre] {pendingResolve.Count} pending sprite(s) collected; ordering by height.");
 			var orderedPendingResolve = pendingResolve
 				.Where(x => x.Frame != null)
 				.OrderBy(x => x.Frame.Size.Height);
@@ -298,10 +305,18 @@ namespace OpenRA.Graphics
 			stage = "releaseBuffers";
 			foreach (var sb in SheetBuilders.Values)
 				sb.Current?.ReleaseBuffer();
+
+			stage = "done";
+			Log.Write("debug", $"[nre] stage reached: {stage}");
 			}
 			catch (Exception e)
 			{
-				Log.Write("error", $"[nre] LoadReservations failed during stage: {stage}. {e}");
+				// Fallback path. The per-stage debug lines above are the primary signal: a
+				// stage that is entered but never "reached" is the one that threw. This catch
+				// only fires if the throw happens outside a logged region, so keep the two
+				// independent -- a green run with no [nre] line at all means the exception
+				// did not come from inside this try block.
+				Log.Write("error", $"[nre] LoadReservations threw outside a logged stage: {stage}. {e.GetType().Name}: {e.Message}");
 				throw;
 			}
 		}
