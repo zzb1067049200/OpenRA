@@ -152,9 +152,12 @@ jobs:
       - name: Inject debug symbols into APK
         run: |
           set -eu
-          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          # Pick the LARGEST apk, not the first one found; see tools/yr-port/pick_apk.sh for
+          # why `find -print -quit` reliably selects the wrong (partial) package here.
+          APK=$(bash tools/yr-port/pick_apk.sh) || APK=""
           if [ -z "$APK" ]; then echo "::error::No APK to inspect"; exit 1; fi
-          echo "APK: $APK"
+          echo "APK (largest): $APK ($(stat -c%s "$APK") bytes)"
+
           echo "=== PDBs in the publish output ==="
           find bin obj -name '*.pdb' -type f 2>/dev/null | head -20 || true
           PDB_TOTAL=$(find bin obj -name '*.pdb' -type f 2>/dev/null | wc -l)
@@ -174,7 +177,11 @@ jobs:
           # libmono-android.debug.so makes the runtime abort at startup with
           # "No assemblies found in ... .__override__/... Assuming this is part of Fast
           # Deployment", before any managed code runs and with no OpenRA log line.
-          if unzip -l "$APK" | grep -q 'libmono-android.debug.so'; then
+          #
+          # `grep -c` not `grep -q`: under `set -o pipefail` a `grep -q` that matches exits
+          # early, unzip takes SIGPIPE, and the pipeline reports 141 -- a successful check
+          # would look like a failure and kill the step.
+          if [ "$(unzip -l "$APK" | grep -c 'libmono-android.debug.so' || true)" -ne 0 ]; then
             echo "::error::APK contains libmono-android.debug.so; the app will abort at startup on a sideloaded install. Keep AndroidIncludeDebugSymbols=false and inject the PDBs instead."
             exit 1
           fi
@@ -223,14 +230,19 @@ jobs:
           echo "=== signed: $APK ==="
           java -jar "$APKSIGNER_JAR" verify --verbose --print-certs "$APK" | head -12
 
+      # Every step that needs "the APK" must select the largest one. See the comment in
+      # "Inject debug symbols into APK": a publish leaves a partial obj/ package behind and
+      # it sorts first alphabetically, so `find -print -quit` picks the wrong file. The
+      # selection is centralised in pick_apk.sh so the three consumers cannot drift apart.
       - name: Collect APK (robust)
         if: always()
         run: |
+          set -eu
           echo "=== find any *.apk under workspace ==="
-          find . -type f -name '*.apk' -print 2>/dev/null || true
+          find . -type f -name '*.apk' -exec ls -la {} \; 2>/dev/null || true
           echo "=== find any *.aab (backup) ==="
           find . -type f -name '*.aab' -print 2>/dev/null || true
-          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          APK=$(bash tools/yr-port/pick_apk.sh) || APK=""
           if [ -n "$APK" ]; then
             mkdir -p "$GITHUB_WORKSPACE/apkout"
             cp "$APK" "$GITHUB_WORKSPACE/apkout/openra-android.apk"
@@ -243,12 +255,16 @@ jobs:
       - name: Verify native libraries in APK
         if: always()
         run: |
-          APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
+          APK=$(bash tools/yr-port/pick_apk.sh) || APK=""
           if [ -n "$APK" ]; then
             echo "=== Native libraries in $APK ==="
             unzip -l "$APK" | grep -E "\.so$" || echo "WARNING: No native libraries found in APK!"
-            for lib in libfreetype6.so liblua51.so libsoft_oal.so; do
-              if unzip -l "$APK" | grep -q "$lib"; then echo "  OK: $lib found"; else echo "  MISSING: $lib NOT found in APK!"; fi
+            for lib in libfreetype6.so liblua51.so libsoft_oal.so libassembly-store.so libmonodroid.so; do
+              if [ "$(unzip -l "$APK" | grep -c "$lib" || true)" -gt 0 ]; then
+                echo "  OK: $lib found"
+              else
+                echo "  MISSING: $lib NOT found in APK!"
+              fi
             done
           fi
 
