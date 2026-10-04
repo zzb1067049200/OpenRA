@@ -26,6 +26,21 @@
     <AndroidPackageFormats>apk</AndroidPackageFormats>
   </PropertyGroup>
 
+  <!-- Local Windows build override. The git-bash shell rewrites D:\... into D://... when
+       exporting JAVA_HOME/ANDROID_HOME, so dotnet's own JDK/SDK probes fail with
+       "Could not find required file `jar`" / XA5300 / MSB4181. Pinning the paths here
+       (only when they exist on this machine) sidesteps the environment entirely; CI sets
+       its own JAVA_HOME/ANDROID_HOME and is unaffected because these dirs do not exist there.
+
+       KNOWN ISSUE (2026-10-04): this override does NOT work. Even with the paths pinned here,
+       the build still reports XA5300 + "Value cannot be null (Parameter 'path1')" + XA0034 and
+       then MSB4181 ValidateJavaVersion=false. Verified that Xamarin.Android.Tooling.targets
+       line 61/63 genuinely reads $(AndroidSdkDirectory)/$(JavaSdkDirectory), so the PropertyGroup
+       below is not being evaluated before the tooling targets consume it. Exports with
+       forward-slash JAVA_HOME/ANDROID_HOME failed identically. Local Android builds are
+       currently blocked by the sandbox's dotnet-block; CI (ubuntu-latest) is the working path.
+       Kept for reference until the real evaluation-order bug is understood. -->
+
   <ItemGroup>
     <!-- EGL/GLES direct-render backend (no SDL2). Drop OpenRA.Platforms.Default — it pulls
          SDL2 which has no Android native lib and is unused on this path. -->

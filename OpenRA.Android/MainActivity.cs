@@ -522,10 +522,12 @@ namespace OpenRA.Android
 					global::Android.Util.Log.Error(Tag, $"OpenRA crashed: {e}");
 					CrashHelper.Handle(this, e);
 				}
-				finally
-				{
-					engineStarted = false;
-				}
+
+				// Deliberately do NOT reset engineStarted here. InitializeAndRun has already
+				// touched engine-wide static state (Platform.EngineDir, Game.Mod, the mod
+				// filesystem). Clearing the flag let the user retry, but every retry then died
+				// with "Attempted to override engine directory after it has already been
+				// accessed", masking the real crash. Latch it: one attempt per app launch.
 			})
 			{ Name = "OpenRA Main", IsBackground = false }.Start();
 		}
@@ -540,13 +542,17 @@ namespace OpenRA.Android
 			// already been extracted. The second condition makes an app update that added a new
 			// mod (e.g. yr) re-extract, instead of silently leaving the new mod missing.
 			if (File.Exists(marker) && BundledModsExtracted(modsRoot))
+			{
+				LogEngineDbStatus(dest);
 				return dest;
+			}
 
 			Directory.CreateDirectory(dest);
 			CopyAssetDir("glsl", Path.Combine(dest, "glsl"));
 			CopyAssetDir("mods", modsRoot);
 			CopyAssetFile("VERSION", Path.Combine(dest, "VERSION"));
 			CopyAssetFile("global mix database.dat", Path.Combine(dest, "global mix database.dat"));
+			LogEngineDbStatus(dest);
 
 			// The map directories are excluded from the APK assets (maps are large and not needed
 			// for the menu), but MapCache.LoadMaps expects each mod's maps/ folder to exist. Create
@@ -580,6 +586,26 @@ namespace OpenRA.Android
 				return true;
 			}
 			catch { return false; }
+		}
+
+		void LogEngineDbStatus(string dest)
+		{
+			try
+			{
+				var db = Path.Combine(dest, "global mix database.dat");
+				global::Android.Util.Log.Info(Tag, $"[dbcheck] engine db exists={File.Exists(db)} size={(File.Exists(db) ? new FileInfo(db).Length : -1)}");
+				var yrdb = Path.Combine(dest, "mods", "yr", "global mix database.dat");
+				global::Android.Util.Log.Info(Tag, $"[dbcheck] yr db exists={File.Exists(yrdb)} size={(File.Exists(yrdb) ? new FileInfo(yrdb).Length : -1)}");
+				var supportContent = Path.Combine(GetExternalFilesDir(null).AbsolutePath, "Support", "Content", "ra2");
+				global::Android.Util.Log.Info(Tag, $"[dbcheck] external Content/ra2 exists={Directory.Exists(supportContent)}");
+				if (Directory.Exists(supportContent))
+					foreach (var f in Directory.GetFiles(supportContent))
+						global::Android.Util.Log.Info(Tag, $"[dbcheck]   {Path.GetFileName(f)} {new FileInfo(f).Length}");
+			}
+			catch (Exception ex)
+			{
+				global::Android.Util.Log.Info(Tag, $"[dbcheck] error: {ex.GetType().Name}: {ex.Message}");
+			}
 		}
 
 		void CopyAssetDir(string assetPath, string destDir)
@@ -617,9 +643,9 @@ namespace OpenRA.Android
 				using var output = File.Create(destFile);
 				input.CopyTo(output);
 			}
-			catch (Java.IO.IOException)
+			catch (Exception ex)
 			{
-				// Some asset entries (e.g. empty dirs) may fail; skip.
+				global::Android.Util.Log.Error(Tag, $"CopyAssetFile FAILED: {assetPath}: {ex.GetType().Name}: {ex.Message}");
 			}
 		}
 

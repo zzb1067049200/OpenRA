@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OpenRA.FileSystem;
 using OpenRA.Primitives;
 
@@ -106,6 +107,15 @@ namespace OpenRA.Graphics
 		public void LoadSprites()
 		{
 			SpriteCache.LoadReservations(modData);
+
+			// Surface every sprite file the mod asked for but the filesystem could not produce,
+			// plus the total reservation count. A silent empty reservation set is otherwise
+			// indistinguishable from "the mod loaded fine".
+			var missing = SpriteCache.MissingFiles.ToArray();
+			Log.Write("debug", $"[sprites] reservations resolved; missing={missing.Length}");
+			foreach (var (filename, location) in missing.Take(200))
+				Log.Write("debug", $"[sprites] MISSING {filename}  (referenced at {location.Filename}:{location.Line})");
+
 			foreach (var sequences in images.Values)
 				foreach (var sequence in sequences)
 					sequence.Value.ResolveSprites(SpriteCache);

@@ -524,7 +524,15 @@ namespace OpenRA.Mods.Common.Graphics
 			}
 
 			if (index.Length == 0)
+			{
+				// Diagnostic: distinguish "file missing" from "file parsed to zero usable frames".
+				// allSprites.Length is the decisive number -- 0 means the loader returned nothing.
+				Log.Write("debug",
+					$"[seqfail] {image}.{Name}: index.Length=0 allSprites={allSprites.Length} " +
+					$"start={start} length={(length?.ToString() ?? "*")} facings={facings} " +
+					$"nulls={allSprites.Count(s => s == null)}");
 				throw new YamlException($"Sequence {image}.{Name} does not define any frames.");
+			}
 
 			var minIndex = index.Min();
 			var maxIndex = index.Max();

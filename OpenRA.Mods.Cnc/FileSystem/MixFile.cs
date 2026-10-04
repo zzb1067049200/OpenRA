@@ -56,6 +56,8 @@ namespace OpenRA.Mods.Cnc.FileSystem
 					index = ParseIndex(entries.ToDictionaryWithConflictLog(x => x.Hash,
 						$"{filename} ({(isCncMix ? "C&C" : "RA/TS/RA2")} format, Encrypted: {isEncrypted}, DataStart: {dataStart})",
 						null, x => $"(offs={x.Offset}, len={x.Length})"), globalFilenames);
+
+					Log.Write("debug", $"[mixstat] {filename}: entries={entries.Count} resolved={index.Count} db={(globalFilenames?.Length ?? 0)}");
 				}
 				catch (Exception)
 				{
@@ -237,11 +239,28 @@ namespace OpenRA.Mods.Cnc.FileSystem
 			}
 
 			// Load the global mix database
-			if (globalFilenames == null && context.TryOpen("global mix database.dat", out var mixDatabase))
-				using (var db = new XccGlobalDatabase(mixDatabase))
-					globalFilenames = db.Entries.ToHashSet().ToArray();
+			if (globalFilenames == null)
+			{
+				var dbFound = context.TryOpen("global mix database.dat", out var mixDatabase);
+				Log.Write("debug", $"[mixdb] first .mix encountered: {filename}: database TryOpen={dbFound}");
+				if (dbFound)
+					using (var db = new XccGlobalDatabase(mixDatabase))
+						globalFilenames = db.Entries.ToHashSet().ToArray();
+
+				Log.Write("debug", $"[mixdb] globalFilenames count = {globalFilenames?.Length ?? 0}");
+			}
 
 			package = new MixFile(s, filename, globalFilenames ?? []);
+
+			// Runtime probe: does this package itself expose the critter death frames?
+			// They are only reachable when the global/local database resolves the hash.
+			if (package is MixFile mf)
+			{
+				foreach (var probe in new[] { "nukedie.shp", "josh.shp" })
+					if (mf.Contains(probe))
+						Log.Write("debug", $"[mixprobe] {filename} CONTAINS {probe}");
+			}
+
 			return true;
 		}
 	}

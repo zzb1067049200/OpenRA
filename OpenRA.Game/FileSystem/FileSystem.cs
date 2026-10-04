@@ -108,9 +108,18 @@ namespace OpenRA.FileSystem
 				}
 
 				Mount(package, explicitName);
+				Log.Write("debug", $"[fsmount] OK {name} optional={optional}");
 			}
-			catch when (optional)
+			catch (Exception e) when (optional)
 			{
+				// Log.Write, not Console.WriteLine: on Android stdout is not routed to logcat,
+				// so Console diagnostics silently vanish exactly when they are most needed.
+				Log.Write("debug", $"[fsmount] FAILED(optional) {name}: {e.GetType().Name}: {e.Message}");
+			}
+			catch (Exception e)
+			{
+				Log.Write("debug", $"[fsmount] FAILED(required) {name}: {e.GetType().Name}: {e.Message}");
+				throw;
 			}
 		}
 
