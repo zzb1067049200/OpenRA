@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using OpenRA.Primitives;
 using OpenRA.Traits;
@@ -52,13 +53,44 @@ namespace OpenRA.Graphics
 				if (p.Palette != null)
 					pals[p.Palette] = p;
 
-			var paletteCache = new Cache<string, ImmutablePalette>(p => pals[p].ReadPalette(modData.DefaultFileSystem));
+			// Missing cursor content is recoverable: an absent sheet or palette file makes the
+			// cursor unusable, not the mod unloadable. Return null and let the caller skip it.
+			ImmutablePalette LoadPalette(string name)
+			{
+				if (!pals.TryGetValue(name, out var provider))
+					return null;
+
+				try
+				{
+					return provider.ReadPalette(modData.DefaultFileSystem);
+				}
+				catch (FileNotFoundException)
+				{
+					return null;
+				}
+			}
+
+			var paletteCache = new Cache<string, ImmutablePalette>(LoadPalette);
 			var frameCache = new FrameCache(modData.DefaultFileSystem, modData.SpriteLoaders);
 
 			// Sort the cursors for better packing onto the sheet.
 			foreach (var kv in modData.Cursors)
 			{
-				var cursorSprites = frameCache[kv.Value.Src];
+				// Some mods reference cursor sprites from content packages that are declared
+				// optional in the manifest and may be absent (e.g. Westwood's local.mix, which
+				// holds mouse.sha). A missing sheet must not abort mod initialization: skip the
+				// cursors that depend on it and let the game fall back to the system cursor.
+				ISpriteFrame[] cursorSprites;
+				try
+				{
+					cursorSprites = frameCache[kv.Value.Src];
+				}
+				catch (FileNotFoundException)
+				{
+					Log.Write("debug", $"[cursor] skipping {kv.Key}: sprite file not found: {kv.Value.Src}");
+					continue;
+				}
+
 				var length = kv.Value.Length ?? cursorSprites.Length - kv.Value.Start;
 
 				if (kv.Value.Start > cursorSprites.Length)
@@ -68,7 +100,13 @@ namespace OpenRA.Graphics
 					throw new YamlException($"Cursor {kv.Value.Name}: {nameof(kv.Value.Length)} is greater than the length of the sprite sequence.");
 
 				var frames = cursorSprites.Skip(kv.Value.Start).Take(length).ToArray();
+
 				var palette = !string.IsNullOrEmpty(kv.Value.Palette) ? paletteCache[kv.Value.Palette] : null;
+				if (!string.IsNullOrEmpty(kv.Value.Palette) && palette == null)
+				{
+					Log.Write("debug", $"[cursor] skipping {kv.Key}: palette not available: {kv.Value.Palette}");
+					continue;
+				}
 
 				var c = new Cursor
 				{
