@@ -24,13 +24,13 @@
     <TargetSdkVersion>36</TargetSdkVersion>
     <!-- Release default only emits .aab; force .apk so CI can sideload-test. -->
     <AndroidPackageFormats>apk</AndroidPackageFormats>
-    <!-- Without this the trimmer sets TrimmerRemoveSymbols=true and the PDBs never reach
-         the package, so a Debug build reports stack traces with no line numbers, which is
-         the same useless trace as a Release build. The property name is
-         AndroidIncludeDebugSymbols; there is no property called AndroidIncludeSymbols, and
-         passing that one is silently ignored. AndroidManagedSymbols only defaults to true
-         for Release, so set it here too. -->
-    <AndroidIncludeDebugSymbols>true</AndroidIncludeDebugSymbols>
+    <!-- Deliberately OFF. Setting this to true ships libmono-android.debug.so, and that
+         runtime aborts at startup on a normally sideloaded APK: it looks for assemblies
+         under files/.__override__/arm64-v8a, finds none, assumes a Fast Deployment bundle
+         and kills the process before MainActivity runs. Debug symbols are injected into
+         the package by tools/yr-port/inject_pdb_into_apk.py instead, which keeps the
+         managed stack traces useful without swapping in the debug runtime. -->
+    <AndroidIncludeDebugSymbols>false</AndroidIncludeDebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
   </PropertyGroup>
 
