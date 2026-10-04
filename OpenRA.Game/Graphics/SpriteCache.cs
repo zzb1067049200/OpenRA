@@ -129,22 +129,44 @@ namespace OpenRA.Graphics
 						}
 					}
 
-					var resolved = new Sprite[loadedFrames.Length];
-					resolvedSprites[token] = resolved;
-
-					var frames = requested.Length > 0
-						? (IEnumerable<int>)requested
-						: Enumerable.Range(0, loadedFrames.Length);
-					var total = requested.Length > 0 ? requested.Length : loadedFrames.Length;
-
-					var j = 0;
-					foreach (var i in frames)
+					// A loader can also hand back a null frame for a slot it could not decode.
+					// The rest of this method assumes a non-null frame (it reads Frame.Size and
+					// Frame.Type), so drop those here rather than throwing deep in the sheet
+					// builder, where the stack trace no longer points at the bad sprite.
+				var usable = new List<(int Index, ISpriteFrame Frame)>();
+				var j = 0;
+				var total = requested.Length > 0 ? requested.Length : loadedFrames.Length;
+				var frames = requested.Length > 0
+					? (IEnumerable<int>)requested
+					: Enumerable.Range(0, loadedFrames.Length);
+				foreach (var i in frames)
 					{
 						var frame = loadedFrames[i];
 						if (rs.AdjustFrame != null)
 							frame = rs.AdjustFrame(frame, j++, total);
-						pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
+
+						if (frame == null)
+						{
+							Log.Write("debug",
+								$"[nullframe] {rs.Location}: {filename} frame {i} decoded to null. Skipping it.");
+							continue;
+						}
+
+						usable.Add((Index: i, Frame: frame));
 					}
+
+					if (usable.Count == 0)
+					{
+						resolvedSprites[token] = null;
+						missingFiles[token] = (filename, rs.Location);
+						continue;
+					}
+
+					var resolved = new Sprite[loadedFrames.Length];
+					resolvedSprites[token] = resolved;
+
+					foreach (var (i, frame) in usable)
+						pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
 				}
 			}
 
@@ -155,7 +177,9 @@ namespace OpenRA.Graphics
 
 			// When the sheet builder is adding sprites, it reserves height for the tallest sprite seen along the row.
 			// We can achieve better sheet packing by keeping sprites with similar heights together.
-			var orderedPendingResolve = pendingResolve.OrderBy(x => x.Frame.Size.Height);
+			var orderedPendingResolve = pendingResolve
+				.Where(x => x.Frame != null)
+				.OrderBy(x => x.Frame.Size.Height);
 
 			var spriteCache = new Dictionary<(
 				string Filename,
