@@ -25,10 +25,11 @@
     <!-- Release default only emits .aab; force .apk so CI can sideload-test. -->
     <AndroidPackageFormats>apk</AndroidPackageFormats>
     <!-- Without this the trimmer sets TrimmerRemoveSymbols=true and the PDBs never reach
-         the package, so a Debug build reports stack traces with no line numbers -- the same
-         useless trace as a Release build. The property name is AndroidIncludeDebugSymbols;
-         there is no AndroidIncludeSymbols, and passing that is silently ignored.
-         AndroidManagedSymbols only defaults to true for Release, so set it here too. -->
+         the package, so a Debug build reports stack traces with no line numbers, which is
+         the same useless trace as a Release build. The property name is
+         AndroidIncludeDebugSymbols; there is no property called AndroidIncludeSymbols, and
+         passing that one is silently ignored. AndroidManagedSymbols only defaults to true
+         for Release, so set it here too. -->
     <AndroidIncludeDebugSymbols>true</AndroidIncludeDebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
   </PropertyGroup>
