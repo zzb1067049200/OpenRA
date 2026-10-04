@@ -134,184 +134,200 @@ namespace OpenRA.Graphics
 
 		public void LoadReservations(ModData modData)
 		{
-			// Stage marker. A NullReferenceException here has no line number even in a Debug
-			// build, because the .NET Android runtime resolves symbols against the assemblies
-			// inside libassembly-store.so and never sees a standalone OpenRA.Game.dll to match
-			// assemblies/OpenRA.Game.pdb to (see tools/yr-port/inject_pdb_into_apk.py). Rather
-			// than keep guessing which of the dozen dereferences in this method is at fault,
-			// name the stage before it runs and report the last one reached on the way out.
-			var 			stage = "enter";
+			// Stage marker. A NullReferenceException here carries no line number even in a
+			// Debug build, because the .NET Android runtime resolves symbols against the
+			// assemblies inside libassembly-store.so and never sees a standalone
+			// OpenRA.Game.dll to match assemblies/OpenRA.Game.pdb to (see
+			// tools/yr-port/inject_pdb_into_apk.py). Naming the stage before each phase and
+			// reporting the last one reached is what turns "NRE somewhere in a 200-line
+			// method" into a one-line answer. It cost nothing to keep.
+			var stage = "enter";
 			try
 			{
-			Log.Write("debug", $"[nre] LoadReservations: {spriteReservations.Count} reservation(s) across {reservationsByFilename.Count} file(s).");
-			var pendingResolve = new List<(
-				string Filename,
-				int FrameIndex,
-				bool Premultiplied,
-				AdjustFrame AdjustFrame,
-				ISpriteFrame Frame,
-				Sprite[] SpritesForToken)>();
-			var fileIndex = 0;
-			foreach (var (filename, tokens) in reservationsByFilename)
-			{
-				modData.LoadScreen?.Display();
-				stage = $"GetFrames({filename})";
-				var loadedFrames = GetFrames(fileSystem, filename, loaders);
-				stage = $"tokens({filename}={loadedFrames?.Length.ToString() ?? "null"})";
+				Log.Write("debug", $"[sprite] LoadReservations: {spriteReservations.Count} reservation(s) across {reservationsByFilename.Count} file(s).");
 
-				// One line per file: 497 of them, which is fine, and it names the exact file the
-				// throw came from. The stage string alone only narrows it to a phase.
-				Log.Write("debug", $"[nre] file #{fileIndex++}: {filename} -> {loadedFrames?.Length.ToString() ?? "null"} frame(s), {tokens.Count} token(s)");
+				var pendingResolve = new List<(
+					string Filename,
+					int FrameIndex,
+					bool Premultiplied,
+					AdjustFrame AdjustFrame,
+					ISpriteFrame Frame,
+					Sprite[] SpritesForToken)>();
 
-				foreach (var token in tokens)
+				foreach (var (filename, tokens) in reservationsByFilename)
 				{
-					if (!spriteReservations.TryGetValue(token, out var rs))
-						continue;
+					modData.LoadScreen?.Display();
+					stage = $"GetFrames({filename})";
+					var loadedFrames = GetFrames(fileSystem, filename, loaders);
+					stage = $"tokens({filename}={(loadedFrames == null ? "null" : loadedFrames.Length.ToString())})";
 
-					if (loadedFrames == null)
+					foreach (var token in tokens)
 					{
-						resolvedSprites[token] = null;
-						missingFiles[token] = (filename, rs.Location);
-						continue;
-					}
+						if (!spriteReservations.TryGetValue(token, out var rs))
+							continue;
 
-					// A reservation may ask for frames the sheet does not have: mod data
-					// ported from the original games carries frame numbers for sprites
-					// that were re-cut, and a mod that is only partially ported will
-					// request far more frames than exist. That is a data bug, but aborting
-					// the whole map load over one cosmetic sprite is worse than drawing
-					// what is there. Clamp instead of throwing, and say so.
-					//
-					// Frames is an ImmutableArray, so "no explicit list" is the default
-					// value: Length == 0 rather than a null reference.
-					var requested = rs.Frames;
-					if (requested.Length > 0 && requested.Any(i => i < 0 || i >= loadedFrames.Length))
-					{
-						Log.Write("debug",
-							$"[frameclamp] {rs.Location}: {filename} has {loadedFrames.Length} frame(s) but the sequence requests {requested.Length} " +
-							$"(out of range: {string.Join(',', requested.Where(i => i < 0 || i >= loadedFrames.Length))}). Clamping to what exists.");
-
-						requested = requested.Where(i => i >= 0 && i < loadedFrames.Length).ToImmutableArray();
-						if (requested.Length == 0)
+						if (loadedFrames == null)
 						{
 							resolvedSprites[token] = null;
 							missingFiles[token] = (filename, rs.Location);
 							continue;
 						}
-					}
 
-					// A loader can also hand back a null frame for a slot it could not decode.
-					// The rest of this method assumes a non-null frame (it reads Frame.Size and
-					// Frame.Type), so drop those here rather than throwing deep in the sheet
-					// builder, where the stack trace no longer points at the bad sprite.
-				var usable = new List<(int Index, ISpriteFrame Frame)>();
-				var j = 0;
-				var total = requested.Length > 0 ? requested.Length : loadedFrames.Length;
-				var frames = requested.Length > 0
-					? (IEnumerable<int>)requested
-					: Enumerable.Range(0, loadedFrames.Length);
-				foreach (var i in frames)
-					{
-						stage = $"readFrame({filename}#{i})";
-						var frame = loadedFrames[i];
-						stage = $"adjustFrame({filename}#{i})";
-						if (rs.AdjustFrame != null)
-							frame = rs.AdjustFrame(frame, j++, total);
-
-						stage = $"nullCheck({filename}#{i})";
-						if (frame == null)
+						// A reservation may ask for frames the sheet does not have: mod data
+						// ported from the original games carries frame numbers for sprites
+						// that were re-cut, and a mod that is only partially ported will
+						// request far more frames than exist. That is a data bug, but aborting
+						// the whole map load over one cosmetic sprite is worse than drawing
+						// what is there. Clamp instead of throwing, and say so.
+						//
+						// Frames is an ImmutableArray<int> whose field default is `default`,
+						// NOT ImmutableArray<int>.Empty: CalculateFrameIndices returns
+						// `default` to mean "Length: *, request every frame". The backing
+						// array of a default ImmutableArray is null, so reading .Length on
+						// it throws NullReferenceException instead of returning 0:
+						//
+						//     var d = default(ImmutableArray<int>);
+						//     d.IsDefault        // true
+						//     d.IsDefaultOrEmpty // true   <- safe to test
+						//     d.Length           // throws NullReferenceException
+						//
+						// Upstream never trips over this because DefaultSpriteSequence
+						// tests "length == null" on the raw field and only enumerates the
+						// result through LINQ. Every .Length read on `requested` below has
+						// to be guarded by hasExplicitFrames, which is what
+						// IsDefaultOrEmpty is for.
+						var requested = rs.Frames;
+						var hasExplicitFrames = !requested.IsDefaultOrEmpty;
+						if (hasExplicitFrames && requested.Any(i => i < 0 || i >= loadedFrames.Length))
 						{
 							Log.Write("debug",
-								$"[nullframe] {rs.Location}: {filename} frame {i} decoded to null. Skipping it.");
+								$"[frameclamp] {rs.Location}: {filename} has {loadedFrames.Length} frame(s) but the sequence requests {requested.Length} " +
+								$"(out of range: {string.Join(',', requested.Where(i => i < 0 || i >= loadedFrames.Length))}). Clamping to what exists.");
+
+							requested = requested.Where(i => i >= 0 && i < loadedFrames.Length).ToImmutableArray();
+
+							// Clamping can legitimately empty the list: if every requested
+							// index was past the end of the sheet there is nothing to draw.
+							if (requested.IsDefaultOrEmpty)
+							{
+								resolvedSprites[token] = null;
+								missingFiles[token] = (filename, rs.Location);
+								continue;
+							}
+
+							hasExplicitFrames = true;
+						}
+
+						// A loader can also hand back a null frame for a slot it could not
+						// decode. The rest of this method assumes a non-null frame (it reads
+						// Frame.Size and Frame.Type), so drop those here rather than throwing
+						// deep in the sheet builder, where the stack trace no longer points
+						// at the bad sprite.
+						var usable = new List<(int Index, ISpriteFrame Frame)>();
+						var j = 0;
+						var total = hasExplicitFrames ? requested.Length : loadedFrames.Length;
+						var frames = hasExplicitFrames
+							? (IEnumerable<int>)requested
+							: Enumerable.Range(0, loadedFrames.Length);
+						foreach (var i in frames)
+						{
+							stage = $"readFrame({filename}#{i})";
+							var frame = loadedFrames[i];
+							stage = $"adjustFrame({filename}#{i})";
+							if (rs.AdjustFrame != null)
+								frame = rs.AdjustFrame(frame, j++, total);
+
+							stage = $"nullCheck({filename}#{i})";
+							if (frame == null)
+							{
+								Log.Write("debug",
+									$"[nullframe] {rs.Location}: {filename} frame {i} decoded to null. Skipping it.");
+								continue;
+							}
+
+							usable.Add((Index: i, Frame: frame));
+						}
+
+						if (usable.Count == 0)
+						{
+							resolvedSprites[token] = null;
+							missingFiles[token] = (filename, rs.Location);
 							continue;
 						}
 
-						usable.Add((Index: i, Frame: frame));
-					}
+						stage = $"alloc({filename}#{token})";
+						var resolved = new Sprite[loadedFrames.Length];
+						resolvedSprites[token] = resolved;
 
-					if (usable.Count == 0)
+						foreach (var (i, frame) in usable)
+							pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
+					}
+				}
+
+				spriteReservations.Clear();
+				spriteReservations.TrimExcess();
+				reservationsByFilename.Clear();
+				reservationsByFilename.TrimExcess();
+
+				// When the sheet builder is adding sprites, it reserves height for the tallest sprite seen along the row.
+				// We can achieve better sheet packing by keeping sprites with similar heights together.
+				stage = "orderByHeight";
+				var orderedPendingResolve = pendingResolve
+					.Where(x => x.Frame != null)
+					.OrderBy(x => x.Frame.Size.Height);
+
+				stage = "buildCache";
+				var spriteCache = new Dictionary<(
+					string Filename,
+					int FrameIndex,
+					bool Premultiplied,
+					AdjustFrame AdjustFrame),
+					Sprite>(pendingResolve.Count);
+				foreach (var (filename, frameIndex, premultiplied, adjustFrame, frame, spritesForToken) in orderedPendingResolve)
+				{
+					stage = $"isUsable({filename}#{frameIndex})";
+					// The sheet builder assumes a frame it can measure, type and blit. A
+					// partially ported mod can still produce frames that satisfy the
+					// earlier checks but blow up inside here, and at that point the
+					// stack trace no longer says which sprite was at fault. Probe the
+					// frame once, log what is wrong with it, and skip it so one bad
+					// frame cannot abort the whole map.
+					if (!IsUsable(frame, out var reason))
 					{
-						resolvedSprites[token] = null;
-						missingFiles[token] = (filename, rs.Location);
+						Log.Write("debug", $"[badframe] {filename} frame {frameIndex}: {reason}. Skipping it.");
 						continue;
 					}
 
-					stage = $"alloc({filename}#{token})";
-					var resolved = new Sprite[loadedFrames.Length];
-					resolvedSprites[token] = resolved;
-
-				foreach (var (i, frame) in usable)
-					pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
-
-					stage = $"tokenDone({filename}#{token})";
-					Log.Write("debug", $"[nre]   token {token} done for {filename} ({usable.Count} usable frame(s))");
-				}
-			}
-
-			spriteReservations.Clear();
-			spriteReservations.TrimExcess();
-			reservationsByFilename.Clear();
-			reservationsByFilename.TrimExcess();
-
-			// When the sheet builder is adding sprites, it reserves height for the tallest sprite seen along the row.
-			// We can achieve better sheet packing by keeping sprites with similar heights together.
-			stage = "orderByHeight";
-			Log.Write("debug", $"[nre] {pendingResolve.Count} pending sprite(s) collected; ordering by height.");
-			var orderedPendingResolve = pendingResolve
-				.Where(x => x.Frame != null)
-				.OrderBy(x => x.Frame.Size.Height);
-
-			stage = "buildCache";
-			var spriteCache = new Dictionary<(
-				string Filename,
-				int FrameIndex,
-				bool Premultiplied,
-				AdjustFrame AdjustFrame),
-				Sprite>(pendingResolve.Count);
-			foreach (var (filename, frameIndex, premultiplied, adjustFrame, frame, spritesForToken) in orderedPendingResolve)
-			{
-				stage = $"isUsable({filename}#{frameIndex})";
-				// The sheet builder assumes a frame it can measure, type and blit. A partially
-				// ported mod can still produce frames that satisfy the earlier checks but blow
-				// up inside here, and at that point the stack trace no longer says which
-				// sprite was at fault. Probe the frame once, log what is wrong with it, and
-				// skip it so one bad frame cannot abort the whole map.
-				if (!IsUsable(frame, out var reason))
-				{
-					Log.Write("debug", $"[badframe] {filename} frame {frameIndex}: {reason}. Skipping it.");
-					continue;
-				}
-
-				// The backing array is sized from the sheet we just read, so a stale
-				// reservation can still point past its end. Clamp rather than throw.
-				if (frameIndex < 0 || frameIndex >= spritesForToken.Length)
-				{
-					Log.Write("debug",
-						$"[badframe] {filename} frame {frameIndex} is outside the resolved sprite array " +
-						$"(0..{spritesForToken.Length - 1}). Skipping it.");
-					continue;
-				}
-
-				// Premultiplied and non-premultiplied sprites must be cached separately
-				// to cover the case where the same image is requested in both versions.
-				stage = $"sheetAdd({filename}#{frameIndex})";
-				spritesForToken[frameIndex] = spriteCache.GetOrAdd(
-					(filename, frameIndex, premultiplied, adjustFrame),
-					_ =>
+					// The backing array is sized from the sheet we just read, so a stale
+					// reservation can still point past its end. Clamp rather than throw.
+					if (frameIndex < 0 || frameIndex >= spritesForToken.Length)
 					{
-						var sheetBuilder = SheetBuilders[SheetBuilder.FrameTypeToSheetType(frame.Type)];
-						return sheetBuilder.Add(frame, premultiplied);
-					});
+						Log.Write("debug",
+							$"[badframe] {filename} frame {frameIndex} is outside the resolved sprite array " +
+							$"(0..{spritesForToken.Length - 1}). Skipping it.");
+						continue;
+					}
 
-				modData.LoadScreen?.Display();
-			}
+					// Premultiplied and non-premultiplied sprites must be cached separately
+					// to cover the case where the same image is requested in both versions.
+					stage = $"sheetAdd({filename}#{frameIndex})";
+					spritesForToken[frameIndex] = spriteCache.GetOrAdd(
+						(filename, frameIndex, premultiplied, adjustFrame),
+						_ =>
+						{
+							var sheetBuilder = SheetBuilders[SheetBuilder.FrameTypeToSheetType(frame.Type)];
+							return sheetBuilder.Add(frame, premultiplied);
+						});
 
-			stage = "releaseBuffers";
-			foreach (var sb in SheetBuilders.Values)
-				sb.Current?.ReleaseBuffer();
+					modData.LoadScreen?.Display();
+				}
 
-			stage = "done";
-			Log.Write("debug", $"[nre] stage reached: {stage}");
+				stage = "releaseBuffers";
+				foreach (var sb in SheetBuilders.Values)
+					sb.Current?.ReleaseBuffer();
+
+				stage = "done";
+				Log.Write("debug", $"[sprite] LoadReservations finished: stage reached {stage}.");
 			}
 			catch (Exception e)
 			{
@@ -320,8 +336,8 @@ namespace OpenRA.Graphics
 				// ScriptContext). Writing to an unregistered channel makes Log.WriteValue
 				// throw ArgumentException("Tried logging to non-existent channel error") on the
 				// logging thread, which killed the process before this message could be
-				// flushed -- losing the very information the probe exists to collect.
-				Log.Write("debug", $"[nre] LoadReservations threw outside a logged stage: {stage}. {e.GetType().Name}: {e.Message}");
+				// flushed -- losing the very information the stage marker exists to collect.
+				Log.Write("debug", $"[sprite] LoadReservations threw at stage {stage}. {e.GetType().Name}: {e.Message}");
 				throw;
 			}
 		}
