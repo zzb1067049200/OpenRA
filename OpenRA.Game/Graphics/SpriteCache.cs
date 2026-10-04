@@ -79,9 +79,61 @@ namespace OpenRA.Graphics
 			return GetFrames(fileSystem, filename, loaders);
 		}
 
-		public void LoadReservations(ModData modData)
+		/// <summary>
+		/// Checks that a frame carries everything the sheet builder is going to ask for.
+		/// A loader that cannot decode a frame may still hand back a non-null
+		/// <see cref="ISpriteFrame"/> whose <see cref="ISpriteFrame.Data"/> is null or whose
+		/// declared size does not match the buffer, and the builder dereferences both without
+		/// checking. Returns false with a human-readable reason instead of throwing, so the
+		/// caller can log which sprite is at fault.
+		/// </summary>
+		static bool IsUsable(ISpriteFrame frame, out string reason)
 		{
-			var pendingResolve = new List<(
+			if (frame == null)
+			{
+				reason = "frame is null";
+				return false;
+			}
+
+			var size = frame.Size;
+
+			// Zero-sized frames are legal: the builder returns an empty sprite for them.
+			if (size.Width < 0 || size.Height < 0)
+			{
+				reason = $"negative size {size.Width}x{size.Height}";
+				return false;
+			}
+
+			if (size.Width == 0 || size.Height == 0)
+			{
+				reason = null;
+				return true;
+			}
+
+			var data = frame.Data;
+			if (data == null)
+			{
+				reason = $"declared size {size.Width}x{size.Height} but Data is null";
+				return false;
+			}
+
+			// Indexed8 stores one byte per pixel, Bgra32 four. Getting this wrong means the
+			// loader and the frame type disagree, which would copy the wrong number of bytes.
+			var bpp = frame.Type == SpriteFrameType.Indexed8 ? 1 : 4;
+			var required = (long)size.Width * size.Height * bpp;
+			if (data.Length < required)
+			{
+				reason = $"declared size {size.Width}x{size.Height} needs {required} byte(s) " +
+					$"but Data has {data.Length}";
+				return false;
+			}
+
+			reason = null;
+			return true;
+		}
+
+		public void LoadReservations(ModData modData)
+		{			var pendingResolve = new List<(
 				string Filename,
 				int FrameIndex,
 				bool Premultiplied,
@@ -189,6 +241,27 @@ namespace OpenRA.Graphics
 				Sprite>(pendingResolve.Count);
 			foreach (var (filename, frameIndex, premultiplied, adjustFrame, frame, spritesForToken) in orderedPendingResolve)
 			{
+				// The sheet builder assumes a frame it can measure, type and blit. A partially
+				// ported mod can still produce frames that satisfy the earlier checks but blow
+				// up inside here, and at that point the stack trace no longer says which
+				// sprite was at fault. Probe the frame once, log what is wrong with it, and
+				// skip it so one bad frame cannot abort the whole map.
+				if (!IsUsable(frame, out var reason))
+				{
+					Log.Write("debug", $"[badframe] {filename} frame {frameIndex}: {reason}. Skipping it.");
+					continue;
+				}
+
+				// The backing array is sized from the sheet we just read, so a stale
+				// reservation can still point past its end. Clamp rather than throw.
+				if (frameIndex < 0 || frameIndex >= spritesForToken.Length)
+				{
+					Log.Write("debug",
+						$"[badframe] {filename} frame {frameIndex} is outside the resolved sprite array " +
+						$"(0..{spritesForToken.Length - 1}). Skipping it.");
+					continue;
+				}
+
 				// Premultiplied and non-premultiplied sprites must be cached separately
 				// to cover the case where the same image is requested in both versions.
 				spritesForToken[frameIndex] = spriteCache.GetOrAdd(
