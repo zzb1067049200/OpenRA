@@ -77,6 +77,7 @@ fv:
 mgtk:
 	Inherits@MC: ^MindControllable
 	muzzle: vtmuzzle
+		Start: 0
 		Length: *
 	icon: rtnkicon
 
@@ -126,6 +127,7 @@ apoc:
 	Inherits@MC: ^MindControllable
 	Inherits@Muzzle: ^WithCannonMuzzle
 	muzzle: apmuzzle
+		Start: 0
 		Length: *
 	icon: mtnkicon
 

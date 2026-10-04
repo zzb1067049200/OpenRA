@@ -9,27 +9,35 @@ ltnk:
 
 ytnk:
 	muzzle0: mgun-n
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle1: mgun-nw
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle2: mgun-w
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle3: mgun-sw
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle4: mgun-s
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle5: mgun-se
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle6: mgun-e
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle7: mgun-ne
+		Start: 0
 		Length: *
 		UseTilesetCode: false
 	muzzle-stage-2: gunfire
@@ -45,11 +53,13 @@ tele:
 
 caos:
 	muzzle: cdgas
+		Start: 0
 		Length: *
 	icon: caosicon
 
 mind:
 	muzzle: yuricntl
+		Start: 0
 		Length: *
 	icon: mindicon
 

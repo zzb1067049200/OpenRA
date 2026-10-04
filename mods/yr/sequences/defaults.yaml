@@ -19,21 +19,27 @@
 		Length: 15
 ^Civilian:
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die5: yuridie
+		Start: 0
 		Length: *
 		Tick: 80
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	die7: virusd
+		Start: 0
 		Length: *
 		Tick: 80
 	die8: brutdie
+		Start: 0
 		Length: *
 		Tick: 80
 	die9: gendeath
+		Start: 0
 		Length: *
 		Tick: 80
 ^BasicInfantry:
@@ -63,21 +69,27 @@
 		Start: 149
 		Length: 15
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die5: yuridie
+		Start: 0
 		Length: *
 		Tick: 80
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	die7: virusd
+		Start: 0
 		Length: *
 		Tick: 80
 	die8: brutdie
+		Start: 0
 		Length: *
 		Tick: 80
 	die9: gendeath
+		Start: 0
 		Length: *
 		Tick: 80
 	paradrop:
@@ -148,6 +160,7 @@
 		Start: 293
 ^MindControllable:
 	mindcontrol: yuricntl
+		Start: 0
 		Length: *
 		Offset: 0, -24, 24
 		UseTilesetCode: false
@@ -183,44 +196,54 @@
 		ShadowStart: 6
 ^WithMachineGunMuzzle:
 	muzzle0: mgun-n
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle1: mgun-nw
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle2: mgun-w
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle3: mgun-sw
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle4: mgun-s
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle5: mgun-se
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle6: mgun-e
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 	muzzle7: mgun-ne
+		Start: 0
 		Length: *
 		Offset: 0, 0
 		UseTilesetCode: false
 ^WithCannonMuzzle:
 	muzzle: gunfire
+		Start: 0
 		Length: *
 	muzzle-2: vtmuzzle
 		Length: *
 ^WithFlakMuzzle:
 	muzzle: gunfire
+		Start: 0
 		Length: *
 		Offset: 0,0
 		UseTilesetCode: false

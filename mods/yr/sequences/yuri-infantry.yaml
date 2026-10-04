@@ -101,6 +101,7 @@ yuri:
 	cheer:
 		Start: 308
 	muzzle: yuricntl
+		Start: 0
 		Length: *
 	icon: yclnicon
 yurix:
@@ -125,6 +126,7 @@ yurix:
 	cheer:
 		Start: 280
 	muzzle: yuricntl
+		Start: 0
 		Length: *
 	icon: yypricon
 lunr:
@@ -164,10 +166,12 @@ lunr:
 		Facings: 2
 		Tick: 80
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 		Facings: 1
 	die6: electro
+		Start: 0
 		Length: *
 		Facings: 1
 		Tick: 80

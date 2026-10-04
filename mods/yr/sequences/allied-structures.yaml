@@ -557,6 +557,7 @@ gtgcan:
 			LUNAR: LUNAR
 		ZOffset: 0
 	muzzle: gcmuzzle
+		Start: 0
 		Length: *
 		Offset: 0,0
 		UseTilesetCode: false

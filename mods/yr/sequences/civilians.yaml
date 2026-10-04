@@ -28,9 +28,11 @@ civ1:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -74,9 +76,11 @@ civ2:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -120,9 +124,11 @@ civ3:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -174,9 +180,11 @@ vladimir:
 		Length: 15
 		Facings: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -222,9 +230,11 @@ pentgen:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -266,9 +276,11 @@ pres:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -314,9 +326,11 @@ ssrv:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -362,9 +376,11 @@ civa:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -410,9 +426,11 @@ civb:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -458,9 +476,11 @@ civc:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -502,9 +522,11 @@ civbbp:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -546,9 +568,11 @@ civbfm:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -590,9 +614,11 @@ civbf:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -634,9 +660,11 @@ civbtm:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -682,9 +710,11 @@ civsfm:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -730,9 +760,11 @@ civsf:
 	die2:
 		Length: 8
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
@@ -840,21 +872,27 @@ eins:
 		Start: 118
 		Length: 15
 	die4: nukedie
+		Start: 0
 		Length: *
 		Tick: 50
 	die5: yuridie
+		Start: 0
 		Length: *
 		Tick: 80
 	die6: electro
+		Start: 0
 		Length: *
 		Tick: 80
 	die7: virusd
+		Start: 0
 		Length: *
 		Tick: 80
 	die8: brutdie
+		Start: 0
 		Length: *
 		Tick: 80
 	die9: gendeath
+		Start: 0
 		Length: *
 		Tick: 80
 	cheer:
