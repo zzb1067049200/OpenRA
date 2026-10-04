@@ -24,6 +24,11 @@
     <TargetSdkVersion>36</TargetSdkVersion>
     <!-- Release default only emits .aab; force .apk so CI can sideload-test. -->
     <AndroidPackageFormats>apk</AndroidPackageFormats>
+    <!-- The .NET Android SDK defaults this to false, which means a Debug build produces
+         PDBs that are never packed into the APK and device stack traces arrive without
+         line numbers. Debug is the configuration we ship for on-device debugging, so the
+         symbols have to travel with it. -->
+    <AndroidIncludeSymbols>true</AndroidIncludeSymbols>
   </PropertyGroup>
 
   <!-- Local Windows build override. The git-bash shell rewrites D:\... into D://... when

@@ -125,6 +125,10 @@ jobs:
       # with no line number -- which is useless when the engine is throwing from a 2000-line
       # method and you are bisecting data files by hand. The Debug cost is build time and APK
       # size, both of which we are already paying for in iteration time.
+      #
+      # AndroidIncludeSymbols is the one that matters: the .NET Android SDK defaults it to
+      # false, so DebugType/DebugSymbols alone produce a Debug build whose PDBs are never
+      # packed. Verified by the symbol check below, which is what caught it the first time.
       - name: Build & package APK
         run: |
           dotnet publish OpenRA.Android/OpenRA.Android.csproj \
@@ -133,22 +137,25 @@ jobs:
             -p:AndroidPackageFormats=apk \
             -p:RunAotCompilation=false \
             -p:DebugType=portable \
-            -p:DebugSymbols=true
+            -p:DebugSymbols=true \
+            -p:AndroidIncludeSymbols=true
 
       # Fail loudly if the symbols did not make it into the package: a Debug APK without
       # PDBs is the same useless stack trace as a Release one, and we would not notice
-      # until the next device crash.
+      # until the next device crash. This is not decorative -- it caught
+      # AndroidIncludeSymbols=false on the first run of this step.
       - name: Verify debug symbols are present
         run: |
           APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
           if [ -z "$APK" ]; then echo "No APK to inspect"; exit 1; fi
-          echo "=== .pdb / .dll entries in the APK ==="
-          unzip -l "$APK" | grep -iE '\.pdb$' | head -10 || true
           PDB_COUNT=$(unzip -l "$APK" | grep -icE '\.pdb$' || true)
           echo "pdb count: $PDB_COUNT"
           if [ "$PDB_COUNT" -eq 0 ]; then
-            echo "::warning::No PDBs in the APK; device stack traces will have no line numbers."
+            echo "::error::No PDBs in the APK. AndroidIncludeSymbols must be true for -c Debug."
+            exit 1
           fi
+          echo "=== sample symbols ==="
+          unzip -l "$APK" | grep -iE '\.pdb$' | head -5
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
       # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here so the
