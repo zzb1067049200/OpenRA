@@ -16,7 +16,12 @@ FileSystem: DefaultFileSystem
 		^EngineDir
 		$yr: yr
 		^EngineDir|mods/common: common
-		~^SupportDir|Content/ra2
+		# RA2 and Yuri's Revenge share the base game's Content/ra/v2 tree (that is where
+		# the quickinstall package unpacks conquer.mix, local.mix, temperat.mix...). The
+		# previous "Content/ra2" matched no directory, so every base-game .mix silently
+		# failed to mount and ~200 sprites came back missing -- nukedie.shp, place.shp,
+		# yuridie.shp and the rest -- which surfaced as unrelated crashes further down.
+		~^SupportDir|Content/ra/v2
 		~^SupportDir|Content/yr
 		~ra2.mix
 		~language.mix
