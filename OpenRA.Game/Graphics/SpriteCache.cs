@@ -236,11 +236,15 @@ namespace OpenRA.Graphics
 						continue;
 					}
 
+					stage = $"alloc({filename}#{token})";
 					var resolved = new Sprite[loadedFrames.Length];
 					resolvedSprites[token] = resolved;
 
-					foreach (var (i, frame) in usable)
-						pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
+				foreach (var (i, frame) in usable)
+					pendingResolve.Add((filename, i, rs.Premultiplied, rs.AdjustFrame, frame, resolved));
+
+					stage = $"tokenDone({filename}#{token})";
+					Log.Write("debug", $"[nre]   token {token} done for {filename} ({usable.Count} usable frame(s))");
 				}
 			}
 
@@ -311,12 +315,13 @@ namespace OpenRA.Graphics
 			}
 			catch (Exception e)
 			{
-				// Fallback path. The per-stage debug lines above are the primary signal: a
-				// stage that is entered but never "reached" is the one that threw. This catch
-				// only fires if the throw happens outside a logged region, so keep the two
-				// independent -- a green run with no [nre] line at all means the exception
-				// did not come from inside this try block.
-				Log.Write("error", $"[nre] LoadReservations threw outside a logged stage: {stage}. {e.GetType().Name}: {e.Message}");
+				// "debug", not "error": the only registered channels are perf, debug, server,
+				// sound, graphics, geoip, nat, client, sync, lua (see Game.Initialize and
+				// ScriptContext). Writing to an unregistered channel makes Log.WriteValue
+				// throw ArgumentException("Tried logging to non-existent channel error") on the
+				// logging thread, which killed the process before this message could be
+				// flushed -- losing the very information the probe exists to collect.
+				Log.Write("debug", $"[nre] LoadReservations threw outside a logged stage: {stage}. {e.GetType().Name}: {e.Message}");
 				throw;
 			}
 		}
