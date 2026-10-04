@@ -142,22 +142,54 @@ jobs:
             -p:AndroidIncludeDebugSymbols=true \
             -p:AndroidManagedSymbols=true
 
-      # Fail loudly if the symbols did not make it into the package: a Debug APK without
-      # PDBs is the same useless stack trace as a Release one, and we would not notice
-      # until the next device crash. This is not decorative -- it caught
-      # AndroidIncludeSymbols=false on the first run of this step.
-      - name: Verify debug symbols are present
+      # The .NET Android SDK collects PDBs into the _ResolvedSymbols item but nothing in the
+      # packaging pipeline consumes it, so AndroidIncludeDebugSymbols=true on its own still
+      # yields pdb count: 0. Rather than keep guessing at SDK internals, inject the symbols
+      # directly: take them from the publish output and add them to the APK under
+      # assemblies/, which is where the .NET Android runtime looks for them.
+      - name: Inject debug symbols into APK
         run: |
+          set -euo pipefail
           APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
-          if [ -z "$APK" ]; then echo "No APK to inspect"; exit 1; fi
-          PDB_COUNT=$(unzip -l "$APK" | grep -icE '\.pdb$' || true)
-          echo "pdb count: $PDB_COUNT"
-          if [ "$PDB_COUNT" -eq 0 ]; then
-            echo "::error::No PDBs in the APK. The property that controls this is AndroidIncludeDebugSymbols (there is no AndroidIncludeSymbols); without it the trimmer sets TrimmerRemoveSymbols=true."
+          if [ -z "$APK" ]; then echo "::error::No APK to inspect"; exit 1; fi
+
+          echo "=== PDBs in the publish output ==="
+          find bin obj -name '*.pdb' -type f 2>/dev/null | head -20 || true
+          PDB_TOTAL=$(find bin obj -name '*.pdb' -type f 2>/dev/null | wc -l)
+          echo "pdb files on disk: $PDB_TOTAL"
+          if [ "$PDB_TOTAL" -eq 0 ]; then
+            echo "::error::No PDBs anywhere under bin/ or obj/. A -c Debug build should have produced them; check DebugType and DebugSymbols."
             exit 1
           fi
-          echo "=== sample symbols ==="
-          unzip -l "$APK" | grep -iE '\.pdb$' | head -5
+
+          WORK=$(mktemp -d)
+          unzip -q "$APK" -d "$WORK"
+          mkdir -p "$WORK/assemblies"
+          # Managed assemblies only. Native .so symbols come from the NDK build and are not
+          # what we need for a managed stack trace.
+          find bin obj -name '*.pdb' -type f 2>/dev/null | while read -r pdb; do
+            name=$(basename "$pdb")
+            case "$name" in
+              OpenRA.*|lib*|*System.*|*Microsoft.*) cp -f "$pdb" "$WORK/assemblies/$name" ;;
+            esac
+          done
+          echo "=== injected ==="
+          ls -1 "$WORK/assemblies"/*.pdb 2>/dev/null | head -20 || true
+          INJECTED=$(ls -1 "$WORK/assemblies"/*.pdb 2>/dev/null | wc -l)
+          echo "injected pdb count: $INJECTED"
+          if [ "$INJECTED" -eq 0 ]; then
+            echo "::error::Found PDBs on disk but none were injected; the name filter is wrong."
+            exit 1
+          fi
+
+          # Rebuild with Python rather than the zip CLI: the runner image does not
+          # necessarily ship zip, and this way the compression choice is explicit.
+          rm -f "$APK"
+          python3 tools/yr-port/inject_pdb_into_apk.py "$WORK" "$APK"
+
+          echo "=== verify ==="
+          unzip -l "$APK" | grep -icE '\.pdb$'
+          rm -rf "$WORK"
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
       # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here so the
