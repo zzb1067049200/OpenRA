@@ -114,7 +114,7 @@ namespace OpenRA.Graphics
 			var missing = SpriteCache.MissingFiles.ToArray();
 			Log.Write("debug", $"[sprites] reservations resolved; missing={missing.Length}");
 			foreach (var (filename, location) in missing.Take(200))
-				Log.Write("debug", $"[sprites] MISSING {filename}  (referenced at {location.Filename}:{location.Line})");
+				Log.Write("debug", $"[sprites] MISSING {filename}  (referenced at {location})");
 
 			foreach (var sequences in images.Values)
 				foreach (var sequence in sequences)
