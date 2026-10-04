@@ -123,18 +123,39 @@ jobs:
         run: dotnet publish OpenRA.Android/OpenRA.Android.csproj -c Release -f net10.0-android -p:BuildForAndroid=true -p:AndroidPackageFormats=apk -p:RunAotCompilation=false
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
-      # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here with an
-      # ephemeral debug keystore so the artifact installs via sideload. For a real release,
-      # replace this with a proper keystore (store it as a repo secret).
-      - name: Sign APK (debug keystore)
+      # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here so the
+      # artifact installs via sideload.
+      #
+      # The keystore is stable across runs when the OPENRA_KEYSTORE_B64 secret is set. That
+      # matters for iterating on device: Android refuses to replace an installed package with
+      # one signed by a different key (INSTALL_FAILED_UPDATE_INCOMPATIBLE), so a per-run
+      # ephemeral key forces a full uninstall every build -- and an uninstall wipes
+      # /sdcard/Android/data/<pkg>/, taking gigabytes of game content with it.
+      #
+      # Generate a secret with:
+      #   keytool -genkeypair -v -keystore openra-debug.keystore -alias openra \
+      #     -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android \
+      #     -dname "CN=OpenRA Debug,O=OpenRA,C=US"
+      #   base64 -w0 openra-debug.keystore   # -> Actions secret OPENRA_KEYSTORE_B64
+      #
+      # Never commit the keystore itself: it would publish the signing identity.
+      - name: Sign APK
+        env:
+          KEYSTORE_B64: ${{ secrets.OPENRA_KEYSTORE_B64 }}
         run: |
           APK=$(find . -type f -name '*.apk' -print -quit 2>/dev/null || true)
           if [ -z "$APK" ]; then echo "No APK to sign"; exit 1; fi
           KEYSTORE="$RUNNER_TEMP/openra-debug.keystore"
-          keytool -genkeypair -v -keystore "$KEYSTORE" -alias openra \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass android -keypass android \
-            -dname "CN=OpenRA Debug,O=OpenRA,C=US" 2>&1 | tail -1
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "Using the repository signing key (stable across runs)."
+            printf '%s' "$KEYSTORE_B64" | base64 -d > "$KEYSTORE"
+          else
+            echo "::warning::OPENRA_KEYSTORE_B64 is not set; generating an ephemeral key. Each build will need a clean uninstall on device."
+            keytool -genkeypair -v -keystore "$KEYSTORE" -alias openra \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass android -keypass android \
+              -dname "CN=OpenRA Debug,O=OpenRA,C=US" 2>&1 | tail -1
+          fi
           APKSIGNER_JAR="$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar"
           java -jar "$APKSIGNER_JAR" sign \
             --ks "$KEYSTORE" --ks-key-alias openra \
@@ -142,7 +163,7 @@ jobs:
             --out "$APK.signed" "$APK"
           mv -f "$APK.signed" "$APK"
           echo "=== signed: $APK ==="
-          java -jar "$APKSIGNER_JAR" verify --verbose "$APK" | head -5
+          java -jar "$APKSIGNER_JAR" verify --verbose --print-certs "$APK" | head -12
 
       - name: Collect APK (robust)
         if: always()
