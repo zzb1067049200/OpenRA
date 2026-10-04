@@ -24,11 +24,13 @@
     <TargetSdkVersion>36</TargetSdkVersion>
     <!-- Release default only emits .aab; force .apk so CI can sideload-test. -->
     <AndroidPackageFormats>apk</AndroidPackageFormats>
-    <!-- The .NET Android SDK defaults this to false, which means a Debug build produces
-         PDBs that are never packed into the APK and device stack traces arrive without
-         line numbers. Debug is the configuration we ship for on-device debugging, so the
-         symbols have to travel with it. -->
-    <AndroidIncludeSymbols>true</AndroidIncludeSymbols>
+    <!-- Without this the trimmer sets TrimmerRemoveSymbols=true and the PDBs never reach
+         the package, so a Debug build reports stack traces with no line numbers -- the same
+         useless trace as a Release build. The property name is AndroidIncludeDebugSymbols;
+         there is no AndroidIncludeSymbols, and passing that is silently ignored.
+         AndroidManagedSymbols only defaults to true for Release, so set it here too. -->
+    <AndroidIncludeDebugSymbols>true</AndroidIncludeDebugSymbols>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
   </PropertyGroup>
 
   <!-- Local Windows build override. The git-bash shell rewrites D:\... into D://... when
