@@ -126,10 +126,12 @@ jobs:
       # method and you are bisecting data files by hand. The Debug cost is build time and APK
       # size, both of which we are already paying for in iteration time.
       #
-      # AndroidIncludeDebugSymbols is the one that matters, and the name is easy to get
-      # wrong: the .NET Android SDK has no "AndroidIncludeSymbols", and passing that is
-      # silently ignored while the trimmer still sets TrimmerRemoveSymbols=true. Verified
-      # by the symbol check below, which is what caught both mistakes.
+      # AndroidIncludeDebugSymbols must stay OFF here even though it sounds right. It pulls
+      # in libmono-android.debug.so, and that runtime refuses to start from a normal sideloaded
+      # APK: it looks for assemblies under files/.__override__/arm64-v8a, does not find them,
+      # decides it is a Fast Deployment bundle and aborts with SIGABRT before MainActivity runs.
+      # Since the symbols are injected separately in the next step, all this build needs is a
+      # Debug compile that emits portable PDBs next to the assemblies.
       - name: Build & package APK
         run: |
           dotnet publish OpenRA.Android/OpenRA.Android.csproj \
@@ -139,7 +141,7 @@ jobs:
             -p:RunAotCompilation=false \
             -p:DebugType=portable \
             -p:DebugSymbols=true \
-            -p:AndroidIncludeDebugSymbols=true \
+            -p:AndroidIncludeDebugSymbols=false \
             -p:AndroidManagedSymbols=true
 
       # The .NET Android SDK collects PDBs into the _ResolvedSymbols item but nothing in the
@@ -167,6 +169,16 @@ jobs:
           # an early exit in the loop body kills the whole step even though every PDB was
           # copied fine.
           python3 tools/yr-port/inject_pdb_into_apk.py --apk "$APK" --search bin obj
+
+          # Guard the failure that cost a device round trip: shipping
+          # libmono-android.debug.so makes the runtime abort at startup with
+          # "No assemblies found in ... .__override__/... Assuming this is part of Fast
+          # Deployment", before any managed code runs and with no OpenRA log line.
+          if unzip -l "$APK" | grep -q 'libmono-android.debug.so'; then
+            echo "::error::APK contains libmono-android.debug.so; the app will abort at startup on a sideloaded install. Keep AndroidIncludeDebugSymbols=false and inject the PDBs instead."
+            exit 1
+          fi
+          echo "runtime check: no debug runtime in the APK"
 
       # Release publish leaves the APK UNSIGNED; Android 7+ refuses to install an unsigned APK
       # (OEMs report this as "解析包时出现问题 / packageInfo is null"). Sign it here so the
